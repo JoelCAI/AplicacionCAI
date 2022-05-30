@@ -10,7 +10,7 @@ namespace AplicacionCAI
     {
         static void Main(string[] args)
         {
-            Sistema s = new Sistema();
+            SistemaPrincipal s = new SistemaPrincipal();
             s.Iniciar();
         }
     }

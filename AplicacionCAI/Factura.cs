@@ -8,6 +8,11 @@ namespace AplicacionCAI
 {
     internal class Factura
     {
+        private int _codigoPedido;
 
+        public void MostrarFactura()
+        {
+
+        }
     }
 }

@@ -61,5 +61,12 @@ namespace AplicacionCAI
         {
 
         }
+
+		public void RegistrarUsuarioCorporativo()
+		{
+
+		}
+
+
 	}
 }

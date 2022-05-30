@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AplicacionCAI
 {
-    public class Sistema
+    public class SistemaPrincipal
     {
         private List<UsuarioMain> _usuarioMain;
         private List<UsuarioCorporativo> _usuarioCorporativo;
@@ -15,7 +15,7 @@ namespace AplicacionCAI
         private List<Pedido> _pedido;
         private List<Factura> _factura;
 
-        public Sistema()
+        public SistemaPrincipal()
         {
             this._usuarioMain = new List<UsuarioMain>();
             this._usuarioCorporativo = new List<UsuarioCorporativo>();

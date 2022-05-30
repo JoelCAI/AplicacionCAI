@@ -8,26 +8,33 @@ namespace AplicacionCAI
 {
     internal class Pedido
     {
-        
+        private int _codigoPedido;
         private decimal _recargoUrgente;
         private decimal _retiroPuertaSucursal;
         private decimal _recargoEnvioInternacional;
         private decimal _subTotal;
         private decimal _total;
 
-        private int _cartaPorteNumero;
+        private int _cartaPorteCodigo;
         private string _cartaPorteContenido;
 
-        private int _HojaRutaNumero;
-        private string _HojaRutaContenido;
+        private int _hojaRutaCodigo;
+        private string _hojaRutaContenido;
 
+        private int cuitClienteCorporativo;
         private string nombreClienteCorporativo;
 
+        public const string _estadoRecibido = "R";
+        public const string _estadoEnTransito = "T";
+        public const string _estadoCerrado = "C";
 
+        
 
-        public const string estadoRecibido = "R";
-        public const string estadoEnTransito = "T";
-        public const string estadoCerrado = "C";
+        public int CodigoPedido
+        {
+            get { return this._codigoPedido; }
+            set { this._codigoPedido = value; }
+        }
 
         public decimal RecargoUrgente
         {
@@ -59,15 +66,20 @@ namespace AplicacionCAI
             set { this._total = value; }
         }
 
-        public string Estado
+        public string EstadoPedido
         {
             set
             {
-                if(value == estadoRecibido || value == estadoEnTransito || value == estadoCerrado)
+                if(value == _estadoRecibido || value == _estadoEnTransito || value == _estadoCerrado)
                 {
-                    Estado = value;
+                    EstadoPedido = value;
                 }
             }
+        }
+
+        public void MostrarPedido()
+        {
+
         }
 
         public void CalcularRecargo()
