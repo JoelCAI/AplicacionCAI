@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace AplicacionCAI
 {
-    internal class Program
+    internal class Factura
     {
-        static void Main(string[] args)
-        {
-            Sistema s = new Sistema();
-            s.Iniciar();
-        }
     }
 }
