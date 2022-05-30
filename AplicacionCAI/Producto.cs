@@ -8,5 +8,64 @@ namespace AplicacionCAI
 {
     internal class Producto
     {
-    }
+		private string _codigoProducto;
+		private string _nombreProducto;
+		private int _cantidadProducto;
+		private decimal _pesoProducto;
+		private decimal _precioProducto;
+		private string _distanciaProducto;
+
+		
+
+		public string CodigoProducto
+		{
+			get { return this._codigoProducto; }
+			set { this._codigoProducto = value; }
+		}
+		public string NombreProducto
+		{
+			get { return this._nombreProducto; }
+			set { this._nombreProducto = value; }
+		}
+		public int CantidadProducto
+		{
+			get { return this._cantidadProducto; }
+			set { this._cantidadProducto = value; }
+		}
+
+		public decimal PesoProducto
+		{
+			get { return this._pesoProducto; }
+			set { this._pesoProducto = value; }
+		}
+
+		public decimal PrecioProducto
+		{
+			get { return this._precioProducto; }
+			set { this._precioProducto = value; }
+		}
+		public string DistanciaProducto
+		{
+			get { return this._distanciaProducto; }
+			set { this._distanciaProducto = value; }
+		}
+
+		public Producto(string codigoProducto, string nombreProducto)
+		{
+			this._codigoProducto = codigoProducto;
+			this._nombreProducto = nombreProducto;
+			this._cantidadProducto = 0;
+			this._precioProducto = 0;
+		}
+
+		public void CalcularPeso()
+        {
+
+        }
+
+		public void CalcularDistancia()
+		{
+
+		}
+	}
 }

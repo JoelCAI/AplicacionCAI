@@ -8,6 +8,8 @@ namespace AplicacionCAI
 {
     internal class UsuarioCorporativo : UsuarioMain
     {
+
+
 		private List<Pedido> _pedido;
 		private List<Factura> _factura;
 

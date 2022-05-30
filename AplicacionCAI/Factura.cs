@@ -8,5 +8,6 @@ namespace AplicacionCAI
 {
     internal class Factura
     {
+
     }
 }
