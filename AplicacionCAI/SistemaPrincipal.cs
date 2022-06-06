@@ -15,6 +15,7 @@ namespace AplicacionCAI
         private List<Pedido> _pedido;
         private List<Factura> _factura;
 		private List<ClienteCorporativo> _clienteCorporativo;
+		private List<Reclamo> _reclamo;
 
         public SistemaPrincipal()
         {
@@ -25,6 +26,7 @@ namespace AplicacionCAI
             this._pedido = new List<Pedido>();
             this._factura = new List<Factura>();
 			this._clienteCorporativo = new List<ClienteCorporativo>();
+			this._reclamo = new List<Reclamo>();
         }
 
 		public int BuscarUsuarioMainNombre(string nombre)
@@ -234,10 +236,14 @@ namespace AplicacionCAI
 							if (posUsuarioC != -1)
 							{
 								_usuarioCorporativo[posUsuarioC].MenuCorporativo(this._producto,
-									                             this._pedido, this._factura); 
+														  		 this._pedido, this._factura,
+																 this._clienteCorporativo,this._reclamo); 
 								this._producto = _usuarioCorporativo[posUsuarioC].Producto;
 								this._pedido = _usuarioCorporativo[posUsuarioC].Pedido;
 								this._factura = _usuarioCorporativo[posUsuarioC].Factura;
+								this._clienteCorporativo = _usuarioCorporativo[posUsuarioC].ClienteCorporativo;
+								this._reclamo = _usuarioCorporativo[posUsuarioC].Reclamo;
+	
 							}
 							else
 							{
@@ -302,7 +308,7 @@ namespace AplicacionCAI
 							clave = Validador.ValidarStringNoVacioSistema("\n\n Ingrese la Clave del Usuario Corporativo a crear: ");
 							/* Creo el nuevo usuario Corporativo */
 							uC = new UsuarioCorporativo(nombre, clave, this._producto, this._pedido, this._factura,
-														this._clienteCorporativo);
+														this._clienteCorporativo,this._reclamo);
 							/* Lo agrego a la lista de Usuarios Corporativos */
 							_usuarioCorporativo.Add(uC);
 							Console.Clear();

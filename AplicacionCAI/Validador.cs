@@ -346,6 +346,37 @@ namespace AplicacionCAI
             return opcion;
         }
 
+        public static long PedirLongMenu(string mensaje, long min, long max)
+        {
+
+            long valor;
+            bool valido = false;
+            string mensajeMenu = "\n Ingrese un valor entre " + min + " y " + max;
+            string mensajeError = "\n El valor no puede ser vacio y tiene que estar entre el rango del Menu solicitado. ";
+
+            do
+            {
+
+                Console.WriteLine(mensaje);
+                Console.WriteLine(mensajeMenu);
+
+                if (!long.TryParse(Console.ReadLine(), out valor) || valor < min || valor > max)
+                {
+                    Console.Clear();
+                    Console.WriteLine("\n");
+                    Console.WriteLine(mensajeError);
+                }
+                else
+                {
+                    valido = true;
+                }
+
+            } while (!valido);
+
+            return valor;
+
+        }
+
         public static string ValidarSioNoProducto(string mensaje, string codigo, string nombre)
         {
 

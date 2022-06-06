@@ -152,7 +152,7 @@ namespace AplicacionCAI
 				}
 			}
 			VerProducto();
-			Console.WriteLine("Se ha grabado los datos de las personas en la Agenda correctamente");
+			Console.WriteLine("Se ha grabado los datos de los Productos correctamente");
 			Validador.VolverMenu();
 
 		}
@@ -217,7 +217,7 @@ namespace AplicacionCAI
 				}
 			}
 			VerProducto();
-			Console.WriteLine("Se ha grabado los datos de las personas en la Agenda correctamente");
+			Console.WriteLine("Se ha grabado los datos de los Clientes Corporativos correctamente");
 			Validador.VolverMenu();
 
 		}

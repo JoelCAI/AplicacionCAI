@@ -8,89 +8,109 @@ namespace AplicacionCAI
 {
     internal class Pedido
     {
-        private int _codigoPedido;
-        private int _codigoProductoPedido;
-        private decimal _recargoUrgente;
-        private decimal _retiroPuertaSucursal;
-        private decimal _recargoEnvioInternacional;
-        private decimal _subTotal;
-        private decimal _total;
+		protected int _idPedido;
 
-        private int _cartaPorteCodigo;
-        private string _cartaPorteContenido;
+		protected decimal _subTotal;
+		protected decimal _recargo;
+		protected decimal _totalSinIva;
 
-        private int _hojaRutaCodigo;
-        private string _hojaRutaContenido;
+		protected List<Item> _item;
 
-        private int cuitClienteCorporativo;
-        private string nombreClienteCorporativo;
+		protected long _cuitClienteCorporativo;
+		protected string _razonSocialClienteCorporativo;
 
-        public const string _estadoRecibido = "R";
-        public const string _estadoEnTransito = "T";
-        public const string _estadoCerrado = "C";
+		public List<Item> Item
+		{
+			get { return this._item; }
+			/* set { this._items = value; } No debería poder setearse todo el listado */
+			/* Para eso está implementar el método: AddItem */
+			/* Se podría agregar DeleteItem */
+		}
 
-        
+		public int IdPedido
+		{
+			get { return this._idPedido; }
 
-        public int CodigoPedido
-        {
-            get { return this._codigoPedido; }
-            set { this._codigoPedido = value; }
-        }
+		}
 
-        public decimal RecargoUrgente
-        {
-            get { return this._recargoUrgente; }
-            set { this._recargoUrgente = value; }
-        }
+		public decimal SubTotal
+		{
+			get { return this._subTotal; }
+			set { this._subTotal = value; }
+		}
+		public decimal Recargo
+		{
+			get { return this._recargo; }
+			set
+			{
+				this._recargo = value;
+				this._totalSinIva = this._subTotal + this._recargo;
+			}
+		}
 
-        public decimal RetiroPuertaSucursal
-        {
-            get { return this._retiroPuertaSucursal; }
-            set { this._retiroPuertaSucursal = value; }
-        }
+		public decimal TotalSinIva
+		{
+			get { return this._totalSinIva; }
+			set { this._totalSinIva = value; }
+		}
 
-        public decimal RecargoEnvioInternacional
-        {
-            get { return this._recargoEnvioInternacional; }
-            set { this._recargoEnvioInternacional = value; }
-        }
+		public long CuitClienteCorporativo
+		{
+			get { return this._cuitClienteCorporativo; }
+			set { this._cuitClienteCorporativo = value; }
+		}
 
-        public decimal Subtotal
-        {
-            get { return this._subTotal; }
-            set { this._subTotal = value; }
-        }
+		public string RazonSocialClienteCorporativo
+		{
+			get { return this._razonSocialClienteCorporativo; }
+			set { this._razonSocialClienteCorporativo = value; }
+		}
 
-        public decimal Total
-        {
-            get { return this._total; }
-            set { this._total = value; }
-        }
+		public static int _registroPedido = 1;
 
-        public string EstadoPedido
-        {
-            set
-            {
-                if(value == _estadoRecibido || value == _estadoEnTransito || value == _estadoCerrado)
-                {
-                    EstadoPedido = value;
-                }
-            }
-        }
+		public Pedido(long cuitCliente, string razonSocialCliente)
+		{
+			this._item = new List<Item>();
+			this._cuitClienteCorporativo = cuitCliente;
+			this._razonSocialClienteCorporativo = razonSocialCliente;
+			this._idPedido = _registroPedido;
+			_registroPedido++;
+		}
 
-        public void MostrarPedido()
-        {
+		public void AddItem(Item item)
+		{
+			this._item.Add(item);
+			this._subTotal = this._subTotal + (item.CantidadProducto * item.PrecioUnitarioProducto);
+		}
 
-        }
+		public void CalcularRecargo(string mensaje)
+		{
+			decimal urgente = 1.2m;
+			decimal retiroenPuerta = 500;
+			decimal internacional = 2000;
+			decimal ninguno = 0;
 
-        public void CalcularRecargo()
-        {
+			if (mensaje == "URGENTE")
+			{
+				this._recargo = this._recargo * urgente;
+			}
+			else if (mensaje == "RETIROENPUERTA")
+			{
+				this._recargo = this._recargo + retiroenPuerta;
+			}
+			else if (mensaje == "INTERNACIONAL")
+			{
+				this._recargo = this._recargo + internacional;
+			}
+			else if (mensaje == "NINGUNO")
+			{
+				this._recargo = this._recargo + ninguno;
+			}
+		}
 
-        }
-
-        public void CalcularTotal()
-        {
-
-        }
-    }
+		public void CalcularTotalSinIVA()
+		{
+			this._totalSinIva = this._subTotal + this._recargo; // Se calcula el "total"
+		}
+	}
 }
