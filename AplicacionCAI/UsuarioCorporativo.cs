@@ -38,7 +38,9 @@ namespace AplicacionCAI
 			set { this._factura = value; }
 		}
 		public UsuarioCorporativo(string nombre, string clave, List<Producto> producto,
-								  List<Pedido> pedido, List<Factura> factura) : base(nombre, clave, producto)
+								  List<Pedido> pedido, List<Factura> factura,List<ClienteCorporativo>
+								  clienteCorporativo) : base(nombre, clave, producto,
+								  clienteCorporativo)
         {
 			this._pedido = pedido;
 			this._factura = factura;
@@ -87,6 +89,26 @@ namespace AplicacionCAI
 
 		}
 
+		public void CrearPedido()
+		{
+			/* Ingresar datos de la cuenta */
+		}
+
+		public void CrearPedidoSioNo()
+		{
+			/* Ingresar datos de la cuenta */
+		}
+
+		public void EmitirFactura()
+		{
+			/* Ingresar datos de la cuenta */
+		}
+
+		public void GenerarReclamo()
+		{
+			/* Ingresar datos de la cuenta */
+		}
+
 		public void MostrarUsuarioCorporativo()
 		{
 			/* Ingresar datos de la cuenta */
@@ -112,7 +134,7 @@ namespace AplicacionCAI
 
 		}
 
-		public void LeerFactura()
+		public void ImprimirFactura()
 		{
 
 		}
@@ -122,7 +144,7 @@ namespace AplicacionCAI
 
 		}
 
-		public void LeerPedido()
+		public void ImprimirPedido()
 		{
 
 		}

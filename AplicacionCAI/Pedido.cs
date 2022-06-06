@@ -9,6 +9,7 @@ namespace AplicacionCAI
     internal class Pedido
     {
         private int _codigoPedido;
+        private int _codigoProductoPedido;
         private decimal _recargoUrgente;
         private decimal _retiroPuertaSucursal;
         private decimal _recargoEnvioInternacional;

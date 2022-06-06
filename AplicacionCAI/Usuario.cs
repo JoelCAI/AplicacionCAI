@@ -41,5 +41,8 @@ namespace AplicacionCAI
         }
 
         protected abstract void CrearProducto();
+
+        
+
     }
 }

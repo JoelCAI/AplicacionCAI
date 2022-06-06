@@ -10,6 +10,7 @@ namespace AplicacionCAI
     {
         private int _codigoPedidoReclamo;
         private string _motivoReclamo;
+        private int _codigoPedido;
 
         public const string estadoReclamoAbierto = "Reclamo Abierto";
         public const string estadoEnProceso = "Reclamo en Proceso";
@@ -38,7 +39,7 @@ namespace AplicacionCAI
 
         }
 
-        public void LeerReclamo()
+        public void ImprimirReclamo()
         {
 
         }
