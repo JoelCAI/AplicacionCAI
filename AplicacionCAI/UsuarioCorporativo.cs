@@ -103,10 +103,16 @@ namespace AplicacionCAI
 				Console.WriteLine("\n Código Pedido: " + pedido.Key);
 				Pedido pedidoValor = pedido.Value;
 
-				Console.WriteLine(" Cuit del Cliente del Pedido: " + pedidoValor.CuitClienteCorporativo);
+				Console.WriteLine("\n Cuit del Cliente del Pedido: " + pedidoValor.CuitClienteCorporativo);
 				Console.WriteLine(" Razón Social del Cliente del Pedido: " + pedidoValor.RazonSocialClienteCorporativo);
-				Console.WriteLine(" Productos del Pedido: " + pedidoValor.Item[i].CodigoProducto);
-				Console.WriteLine(" Subtotal del Pedido sin IVA: " + pedidoValor.SubTotal);
+
+				Console.WriteLine("\n Productos : ");
+				Console.WriteLine(" Código del Producto del Pedido: " + pedidoValor.Item[i].CodigoProducto);
+				Console.WriteLine(" Nombre del Producto del Pedido: " + pedidoValor.Item[i].NombreProducto);
+				Console.WriteLine(" Cantidad del Producto del Pedido: " + pedidoValor.Item[i].CantidadProducto);
+				Console.WriteLine(" Precio Unitario del Pedido: " + pedidoValor.Item[i].PrecioUnitarioProducto);
+
+				Console.WriteLine("\n Subtotal del Pedido sin IVA: " + pedidoValor.SubTotal);
 				Console.WriteLine(" Recargo del Pedido: " + pedidoValor.Recargo);
 				Console.WriteLine(" Total del Pedido sin IVA: " + pedidoValor.TotalSinIva);
 
@@ -236,7 +242,7 @@ namespace AplicacionCAI
 							pedido.AddItem(item);
 
 						}
-
+						
 						opcionDos = Validador.ValidarSioNo("\n Desea Continuar cargando productos?");
 
 
@@ -253,7 +259,7 @@ namespace AplicacionCAI
 
 						pedidoLista.Add(pedido.IdPedido, pedido);
 						VerPedidoDiccionario();
-						Console.WriteLine("Pedido registrado exitósamente");
+						Console.WriteLine("\n Pedido registrado exitósamente");
 						
 
 
