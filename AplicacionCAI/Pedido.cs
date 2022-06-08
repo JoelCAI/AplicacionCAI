@@ -14,6 +14,8 @@ namespace AplicacionCAI
 		protected decimal _recargo;
 		protected decimal _totalSinIva;
 
+		protected DateTime _fechaPedido;
+
 		protected List<Item> _item;
 
 		protected long _cuitClienteCorporativo;
@@ -25,6 +27,12 @@ namespace AplicacionCAI
 			/* set { this._items = value; } No debería poder setearse todo el listado */
 			/* Para eso está implementar el método: AddItem */
 			/* Se podría agregar DeleteItem */
+		}
+
+		public DateTime FechaPedido
+		{
+			get { return this._fechaPedido; }
+
 		}
 
 		public int IdPedido

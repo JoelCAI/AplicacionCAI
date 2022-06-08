@@ -344,7 +344,9 @@ namespace AplicacionCAI
 
 		protected void EditarProducto()
         {
-
+			/* Crear un Menu con 2 opciones
+			   1 opcion modificar a todos los productos por un coeficiente
+			   2 opcion por producto */
         }
 
 		protected void EliminarProducto()

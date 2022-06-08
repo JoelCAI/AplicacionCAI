@@ -223,6 +223,8 @@ namespace AplicacionCAI
 
 			}
 
+			
+
 
 		}
 
@@ -321,9 +323,33 @@ namespace AplicacionCAI
 
 					codigoProducto = Validador.ExtraerCodigoProducto(peso, distancia);
 
+					/* Comentario:
+					   En este metodo logramos que:
+					   peso = valida correctamente que si el usuario ingresa . o , toma el decimal correctamente
+					   distancia = bien.	   
+					   codigoProducto = metodo que valida el codigo string y estamos bien.	*/
+
 					if (BuscarProductoCodigo(codigoProducto) != -1)
 					{
+						/* Que es lo que deberia tener este metodo?
+						   Out:
+							usuario que lo genero: Usuario X
+							Cuit del Cliente Corporativo: 11-111111111-1
+						    Razón del Cliente Corporativo: ASD
+
+							Fecha de Emision: xxxxxxx
+
+							Productos:
+							codigo ---  bulto10kg -- PrecioUnitario -- Cantidad -- (Esto esta en List<Item>
+
+							
+							Estado: Iniciado
+							SubtotalSinIVA
 						
+
+						   */
+
+
 						cantidadItem = Validador.PedirIntMayor("\n Ingrese Cantidad de este Producto", 0);
 
 						int codigoPedido = Pedido[_pedido.Count-1].IdPedido;

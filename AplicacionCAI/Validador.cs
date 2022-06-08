@@ -589,11 +589,11 @@ namespace AplicacionCAI
             {
                 codigo = "EN-B06";
             }
-            else if (((peso > bulto10kg) && (peso <= bulto20Kg)) && (distancia == local))
+            else if (((peso > bulto10kg) && (peso <= bulto20Kg)) && (distancia == provincial))
             {
                 codigo = "EN-B07";
             }
-            else if (((peso > bulto20Kg) && (peso <= bulto30Kg)) && (distancia == local))
+            else if (((peso > bulto20Kg) && (peso <= bulto30Kg)) && (distancia == provincial))
             {
                 codigo = "EN-B08";
             }
