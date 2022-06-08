@@ -16,6 +16,7 @@ namespace AplicacionCAI
         private List<Factura> _factura;
 		private List<ClienteCorporativo> _clienteCorporativo;
 		private List<Reclamo> _reclamo;
+		private List<Item> _item;
 
         public SistemaPrincipal()
         {
@@ -27,6 +28,7 @@ namespace AplicacionCAI
             this._factura = new List<Factura>();
 			this._clienteCorporativo = new List<ClienteCorporativo>();
 			this._reclamo = new List<Reclamo>();
+			this._item = new List<Item>();
         }
 
 		public int BuscarUsuarioMainNombre(string nombre)
@@ -102,7 +104,7 @@ namespace AplicacionCAI
 			else
 			{
 				Console.Clear();
-				clave = Validador.ValidarStringNoVacioSistema("\n Ingrese la clave del Gerente de Operaciones");
+				clave = Validador.ValidarStringNoVacioSistema("\n Ingrese la clave del Supervisor de Operaciones");
 				if (nombre != nombreUsuarioGerente || clave != claveusuarioGerente)
 				{
 					Console.Clear();
@@ -149,6 +151,7 @@ namespace AplicacionCAI
 						/* Si esto se cumple puedo crear un Usuario Main */
 						if (posUsuarioM == -1 && posUsuarioC == -1)
 						{
+							Console.Clear();
 							clave = Validador.ValidarStringNoVacioSistema("\n\n Ingrese la Clave del Usuario Main a crear: ");
 							/* Creo el nuevo usuario Main */
 							uM = new UsuarioMain(nombre, clave, this._producto,this._clienteCorporativo);
@@ -161,6 +164,7 @@ namespace AplicacionCAI
 						}
 						else
 						{
+							Console.Clear();
 							Console.WriteLine("\n El Usuario *" + nombre + "* ya Existe " +
 												  "\n Vuelva a intentarlo con un nombre Diferente");
 							Validador.VolverMenu();
@@ -198,6 +202,7 @@ namespace AplicacionCAI
 						posUsuarioM = BuscarUsuarioMainNombre(nombre);
 						if (posUsuarioM != -1)
 						{
+							Console.Clear();
 							Console.WriteLine(" El usuario *" + nombre + "* existe");
 							clave = Validador.ValidarStringNoVacioSistema("\n Ingrese Clave: ");
 							posUsuarioM = BuscarUsuarioMainClave(nombre, clave);
@@ -217,7 +222,7 @@ namespace AplicacionCAI
 						}
 						else
 						{
-
+							Console.Clear();
 							Console.WriteLine("\n El Usuario *" + nombre + "* No existe");
 							Console.WriteLine("\n Cuando vuelva al Menú Inicial elija la opción 3 y regístrese si lo desea");
 							Validador.VolverMenu();
@@ -226,10 +231,11 @@ namespace AplicacionCAI
 						break;
 					case 2:
 						Console.Clear();
-						nombre = Validador.ValidarStringNoVacioSistema("\n\nIngrese Usuario Corporativo: ");
+						nombre = Validador.ValidarStringNoVacioSistema("\n\n Ingrese Usuario Corporativo: ");
 						posUsuarioC = BuscarUsuarioCorporativoNombre(nombre);
 						if (posUsuarioC != -1)
 						{
+							Console.Clear();
 							Console.WriteLine(" El usuario *" + nombre + "* existe");
 							clave = Validador.ValidarStringNoVacioSistema("\n Ingrese Clave: ");
 							posUsuarioC = BuscarUsuarioCorporativoClave(nombre, clave);
@@ -237,16 +243,19 @@ namespace AplicacionCAI
 							{
 								_usuarioCorporativo[posUsuarioC].MenuCorporativo(this._producto,
 														  		 this._pedido, this._factura,
-																 this._clienteCorporativo,this._reclamo); 
+																 this._clienteCorporativo,this._reclamo,
+																 this._item); 
 								this._producto = _usuarioCorporativo[posUsuarioC].Producto;
 								this._pedido = _usuarioCorporativo[posUsuarioC].Pedido;
 								this._factura = _usuarioCorporativo[posUsuarioC].Factura;
 								this._clienteCorporativo = _usuarioCorporativo[posUsuarioC].ClienteCorporativo;
 								this._reclamo = _usuarioCorporativo[posUsuarioC].Reclamo;
+								this._item = _usuarioCorporativo[posUsuarioC].Item;
 	
 							}
 							else
 							{
+								Console.Clear();
 								Console.WriteLine("\n El Usuario *" + nombre + "* Existe pero la clave es incorrecta" +
 												  "\n Vuelva a intentarlo cuando recuerde la clave");
 								Validador.VolverMenu();
@@ -254,7 +263,7 @@ namespace AplicacionCAI
 						}
 						else
 						{
-
+							Console.Clear();
 							Console.WriteLine("\n El Usuario *" + nombre + "* No existe");
 							Console.WriteLine("\n Cuando vuelva al Menú Principal elija la opción 3 y regístrese si desea");
 							Validador.VolverMenu();
@@ -305,10 +314,11 @@ namespace AplicacionCAI
 						/* Si esto se cumple puedo crear un Usuario Corporativo */
 						if (posUsuarioM == -1 && posUsuarioC == -1)
 						{
+							Console.Clear();
 							clave = Validador.ValidarStringNoVacioSistema("\n\n Ingrese la Clave del Usuario Corporativo a crear: ");
 							/* Creo el nuevo usuario Corporativo */
 							uC = new UsuarioCorporativo(nombre, clave, this._producto, this._pedido, this._factura,
-														this._clienteCorporativo,this._reclamo);
+														this._clienteCorporativo,this._reclamo,this._item);
 							/* Lo agrego a la lista de Usuarios Corporativos */
 							_usuarioCorporativo.Add(uC);
 							Console.Clear();
@@ -318,6 +328,7 @@ namespace AplicacionCAI
 						}
 						else
 						{
+							Console.Clear();
 							Console.WriteLine("\n El Usuario *" + nombre + "* ya Existe " +
 												  "\n Vuelva a intentarlo con un nombre Diferente");
 							Validador.VolverMenu();

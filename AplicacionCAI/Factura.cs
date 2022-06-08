@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AplicacionCAI
 {
-    internal class Factura
+    internal class Factura 
     {
         /*private int _codigoPedido;*/
 

@@ -73,6 +73,7 @@ namespace AplicacionCAI
 			this._item = new List<Item>();
 			this._cuitClienteCorporativo = cuitCliente;
 			this._razonSocialClienteCorporativo = razonSocialCliente;
+
 			this._idPedido = _registroPedido;
 			_registroPedido++;
 		}
@@ -80,7 +81,7 @@ namespace AplicacionCAI
 		public void AddItem(Item item)
 		{
 			this._item.Add(item);
-			this._subTotal = this._subTotal + (item.CantidadProducto * item.PrecioUnitarioProducto);
+			this._subTotal = this._subTotal + (item.CantidadItem * item.PrecioItem);
 		}
 
 		public void CalcularRecargo(string mensaje)

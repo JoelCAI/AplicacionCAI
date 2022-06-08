@@ -8,41 +8,79 @@ namespace AplicacionCAI
 {
     internal class Item
     {
-        private string _codigoProduto;
-        private string _nombreProducto;
-        private int _cantidadProducto;
-        private decimal _precioUnitarioProducto;
+        private int _registroItem;
+        private string _codigoItem;
+        private string _nombreItem;
+        private int _cantidadItem;
+        private decimal _precioItem;
+        private decimal _pesoItem;
+        private string _distanciaItem;
+        private long _cuitItem;
 
-        public string CodigoProducto
+        public int RegistroItem
         {
-            get { return this._codigoProduto; }
-            set { this._codigoProduto = value; }
-        }
-        public string NombreProducto
-        {
-            get { return this._nombreProducto; }
-            set { this._nombreProducto = value; }
-        }
-
-        public int CantidadProducto
-        {
-            get { return this._cantidadProducto; }
-            set { this._cantidadProducto = value; }
+            get { return this._registroItem; }
+           
         }
 
-        public decimal PrecioUnitarioProducto
+        public string CodigoItem
         {
-            get { return this._precioUnitarioProducto; }
-            set { this._precioUnitarioProducto = value; }
+            get { return this._codigoItem; }
+            
+        }
+        public string NombreItem
+        {
+            get { return this._nombreItem; }
+            
         }
 
-        public Item(string codigoProducto, string nombreProducto, int cantidadProducto,
-                    decimal precioUnitarioProducto)
+        public int CantidadItem
         {
-            this._codigoProduto = codigoProducto;
-            this._nombreProducto = nombreProducto;
-            this._cantidadProducto = cantidadProducto;
-            this._precioUnitarioProducto = precioUnitarioProducto;
+            get { return this._cantidadItem; }
+            
+        }
+
+        public decimal PrecioItem
+        {
+            get { return this._precioItem; }
+            
+        }
+
+        public decimal PesoItem
+        {
+            get { return this._pesoItem; }
+            
+        }
+
+        public string DistanciaItem
+        {
+            get { return this._distanciaItem; }
+
+        }
+
+        public long CuitItem
+        {
+            get { return this._cuitItem; }
+
+        }
+
+        public static int _registroItemContador = 1;
+        public Item(string codigoItem, string nombreItem, int cantidadItem,
+                    decimal precioItem, decimal pesoItem, string distanciaItem,
+                    long cuitItem)
+        {
+            this._codigoItem = codigoItem;
+            this._nombreItem = nombreItem;
+            this._cantidadItem = cantidadItem;
+            this._precioItem = precioItem;
+            this._pesoItem = pesoItem;
+            this._distanciaItem = distanciaItem;
+            this._cuitItem = cuitItem;
+
+            this._registroItem = _registroItemContador;
+            _registroItemContador++;
+
+
         }
     }
 }

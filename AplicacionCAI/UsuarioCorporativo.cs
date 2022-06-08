@@ -13,6 +13,7 @@ namespace AplicacionCAI
 		private List<Pedido> _pedido;
 		private List<Factura> _factura;
 		private List<Reclamo> _reclamo;
+		private List<Item> _item;
 
 		public List<Pedido> Pedido
 		{
@@ -31,19 +32,28 @@ namespace AplicacionCAI
 			get { return this._reclamo; }
 			set { this._reclamo = value; }
 		}
+
+		public List<Item> Item
+		{
+			get { return this._item; }
+			set { this._item = value; }
+		}
 		public UsuarioCorporativo(string nombre, string clave, List<Producto> producto,
 								  List<Pedido> pedido, List<Factura> factura, List<ClienteCorporativo>
-								  clienteCorporativo, List<Reclamo> reclamo) : base(nombre, clave, producto,
+								  clienteCorporativo, List<Reclamo> reclamo, List<Item> item
+								  ) : base(nombre, clave, producto,
 								  clienteCorporativo)
 		{
 			this._pedido = pedido;
 			this._factura = factura;
 			this._reclamo = reclamo;
+			this._item = item;
 		}
 
 
 		public void MenuCorporativo(List<Producto> producto, List<Pedido> pedido, List<Factura> factura,
-									List<ClienteCorporativo> clienteCorporativo, List<Reclamo> reclamo)
+									List<ClienteCorporativo> clienteCorporativo, List<Reclamo> reclamo,
+									List<Item> item)
 		{
 			/* Se reciben los productos de la Clase Producto a través de la herencia de UsuarioMain */
 			Producto = producto;
@@ -51,39 +61,133 @@ namespace AplicacionCAI
 			Factura = factura;
 			ClienteCorporativo = clienteCorporativo;
 			Reclamo = reclamo;
+			Item = item;
 
-			int opcion;
-			do
+			long cuitClienteIngresado;
+	
+			string claveClienteCorporativo;
+
+			Console.Clear();
+			Console.WriteLine(" \n Bienvenido Usuario: " + NombreUsuario);
+
+			int codigoCuitPrimero;
+			int codigoCuitSegundo;
+			int codigoCuitTercero;
+			string cuitString;
+
+			codigoCuitPrimero = Validador.PedirIntMenu("\n Ingrese los dos primeros dígitos del CUIT", 10, 99);
+			Console.Clear();
+			codigoCuitSegundo = Validador.PedirIntMenu("\n Ingrese los 8 digitos del Cuit" +
+													   "\n " + codigoCuitPrimero + "-", 10000000, 99999999);
+			Console.Clear();
+			codigoCuitTercero = Validador.PedirIntMenu("\n Ingrese el último digito: " +
+													   "\n " + codigoCuitPrimero + "-" +
+													   codigoCuitSegundo + "-", 0, 9);
+
+			cuitString = codigoCuitPrimero.ToString() + codigoCuitSegundo.ToString() +
+						codigoCuitTercero.ToString();
+			bool cuitConvertido = long.TryParse(cuitString, out long cuit);
+
+			if (BuscarClienteCorporativo(cuit) != -1)
 			{
 				Console.Clear();
-				opcion = Validador.PedirIntMenu("\n Menu del Usuario Corporativo" +
-									   "\n [1] Crear Pedido. " +
-									   "\n [2] Grabar Pedido. " +
-									   "\n [3] Leer Pedido. " +
-									   "\n [4] Emitir Factura. " +
-									   "\n [5] Generar Reclamo. " +
-									   "\n [6] Volver al Menú Inicial.", 1, 6);
+				Console.WriteLine("\n Cliente con CUIT: " +
+									ClienteCorporativo[BuscarClienteCorporativo(cuit)].Cuit +
+								  "\n Razón Social del Cliente: " +
+								  ClienteCorporativo[BuscarClienteCorporativo(cuit)].RazonSocial); ;
 
-				switch (opcion)
-				{
-					case 1:
-						CrearPedido();
-						break;
-					case 2:
-						GrabarPedido();
-						break;
-					case 3:
-						LeerPedido(); 
-						break;
-					case 4:
+				claveClienteCorporativo = Validador.ValidarStringNoVacioSistema("\n Ingrese la Clave de la razón Social");
 
-						break;
-					case 5:
-						break;
+				if (BuscarClienteCorporativoClave(claveClienteCorporativo) != -1)
+                {
+					cuitClienteIngresado = ClienteCorporativo[BuscarClienteCorporativo(cuit)].Cuit;
+					
+					int opcion;
+					do
+					{
+						Console.Clear();
+						Console.WriteLine(" \n Bienvenido Usuario: " + NombreUsuario);
+						opcion = Validador.PedirIntMenu("\n Menu del Usuario Corporativo" +
+											   "\n [1] Crear Pedido. " +
+											   "\n [2] Grabar Pedido. " +
+											   "\n [3] Leer Pedido. " +
+											   "\n [4] Emitir Factura. " +
+											   "\n [5] Generar Reclamo. " +
+											   "\n [6] Volver al Menú Inicial.", 1, 6);
+
+						switch (opcion)
+						{
+							case 1:
+								CrearPedido(cuitClienteIngresado);
+								break;
+							case 2:
+								GrabarPedido();
+								break;
+							case 3:
+								LeerPedido();
+								break;
+							case 4:
+
+								break;
+							case 5:
+								break;
+
+						}
+					} while (opcion != 6);
+
 
 				}
-			} while (opcion != 6);
+				else
+                {
+					Console.Clear();
+					Console.WriteLine("\n Usted digitó la clave *" + claveClienteCorporativo + "*");
+					Console.WriteLine("\n No existe una Razón Social con esa clave");
+					Console.WriteLine("\n Vuelvalo a intentar con la clave correcta o " +
+								      "\n Contacte al Supervisor para que pueda brindarsela si está como Empleado activo en su Organización");
+					Validador.VolverMenu();
+				}
 
+
+
+			}
+			else
+            {
+				Console.Clear();
+				Console.WriteLine("\n Usted digitó el CUIT *" + cuit + "*");
+				Console.WriteLine("\n No existe una Razón Social con ese número de CUIT");
+				Console.WriteLine(" Vuelvalo a intentar con uno existente o");
+				Console.WriteLine("\n Contacte al Supervisor para que pueda dar de Alta el CUIT y Razón Social");
+				Validador.VolverMenu();
+			}
+
+			
+
+		}
+
+		public int BuscarItemAntes(int pedido)
+		{
+			for (int i = 0; i < this._item.Count; i++)
+			{
+				if (this._item[i].RegistroItem == pedido)
+				{
+					return i + 1;
+				}
+			}
+			/* si no encuentro el producto retorno una posición invalida */
+			return -1;
+		}
+
+		public int BuscarPedidoUltimo(int pedidoUltimo)
+		{
+			for (int i = 0; i < this._pedido.Count; i++)
+			{
+				if (this._pedido[i].IdPedido == pedidoUltimo)
+				{
+					return i;
+				}
+			}
+			/* si no encuentro el producto retorno una posición invalida */
+			return -1;
 		}
 
 		public void AddPedido(Pedido pedido)
@@ -95,6 +199,7 @@ namespace AplicacionCAI
 
 		public void VerPedidoDiccionario()
 		{
+			Console.Clear();
 			Console.WriteLine("\n Pedidos en el Diccionario");
 			for (int i = 0; i < pedidoLista.Count; i++)
 			{
@@ -107,10 +212,10 @@ namespace AplicacionCAI
 				Console.WriteLine(" Razón Social del Cliente del Pedido: " + pedidoValor.RazonSocialClienteCorporativo);
 
 				Console.WriteLine("\n Productos : ");
-				Console.WriteLine(" Código del Producto del Pedido: " + pedidoValor.Item[i].CodigoProducto);
-				Console.WriteLine(" Nombre del Producto del Pedido: " + pedidoValor.Item[i].NombreProducto);
-				Console.WriteLine(" Cantidad del Producto del Pedido: " + pedidoValor.Item[i].CantidadProducto);
-				Console.WriteLine(" Precio Unitario del Pedido: " + pedidoValor.Item[i].PrecioUnitarioProducto);
+				Console.WriteLine(" Código del Producto del Pedido: " + pedidoValor.Item[i].CodigoItem);
+				Console.WriteLine(" Nombre del Producto del Pedido: " + pedidoValor.Item[i].NombreItem);
+				Console.WriteLine(" Cantidad del Producto del Pedido: " + pedidoValor.Item[i].CantidadItem);
+				Console.WriteLine(" Precio Unitario del Pedido: " + pedidoValor.Item[i].PrecioItem);
 
 				Console.WriteLine("\n Subtotal del Pedido sin IVA: " + pedidoValor.SubTotal);
 				Console.WriteLine(" Recargo del Pedido: " + pedidoValor.Recargo);
@@ -172,19 +277,24 @@ namespace AplicacionCAI
 
 		}
 
-		public void CrearPedido()
+		public void CrearPedido(long cuitIngresado)
 		{
-			long cuitCliente;
-			string razonSocial;
+			string razonSocialCliente;
 
 			string codigoProducto;
-			string nombreProducto;
+			
 
 			string tipodeRecargo;
 
-			decimal precioProducto;
-			int cantidadProducto;
+			decimal peso;
+			string distancia;
 
+			string codigoItem;
+			string nombreItem;
+			int cantidadItem;
+			decimal precioItem;
+			
+			long cuitItem;
 
 			string opcion;
 			string opcionDos;
@@ -192,106 +302,85 @@ namespace AplicacionCAI
 
 			Console.Clear();
 			Console.WriteLine("\n Registrar Pedido:");
+			Console.WriteLine("\n Nombre del Usuario Autorizado: " + NombreUsuario);
 
-			VerClienteCorporativo();
-			cuitCliente = Validador.PedirLongMenu("Ingrese el CUIT del Cliente Corporativo", 10000000000,
-												  99999999999);
+			razonSocialCliente = ClienteCorporativo[BuscarClienteCorporativo(cuitIngresado)].RazonSocial;
+						
+			opcion = ValidarSioNoContinuarCliente("\n Desea Continuar? ", cuitIngresado, razonSocialCliente);
 
-			if (BuscarClienteCorporativo(cuitCliente) != -1)
+			if (opcion == "SI")
 			{
-				VerClienteCorporativo();
-				Console.WriteLine("\n Pedido para Cliente con CUIT: " +
-									ClienteCorporativo[BuscarClienteCorporativo(cuitCliente)].Cuit +
-								  "\n Razón Social del Cliente: " +
-								  ClienteCorporativo[BuscarClienteCorporativo(cuitCliente)].RazonSocial); ;
-
-				razonSocial = ClienteCorporativo[BuscarClienteCorporativo(cuitCliente)].RazonSocial;
-
-				Console.Clear();
-
-				opcion = ValidarSioNoContinuarCliente("\n Desea Continuar? ", cuitCliente, razonSocial);
-
-				if (opcion == "SI")
+				Pedido pedido = new Pedido(cuitIngresado, razonSocialCliente);
+				
+				do
 				{
-					Pedido pedido = new Pedido(cuitCliente, razonSocial);
-					do
+					
+					peso = Validador.PedirDecimal("\n Ingrese el peso del Producto",0,30);
+
+					distancia = Validador.ValidarDistanciaProducto("\n Ingrese la distancia a Recorrer");
+
+					codigoProducto = Validador.ExtraerCodigoProducto(peso, distancia);
+
+					if (BuscarProductoCodigo(codigoProducto) != -1)
 					{
-						VerProducto();
-						codigoProducto = ValidarStringNoVacioProducto("Ingrese el código del producto a vender");
-						if (BuscarProductoCodigo(codigoProducto) != -1)
-						{
-
-							VerProducto();
-							precioProducto = Producto[BuscarProductoCodigo(codigoProducto)].PrecioProducto;
-							nombreProducto = Producto[BuscarProductoCodigo(codigoProducto)].NombreProducto;
-
-							do
-							{
-								Console.Clear();
-								Console.WriteLine("\n Cantidad del Producto a vender *" +
-													Producto[BuscarProductoCodigo(codigoProducto)].CantidadProducto + "*");
-								Console.WriteLine("\n No se puede vender más de lo que existe en el Stock");
-								cantidadProducto = Validador.PedirIntMayor("\n Ingrese la cantidad a comprar", 0);
-
-							} while (cantidadProducto > Producto[BuscarProductoCodigo(codigoProducto)].CantidadProducto);
-
-
-							Producto[BuscarProductoCodigo(codigoProducto)].CantidadProducto =
-							Producto[BuscarProductoCodigo(codigoProducto)].CantidadProducto - cantidadProducto;
-							Item item = new Item(codigoProducto, nombreProducto, cantidadProducto, precioProducto);
-							pedido.AddItem(item);
-
-						}
 						
-						opcionDos = Validador.ValidarSioNo("\n Desea Continuar cargando productos?");
+						cantidadItem = Validador.PedirIntMayor("\n Ingrese Cantidad de este Producto", 0);
+
+						int codigoPedido = Pedido[_pedido.Count-1].IdPedido;
 
 
-					} while (opcionDos == "SI");
-
-					opcionTres = Validador.ValidarSioNo("\n Desea suspender todo o continuar con el pedido?");
-
-					if (opcionTres == "NO")
-					{
-						tipodeRecargo = Validador.ValidarTipoRecargo("Ingrese el tipo de Recargo");
-						pedido.CalcularRecargo(tipodeRecargo);
-						pedido.CalcularTotalSinIVA();
-						AddPedido(pedido);
-
-						pedidoLista.Add(pedido.IdPedido, pedido);
-						VerPedidoDiccionario();
-						Console.WriteLine("\n Pedido registrado exitósamente");
+						codigoItem = Producto[BuscarProductoCodigo(codigoProducto)].CodigoProducto;
+						nombreItem = Producto[BuscarProductoCodigo(codigoProducto)].NombreProducto;
+						precioItem = Producto[BuscarProductoCodigo(codigoProducto)].PrecioProducto;
+						cuitItem = ClienteCorporativo[BuscarClienteCorporativo(cuitIngresado)].Cuit;
 						
 
-
-						Validador.VolverMenu();
-
+						Producto[BuscarProductoCodigo(codigoProducto)].CantidadProducto =
+						Producto[BuscarProductoCodigo(codigoProducto)].CantidadProducto - cantidadItem;
+						Item item = new Item(codigoItem, nombreItem, cantidadItem, precioItem,
+											 peso,distancia,cuitItem);
+						pedido.AddItem(item);
+						VerItemPedido(codigoPedido);
 					}
-					else
-					{
+						
+					opcionDos = Validador.ValidarSioNo("\n Desea Continuar cargando productos?");
+					
 
-						Console.WriteLine("No se generó ningún pedido");
-						Validador.VolverMenu();
-					}
+				} while (opcionDos == "SI");
+
+				opcionTres = Validador.ValidarSioNo("\n Desea suspender todo o continuar con el pedido?");
+
+				if (opcionTres == "NO")
+				{
+					tipodeRecargo = Validador.ValidarTipoRecargo("Ingrese el tipo de Recargo");
+					pedido.CalcularRecargo(tipodeRecargo);
+					pedido.CalcularTotalSinIVA();
+					AddPedido(pedido);
+
+					pedidoLista.Add(pedido.IdPedido, pedido);
+					VerPedidoDiccionario();
+					Console.WriteLine("\n Pedido registrado exitósamente");
+
+					Validador.VolverMenu();
 
 				}
 				else
 				{
-					Console.WriteLine("\n Eligió no generar ningún Pedido.");
-					Validador.VolverMenu();
 
+					Console.WriteLine("No se generó ningún pedido");
+					Validador.VolverMenu();
 				}
 
 			}
 			else
 			{
-				VerClienteCorporativo();
-				Console.WriteLine("\n Usted digitó un CUIT *" + cuitCliente + "*");
-				Console.WriteLine("\n No existe una Razón Social con ese número de CUIT");
-				Console.WriteLine("\n Será direccionado nuevamente al Menú para que pueda Crearlo");
+				Console.WriteLine("\n Eligió no generar ningún Pedido.");
 				Validador.VolverMenu();
 
 			}
 
+			
+			
 		}
 
 
@@ -329,7 +418,7 @@ namespace AplicacionCAI
 			{
 				foreach (Item item in pedido.Item)
 				{
-					cantidadProductos = cantidadProductos + item.CantidadProducto;
+					cantidadProductos = cantidadProductos + item.CantidadItem;
 				}
 
 			}
@@ -370,8 +459,7 @@ namespace AplicacionCAI
 			{
 
 				Console.WriteLine(
-								  "\n Cuit del Cliente Corporativo: " +
-									cuit +
+								  "\n Cuit del Cliente Corporativo: " +	cuit +
 								  "\n Razón social del Cliente Corporativo: " + razonSocial);
 
 				Console.WriteLine(mensaje);
@@ -394,6 +482,32 @@ namespace AplicacionCAI
 			} while (!valido);
 
 			return opcion;
+		}
+
+		protected void VerItemPedido(int ultimo)
+		{
+			Console.Clear();
+			Console.WriteLine("\n Productos en el Pedido");
+			Console.WriteLine(" #\t\tCódigo.\t\tPeso.\t\tDistancia.\t\tPrecio.\t\tCantidad.");
+			for (int i = 0; i < Item.Count; i++)
+			{
+				Console.Write(" " + (i + 1));
+
+				Console.Write("\t\t");
+				Console.Write(Item[(BuscarItemAntes(ultimo))].CodigoItem);
+				Console.Write("\t\t");
+				Console.Write(Item[(BuscarItemAntes(ultimo))].PesoItem);
+				Console.Write("\t\t");
+				Console.Write(Item[(BuscarItemAntes(ultimo))].DistanciaItem);
+				Console.Write("\t\t");
+				Console.Write(Item[(BuscarItemAntes(ultimo))].PrecioItem);
+				Console.Write("\t\t");
+				Console.Write(Item[(BuscarItemAntes(ultimo))].CantidadItem);
+				Console.Write("\t\t");
+
+				Console.Write("\n");
+			}
+
 		}
 
 		public void CrearPedidoSioNo()

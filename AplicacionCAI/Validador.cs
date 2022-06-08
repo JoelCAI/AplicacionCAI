@@ -126,17 +126,24 @@ namespace AplicacionCAI
         public static decimal PedirDecimal(string mensaje, int min, int max)
         {
             decimal valor;
+
+            string valorUno;
+            string opcion;
+
             bool valido = false;
             string mensajeMenu = "\n Ingrese un valor entre " + min + " y " + max;
             string mensajeError = "\n El valor no puede ser vacio y tiene que estar entre el rango del Menu solicitado. ";
 
             do
             {
-
+                Console.Clear();
                 Console.WriteLine(mensaje);
                 Console.WriteLine(mensajeMenu);
 
-                if (!decimal.TryParse(Console.ReadLine(), out valor) || valor < min || valor > max)
+                valorUno = Console.ReadLine();
+                opcion = valorUno.Replace('.', ',');
+
+                if (!decimal.TryParse(opcion, out valor) || valor < min || valor > max)
                 {
                     Console.Clear();
                     Console.WriteLine("\n");
@@ -346,6 +353,41 @@ namespace AplicacionCAI
             return opcion;
         }
 
+        public static string ValidarSioNoItem(string mensaje)
+        {
+
+            string opcion;
+            bool valido = false;
+            string mensajeValidador = "\n Valores permitidos:" +
+                                      "\n *SI* ó" +
+                                      "\n *NO*";
+            string mensajeError = "\n Por favor ingrese el valor solicitado y que no sea vacio. ";
+
+            do
+            {
+                
+                Console.WriteLine(mensaje);
+                Console.WriteLine(mensajeError);
+                Console.WriteLine(mensajeValidador);
+                opcion = Console.ReadLine().ToUpper();
+                string opcionC = "SI";
+                string opcionD = "NO";
+
+                if (opcion == "" || (opcion != opcionC) & (opcion != opcionD))
+                {
+                    continue;
+
+                }
+                else
+                {
+                    valido = true;
+                }
+
+            } while (!valido);
+
+            return opcion;
+        }
+
         public static long PedirLongMenu(string mensaje, long min, long max)
         {
 
@@ -445,6 +487,7 @@ namespace AplicacionCAI
             return fechaValida;
         }
 
+
         public static int PedirIntMayor(string mensaje, int min)
         {
 
@@ -455,7 +498,7 @@ namespace AplicacionCAI
 
             do
             {
-
+                Console.Clear();
                 Console.WriteLine(mensaje);
                 Console.WriteLine(mensajeMenu);
 
@@ -508,12 +551,96 @@ namespace AplicacionCAI
             return opcion;
         }
 
+        public static string ExtraerCodigoProducto(decimal peso, string distancia)
+        {
+            string codigo = "";
+
+            decimal bulto500g = 0.5m;
+            decimal bulto10kg = 10;
+            decimal bulto20Kg = 20;
+            decimal bulto30Kg = 30;
+
+            string local = "LOCAL";
+            string provincial = "PROVINCIAL";
+            string regional = "REGIONAL";
+            string nacional = "NACIONAL";
+
+            if (peso <= bulto500g && distancia == local)
+            {
+                codigo = "EN-B01";
+            }
+            else if (((peso > bulto500g) && (peso <= bulto10kg)) && (distancia == local))
+            {
+                codigo = "EN-B02";
+            }
+            else if (((peso > bulto10kg) && (peso <= bulto20Kg)) && (distancia == local))
+            {
+                codigo = "EN-B03";
+            }
+            else if (((peso > bulto20Kg) && (peso <= bulto30Kg)) && (distancia == local))
+            {
+                codigo = "EN-B04";
+            }
+            else if (peso <= bulto500g && distancia == provincial)
+            {
+                codigo = "EN-B05";
+            }
+            else if (((peso > bulto500g) && (peso <= bulto10kg)) && (distancia == provincial))
+            {
+                codigo = "EN-B06";
+            }
+            else if (((peso > bulto10kg) && (peso <= bulto20Kg)) && (distancia == local))
+            {
+                codigo = "EN-B07";
+            }
+            else if (((peso > bulto20Kg) && (peso <= bulto30Kg)) && (distancia == local))
+            {
+                codigo = "EN-B08";
+            }
+            else if (peso <= bulto500g && distancia == regional)
+            {
+                codigo = "EN-B09";
+            }
+            else if (((peso > bulto500g) && (peso <= bulto10kg)) && (distancia == regional))
+            {
+                codigo = "EN-B10";
+            }
+            else if (((peso > bulto10kg) && (peso <= bulto20Kg)) && (distancia == regional))
+            {
+                codigo = "EN-B11";
+            }
+            else if (((peso > bulto20Kg) && (peso <= bulto30Kg)) && (distancia == regional))
+            {
+                codigo = "EN-B12";
+            }
+            else if (peso <= bulto500g && distancia == nacional)
+            {
+                codigo = "EN-B13";
+            }
+            else if (((peso > bulto500g) && (peso <= bulto10kg)) && (distancia == nacional))
+            {
+                codigo = "EN-B14";
+            }
+            else if (((peso > bulto10kg) && (peso <= bulto20Kg)) && (distancia == nacional))
+            {
+                codigo = "EN-B15";
+            }
+            else if (((peso > bulto20Kg) && (peso <= bulto30Kg)) && (distancia == nacional))
+            {
+                codigo = "EN-B16";
+            }
+
+            return codigo;
+        }
+
+
         public static void Despedida()
         {
             Console.Clear();
             Console.WriteLine("\n\n Gracias por usar nuestro Sistema presione cualquier teclar para finalizar");
             Console.ReadKey();
         }
+
 
         public static void VolverMenu()
         {

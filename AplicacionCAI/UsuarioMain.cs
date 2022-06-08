@@ -92,6 +92,8 @@ namespace AplicacionCAI
 			return -1;
 		}
 
+	
+
 		public int BuscarClienteCorporativo(long cuit)
 		{
 			for (int i = 0; i < this._clienteCorporativo.Count; i++)
@@ -105,9 +107,22 @@ namespace AplicacionCAI
 			return -1;
 		}
 
+		public int BuscarClienteCorporativoClave(string clave)
+		{
+			for (int i = 0; i < this._clienteCorporativo.Count; i++)
+			{
+				if (this._clienteCorporativo[i].Clave == clave)
+				{
+					return i;
+				}
+			}
+
+			return -1;
+		}
+
 		Dictionary<string, Producto> productoLista = new Dictionary<string, Producto>();
 		
-		public void VerProductoDiccionario()
+		protected void VerProductoDiccionario()
 		{
 			Console.WriteLine("\n Productos en el Diccionario");
 			for (int i = 0; i < productoLista.Count; i++)
@@ -181,7 +196,7 @@ namespace AplicacionCAI
 
 		Dictionary<long, ClienteCorporativo> clienteCorporativoLista = new Dictionary<long, ClienteCorporativo>();
 
-		public void VerClienteCorporativoDiccionario()
+		protected void VerClienteCorporativoDiccionario()
 		{
 			Console.WriteLine("\n Productos en el Diccionario");
 			for (int i = 0; i < clienteCorporativoLista.Count; i++)
@@ -327,6 +342,11 @@ namespace AplicacionCAI
 
 		}
 
+		protected void EditarProducto()
+        {
+
+        }
+
 		protected void EliminarProducto()
         {
 			string codigo;
@@ -372,20 +392,23 @@ namespace AplicacionCAI
 			}
 		}
 
-		public void CrearClienteCorporativo()
+		private void CrearClienteCorporativo()
 		{
 
 			string razonSocial;
 			string cuitString;
+			string claveClienteCorporativo;
 
 			int codigoCuitPrimero;
 			int codigoCuitSegundo;
 			int codigoCuitTercero;
 
 			VerClienteCorporativo();
-			codigoCuitPrimero = Validador.PedirIntMenu("Ingrese los dos primeros dígitos del CUIT", 10, 99);
-			codigoCuitSegundo = Validador.PedirIntMenu("Ingrese los 8 digitos del Cuit" +
+			codigoCuitPrimero = Validador.PedirIntMenu("\n Ingrese los dos primeros dígitos del CUIT", 10, 99);
+			Console.Clear();
+			codigoCuitSegundo = Validador.PedirIntMenu("\n Ingrese los 8 digitos del Cuit" +
 													   "\n " + codigoCuitPrimero + "-", 10000000, 99999999);
+			Console.Clear();
 			codigoCuitTercero = Validador.PedirIntMenu("\n Ingrese el último digito: " +
 													   "\n " + codigoCuitPrimero + "-" +
 													   codigoCuitSegundo + "-", 0, 9);
@@ -405,13 +428,15 @@ namespace AplicacionCAI
 				razonSocial = Validador.PedirCaracterString("\n Ingrese el nombre de la Razón Social", 1, 30);
 				Console.Clear();
 
+				claveClienteCorporativo = Validador.ValidarStringNoVacioSistema("Ingrese la clave de la Razón Social");
+
 				opcion = ValidarSioNoClienteNoCreado("\n Está seguro que desea crear este Cliente Corporativo? ",
 													codigoCuitPrimero, codigoCuitSegundo, codigoCuitTercero,
 													razonSocial);
 
 				if (opcion == "SI")
 				{
-					ClienteCorporativo p = new ClienteCorporativo(cuit, razonSocial);
+					ClienteCorporativo p = new ClienteCorporativo(cuit, razonSocial,claveClienteCorporativo);
 					AddClienteCorporativo(p);
 					clienteCorporativoLista.Add(cuit, p);
 					VerClienteCorporativo();
@@ -558,11 +583,11 @@ namespace AplicacionCAI
 			return opcion;
 		}
 
-		public void VerProducto()
+		protected void VerProducto()
 		{
 			Console.Clear();
 			Console.WriteLine("\n Productos");
-			Console.WriteLine(" #\t\tCódigo.\t\tNombre.\t\tPrecio.");
+			Console.WriteLine(" #\t\tCódigo.\t\tPeso.\t\tDistancia.\t\tPrecio.");
 			for (int i = 0; i < Producto.Count; i++)
 			{
 				Console.Write(" " + (i + 1));
@@ -570,7 +595,9 @@ namespace AplicacionCAI
 				Console.Write("\t\t");
 				Console.Write(Producto[i].CodigoProducto);
 				Console.Write("\t\t");
-				Console.Write(Producto[i].NombreProducto);
+				Console.Write(Producto[i].PesoProducto);
+				Console.Write("\t\t");
+				Console.Write(Producto[i].DistanciaProducto);
 				Console.Write("\t\t");
 				Console.Write(Producto[i].PrecioProducto);
 				Console.Write("\t\t");
@@ -580,18 +607,18 @@ namespace AplicacionCAI
 
 		}
 
-		public void VerClienteCorporativo()
+		protected void VerClienteCorporativo()
 		{
 			Console.Clear();
 			Console.WriteLine("\n Clientes Corporativos ");
-			Console.WriteLine(" #\t\tCuit.\t\tRazón Social.");
+			Console.WriteLine(" #\t\tCuit.\t\t\tRazón Social.");
 			for (int i = 0; i < ClienteCorporativo.Count; i++)
 			{
 				Console.Write(" " + (i + 1));
 
 				Console.Write("\t\t");
 				Console.Write(ClienteCorporativo[i].Cuit);
-				Console.Write("\t\t");
+				Console.Write("\t\t\t");
 				Console.Write(ClienteCorporativo[i].RazonSocial);
 				Console.Write("\t\t");
 
