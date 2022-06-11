@@ -324,7 +324,7 @@ namespace AplicacionCAI
 				else
 				{
 					VerProducto();
-					Console.WriteLine("\n Como puede verificar no se creo ninguna Persona");
+					Console.WriteLine("\n Como puede verificar no se creo ningún Producto");
 					Validador.VolverMenu();
 
 				}

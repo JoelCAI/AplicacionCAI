@@ -173,7 +173,7 @@ namespace AplicacionCAI
                 Console.WriteLine(mensaje);
                 Console.WriteLine(mensajeMenu);
 
-                valor = Console.ReadLine();
+                valor = Console.ReadLine().ToUpper();
 
 
                 if (valor.Length < min || valor.Length > max)
