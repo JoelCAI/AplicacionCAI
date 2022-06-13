@@ -54,22 +54,7 @@ namespace AplicacionCAI
 			}
 			return -1;
 		}
-
-		public int BuscarUsuarioMainClave(string nombre, string clave)
-		{
-			for (int i = 0; i < this._usuarioMain.Count; i++)
-			{
-				if (this._usuarioMain[i].NombreUsuario == nombre)
-				{
-					if (this._usuarioMain[i].ClaveUsuario == clave)
-					{
-						return i;
-					}
-				}
-			}
-			return -1;
-		}
-
+		
 		public int BuscarUsuarioCorporativoClave(string nombre, string clave)
 		{
 			for (int i = 0; i < this._usuarioCorporativo.Count; i++)
@@ -84,152 +69,25 @@ namespace AplicacionCAI
 			}
 			return -1;
 		}
-
-		public void ValidacionSupervisor()
-		{
-			string nombre;
-			string clave;
-			string nombreUsuarioGerente = "CAI";
-			string claveusuarioGerente = "123";
-
-			Console.Clear();
-			nombre = Validador.ValidarStringNoVacioSistema("\n Ingrese el usuario del Supervisor de Operaciones");
-
-			if (nombre != nombreUsuarioGerente)
-			{
-				Console.Clear();
-				Console.WriteLine("\n Usuario Incorrecto");
-				Validador.VolverMenu();
-			}
-			else
-			{
-				Console.Clear();
-				clave = Validador.ValidarStringNoVacioSistema("\n Ingrese la clave del Supervisor de Operaciones");
-				if (nombre != nombreUsuarioGerente || clave != claveusuarioGerente)
-				{
-					Console.Clear();
-					Console.WriteLine("\n Usuario Incorrecto");
-					Validador.VolverMenu();
-				}
-				else
-				{
-					MenuSupervisor();
-				}
-			}
-
-		}
-
 		
-		public void MenuSupervisor()
-		{
-			Console.Clear();
-			int opcion;
-			string nombre;
-			string clave;
-			int posUsuarioM;
-			int posUsuarioC;
-
-			/* Para crear los objetos (Los Usuarios que tendran acceso a las listas) */
-			UsuarioMain uM;
-			
-			do
-			{
-				Console.Clear();
-				Console.WriteLine("\n *** Bienvenido Usuario Supervisor *** \n");
-				opcion = Validador.PedirIntMenu("\n Menú del Supervisor" +
-									   "\n [1] Registrar Usuario(s) Main." +
-									   "\n [2] Volver al menu Principal.", 1, 2);
-
-				switch (opcion)
-				{
-					case 1:
-						Console.Clear();
-						nombre = Validador.ValidarStringNoVacioSistema("\n\n Ingrese el Nombre del Usuario Main a crear: ");
-						posUsuarioM = BuscarUsuarioMainNombre(nombre);
-						posUsuarioC = BuscarUsuarioCorporativoNombre(nombre);
-
-						/* Si esto se cumple puedo crear un Usuario Main */
-						if (posUsuarioM == -1 && posUsuarioC == -1)
-						{
-							Console.Clear();
-							clave = Validador.ValidarStringNoVacioSistema("\n\n Ingrese la Clave del Usuario Main a crear: ");
-							/* Creo el nuevo usuario Main */
-							uM = new UsuarioMain(nombre, clave, this._producto,this._clienteCorporativo);
-							/* Lo agrego a la lista de Usuarios Main */
-							_usuarioMain.Add(uM);
-							Console.Clear();
-							Console.WriteLine("\n Usuario Main *" + nombre + "* y clave *" + clave + "* se ha creado exitósamente" +
-											  "\n\n Presione cualquier tecla para volver al Menú");
-							Console.ReadKey();
-						}
-						else
-						{
-							Console.Clear();
-							Console.WriteLine("\n El Usuario *" + nombre + "* ya Existe " +
-												  "\n Vuelva a intentarlo con un nombre Diferente");
-							Validador.VolverMenu();
-						}
-						break;
-					
-				}
-			} while (opcion != 2);
-		}
-
 		public void MenuInicial()
 		{
 			Console.Clear();
 			int opcion;
 			string nombre, clave;
-			int posUsuarioM;
 			int posUsuarioC;
-			
 
 			do
 			{
 				Console.Clear();
 				Console.WriteLine("\n *** Bienvenido *** \n");
 				opcion = Validador.PedirIntMenu("\n Menú Inicial del Sistema" +
-									   "\n [1] Ingresar como Usuario Main." +
-									   "\n [2] Ingresar como Usuario Corporativo." +
-									   "\n [3] Ingresar como Usuario Supervisor." +
-									   "\n [4] Registrar usuario (UsuarioCorporativo)." +
-									   "\n [5] Salir del Sistema.", 1, 5);
+									   "\n [1] Ingresar como Usuario Corporativo." +
+									   "\n [2] Registrar usuario (UsuarioCorporativo)." +
+									   "\n [3] Salir del Sistema.", 1, 5);
 				switch (opcion)
 				{
 					case 1:
-						Console.Clear();
-						nombre = Validador.ValidarStringNoVacioSistema("\n\n Ingrese su Usuario Main: ");
-						posUsuarioM = BuscarUsuarioMainNombre(nombre);
-						if (posUsuarioM != -1)
-						{
-							Console.Clear();
-							Console.WriteLine(" El usuario *" + nombre + "* existe");
-							clave = Validador.ValidarStringNoVacioSistema("\n Ingrese Clave: ");
-							posUsuarioM = BuscarUsuarioMainClave(nombre, clave);
-							if (posUsuarioM != -1)
-							{
-								
-								_usuarioMain[posUsuarioM].MenuMain(this._producto,this._clienteCorporativo);
-								this._producto = _usuarioMain[posUsuarioM].Producto;
-								this._clienteCorporativo = _usuarioMain[posUsuarioM].ClienteCorporativo;
-							}
-							else
-							{
-								Console.WriteLine("\n El Usuario *" + nombre + "* Existe pero la clave es incorrecta" +
-												  "\n Vuelva a intentarlo cuando recuerde la clave");
-								Validador.VolverMenu();
-							}
-						}
-						else
-						{
-							Console.Clear();
-							Console.WriteLine("\n El Usuario *" + nombre + "* No existe");
-							Console.WriteLine("\n Cuando vuelva al Menú Inicial elija la opción 3 y regístrese si lo desea");
-							Validador.VolverMenu();
-
-						}
-						break;
-					case 2:
 						Console.Clear();
 						nombre = Validador.ValidarStringNoVacioSistema("\n\n Ingrese Usuario Corporativo: ");
 						posUsuarioC = BuscarUsuarioCorporativoNombre(nombre);
@@ -270,15 +128,12 @@ namespace AplicacionCAI
 
 						}
 						break;
-					case 3:
-						ValidacionSupervisor();
-						break;
-					case 4:
+					case 2:
 						MenuRegistroUsuario();
 						break;
 
 				}
-			} while (opcion != 5);
+			} while (opcion != 3);
 
 			Validador.Despedida();
 		}
