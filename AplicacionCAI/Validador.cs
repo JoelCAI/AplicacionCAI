@@ -196,6 +196,83 @@ namespace AplicacionCAI
 
         }
 
+        public static string PedirCodigoProducto(string mensaje, int min, int max)
+        {
+            string valor;
+            bool valido = false;
+            string mensajeMenu = "\n El número de caracteres a ingresar es entre " + min + " y " + max;
+            string mensajeError = "\n El valor no puede ser vacio y tiene que estar dentro del rango solicitado. ";
+
+            do
+            {
+
+                Console.WriteLine(mensaje);
+                Console.WriteLine(mensajeMenu);
+
+                valor = Console.ReadLine().ToUpper();
+
+
+                if (valor.Length < min || valor.Length > max)
+                {
+                    Console.Clear();
+                    Console.WriteLine(mensajeError);
+
+                }
+                if (DiccionarioProducto.Existe(valor))
+                {
+                    Console.Clear();
+                    Console.WriteLine("El codigo ya existe");
+                    continue;
+                }
+                else
+                {
+
+                    valido = true;
+
+                }
+
+            } while (!valido);
+
+
+            return valor;
+
+        }
+
+        public static int PedirDniUsuario(string mensaje, int min, int max)
+        {
+            int valor;
+            bool valido = false;
+            string mensajeMenu = "\n Ingrese un valor entre " + min + " y " + max;
+            string mensajeError = "\n El valor no puede ser vacio y tiene que estar entre el rango del Menu solicitado. ";
+
+            do
+            {
+
+                Console.WriteLine(mensaje);
+                Console.WriteLine(mensajeMenu);
+
+                if (!int.TryParse(Console.ReadLine(), out valor) || valor < min || valor > max)
+                {
+                    Console.Clear();
+                    Console.WriteLine("\n");
+                    Console.WriteLine(mensajeError);
+                }
+                if (DiccionarioUsuario.UsuarioExiste(valor))
+                {
+                    Console.Clear();
+                    Console.WriteLine("El código ya existe, intente con otro");
+                    continue;
+                }
+                else
+                {
+                    valido = true;
+                }
+
+            } while (!valido);
+
+            return valor;
+        }
+
         public static string ValidarTipoRecargo(string mensaje)
         {
 
@@ -550,6 +627,8 @@ namespace AplicacionCAI
 
             return opcion;
         }
+
+
 
         public static string ExtraerCodigoProducto(decimal peso, string distancia)
         {

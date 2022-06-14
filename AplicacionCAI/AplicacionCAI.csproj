@@ -43,7 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClienteCorporativo.cs" />
+    <Compile Include="DiccionarioProducto.cs" />
+    <Compile Include="DiccionarioUsuario.cs" />
     <Compile Include="Factura.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Pedido.cs" />
@@ -53,8 +54,6 @@
     <Compile Include="Reclamo.cs" />
     <Compile Include="SistemaPrincipal.cs" />
     <Compile Include="Usuario.cs" />
-    <Compile Include="UsuarioCorporativo.cs" />
-    <Compile Include="UsuarioMain.cs" />
     <Compile Include="Validador.cs" />
   </ItemGroup>
   <ItemGroup>

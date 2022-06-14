@@ -48,6 +48,11 @@ namespace AplicacionCAI
 			set { this._distanciaProducto = value; }
 		}
 
+		public Producto()
+        {
+
+        }
+
 		public Producto(string codigoProducto, string nombreProducto, decimal pesoProducto,
 						decimal precioProducto, string distanciaProducto)
 		{
@@ -59,6 +64,37 @@ namespace AplicacionCAI
 			this._distanciaProducto = distanciaProducto;
 		}
 
-		
+		public static Producto CrearNuevoProducto(string codigoNuevoProducto)
+        {
+			var producto = new Producto();
+			return producto;
+        }
+
+		public void EditarProducto()
+        {
+
+        }
+
+		public void BuscarProducto()
+        {
+
+        }
+
+		public void VerProducto()
+		{
+
+		}
+
+		public string DatosProducto
+        {
+			get
+            {
+				return $"\n Codigo de producto es: {CodigoProducto}," +
+					   $"\n Nombre de Producto es: {NombreProducto},";
+            }
+        }
+
+
+
 	}
 }
