@@ -13,6 +13,7 @@ namespace AplicacionCAI
         public static void AgregarProducto(Producto producto)
         {
 
+
         }
 
         public static Producto SelecccionarProducto()
@@ -28,6 +29,7 @@ namespace AplicacionCAI
         public static bool Existe(string codigoProductoNuevo)
         {
             throw new NotImplementedException();
+            Console.WriteLine("");
         }
     }
 }
