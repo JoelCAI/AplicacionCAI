@@ -7,12 +7,39 @@ using System.IO;
 
 namespace AplicacionCAI
 {
-    internal class DiccionarioUsuario
+    static class DiccionarioUsuario
     {
         /* esto va a estar disponible para cada uno de los metodos de la clase */
         /* Readonly significa que una vez que se crea el diccionario ya no se modifica los datos. */
         private static readonly Dictionary<int, Usuario> usuarioDiccionario = new Dictionary<int, Usuario>();
 
+        const string archivoUsuario = "usuarioLista.txt";
+
+
+        /*  */
+        static DiccionarioUsuario()
+        {
+            usuarioDiccionario = new Dictionary<int, Usuario>();
+
+            if (File.Exists(archivoUsuario))
+
+            {
+                using (var reader = new StreamReader(archivoUsuario))
+
+                {
+
+                    while (!reader.EndOfStream)
+                    {
+                        var linea = reader.ReadLine();
+                        var usuario = new Usuario(linea);
+                        usuarioDiccionario.Add(usuario.DniUsuario, usuario);
+                    }
+
+                }
+
+            }
+
+        }
 
         public static void AgregarUsuario(Usuario usuario)
 
@@ -30,10 +57,45 @@ namespace AplicacionCAI
             return usuarioDiccionario.ContainsKey(dni);
         }
 
-        public static Usuario SeleccionarUsuario()
+        public static Usuario BuscarUsuarioDni()
         {
-            throw new NotImplementedException();
+            var dni = Usuario.ValidarDni();
+  
+            foreach (var usuario in usuarioDiccionario.Values)
+            {
+                if (usuario.CompararDniCoincidencia(dni))
+                {
+                    return usuario;
+                }
+            }
+            Console.Clear();
+            Console.WriteLine("\n No se ha encontrado el usuario ingresado");
+            Validador.VolverMenu();
+            Program.Menu();
+            
+            return dni;
         }
+
+        public static Usuario BuscarUsuarioClave()
+        {
+            var clave = Usuario.ValidarClave();
+
+            foreach (var usuario in usuarioDiccionario.Values)
+            {
+                if (usuario.CompararClaveCoincidencia(clave))
+                {
+                    return usuario;
+                }
+            }
+            Console.Clear();
+            Console.WriteLine("\n No se ha encontrado el usuario ingresado");
+            Validador.VolverMenu();
+            Program.Menu();
+            return null;
+        }
+
+
+
 
 
     }

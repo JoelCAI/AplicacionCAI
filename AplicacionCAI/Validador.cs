@@ -38,6 +38,63 @@ namespace AplicacionCAI
 
         }
 
+        public static int PedirIntMenuInicial(string mensaje, int min, int max)
+        {
+            int valor;
+            bool valido = false;
+            string mensajeMenu = "\n Ingrese un valor entre " + min + " y " + max;
+            //string mensajeError = "\n El valor no puede ser vacio y tiene que estar entre el rango del Menu solicitado. ";
+
+            int contador = 2;
+            string dato;
+
+            do
+            {
+
+                Console.WriteLine(mensaje);
+                Console.WriteLine(mensajeMenu);
+
+                //Console.WriteLine("\n Le queda: *" + contador + "* intento y volverá al Menú Principal");
+
+                dato = Console.ReadLine();
+
+                if (!int.TryParse(dato, out valor) || valor < min || valor > max)
+                {
+                    Console.Clear();
+                    Console.WriteLine("\n Usted ingreso caracteres o valores que no están en el rango solicitado");
+                    Console.WriteLine(mensajeMenu);
+                    Validador.VolverMenu();
+                    Program.Menu();
+
+                    contador--;
+                   
+                }
+                if (contador == 0)
+                {
+                    Validador.VolverMenu();
+                    Program.Menu();
+                    
+                }
+                if (dato == "")
+                {
+                    Console.WriteLine("\n Usted presiono solo la tecla Enter");
+                    Validador.VolverMenu();
+                    Program.Menu();
+                   
+                }
+                else
+                {
+                    valido = true;
+                }
+                contador--;
+                
+
+            } while (!valido && contador != 0);
+
+            return valor;
+
+        }
+
         public static decimal CalcularPrecio(decimal pesoProducto, string distanciaProducto)
         {
             decimal precioProducto =0;
@@ -167,11 +224,15 @@ namespace AplicacionCAI
             string mensajeMenu = "\n El número de caracteres a ingresar es entre " + min + " y " + max;
             string mensajeError = "\n El valor no puede ser vacio y tiene que estar dentro del rango solicitado. ";
 
+            int contador = 2;
+            
+
             do
             {
-
+                Console.Clear();
                 Console.WriteLine(mensaje);
                 Console.WriteLine(mensajeMenu);
+                Console.WriteLine(mensajeError);
 
                 valor = Console.ReadLine().ToUpper();
 
@@ -179,7 +240,28 @@ namespace AplicacionCAI
                 if (valor.Length < min || valor.Length > max)
                 {
                     Console.Clear();
-                    Console.WriteLine(mensajeError);
+                    Console.WriteLine("\n Usted ingreso caracteres o valores que no están en el rango solicitado");
+                    Console.WriteLine(mensajeMenu);
+                    VolverMenu();
+                    Program.Menu();
+
+                    contador--;
+
+                }
+                if (contador == 0)
+                {
+                    Console.Clear();
+                    VolverMenu();
+                    Program.Menu();
+
+                    contador--;
+                }
+                if (valor == "")
+                {
+                    Console.Clear();
+                    Console.WriteLine("\n Usted presiono solo la tecla Enter");
+                    VolverMenu();
+                    Program.Menu();
 
                 }
                 else
@@ -188,6 +270,7 @@ namespace AplicacionCAI
                     valido = true;
 
                 }
+                contador--;
 
             } while (!valido);
 

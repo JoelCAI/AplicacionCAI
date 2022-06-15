@@ -29,7 +29,7 @@ namespace AplicacionCAI
         public static bool Existe(string codigoProductoNuevo)
         {
             throw new NotImplementedException();
-            Console.WriteLine("");
+            
         }
     }
 }
