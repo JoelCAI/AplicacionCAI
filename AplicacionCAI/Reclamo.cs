@@ -8,6 +8,7 @@ namespace AplicacionCAI
 {
     internal class Reclamo
     {
+        /*
         private int _codigoPedidoReclamo;
         private string _motivoReclamo;
         private int _codigoPedido;
@@ -43,5 +44,6 @@ namespace AplicacionCAI
         {
 
         }
+        */
     }
 }

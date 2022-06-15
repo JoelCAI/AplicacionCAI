@@ -159,8 +159,28 @@ namespace AplicacionCAI
 
         }
 
+		public static Usuario CrearModeloBusqueda()
+		{
+			var modelo = new Usuario();
 
- 	
+			modelo.DniUsuario = Validador.PedirIntMenu("Por favor ingresar el numero de dni autorizado para continuar",10_000_00,99_999_999);
+
+
+			return modelo;
+		}
+
+		public bool CoincideCon(Usuario modelo)
+		{
+
+			if (modelo.DniUsuario != 0 && DniUsuario != modelo.DniUsuario)
+			{
+				return false;
+			}
+
+			return true;
+		}
+
+
 
 		public void MenuUsuario(List<Producto> producto, List<Pedido> pedido, List<Factura> factura,
 								List<Reclamo> reclamo, List<Item> item)

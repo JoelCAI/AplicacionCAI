@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DiccionarioPedido.cs" />
     <Compile Include="DiccionarioProducto.cs" />
     <Compile Include="DiccionarioUsuario.cs" />
     <Compile Include="Factura.cs" />
@@ -52,7 +53,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reclamo.cs" />
-    <Compile Include="SistemaPrincipal.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Validador.cs" />
   </ItemGroup>
