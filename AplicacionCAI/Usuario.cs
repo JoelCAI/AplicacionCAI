@@ -8,67 +8,67 @@ namespace AplicacionCAI
 {
     internal class Usuario
     {
-		private List<Pedido> _pedido;
-		private List<Factura> _factura;
-		private List<Reclamo> _reclamo;
-		private List<Item> _item;
-		private List<Producto> _producto;
+		private List<Pedido> pedido;
+		private List<Factura> factura;
+		private List<Reclamo> reclamo;
+		private List<Item> item;
+		private List<Producto> producto;
 
-		protected int _dniUsuario;
-        protected string _nombreUsuario;
-        protected string _claveUsuario;
-        protected long _cuitCorporativo;
+		protected int dniUsuario;
+        protected string nombreUsuario;
+        protected string claveUsuario;
+        protected long cuitCorporativo;
 
 		public List<Pedido> Pedido
 		{
-			get { return this._pedido; }
-			set { this._pedido = value; }
+			get { return this.pedido; }
+			set { this.pedido = value; }
 		}
 
 		public List<Factura> Factura
 		{
-			get { return this._factura; }
-			set { this._factura = value; }
+			get { return this.factura; }
+			set { this.factura = value; }
 		}
 
 		public List<Reclamo> Reclamo
 		{
-			get { return this._reclamo; }
-			set { this._reclamo = value; }
+			get { return this.reclamo; }
+			set { this.reclamo = value; }
 		}
 
 		public List<Item> Item
 		{
-			get { return this._item; }
-			set { this._item = value; }
+			get { return this.item; }
+			set { this.item = value; }
 		}
 
 		public List<Producto> Producto
 		{
-			get { return this._producto; }
-			set { this._producto = value; }
+			get { return this.producto; }
+			set { this.producto = value; }
 		}
 
 		public string NombreUsuario
         {
-            get { return this._nombreUsuario; }
-            set { this._nombreUsuario = value; }
+            get { return this.nombreUsuario; }
+            set { this.nombreUsuario = value; }
         }
         public string ClaveUsuario
         {
-            get { return this._claveUsuario; }
-            set { this._claveUsuario = value; }
+            get { return this.claveUsuario; }
+            set { this.claveUsuario = value; }
         }
 
         public int DniUsuario
         {
-            get { return this._dniUsuario; }
-            set { this._dniUsuario = value; }
+            get { return this.dniUsuario; }
+            set { this.dniUsuario = value; }
         }
         public long CuitCorporativo
         {
-            get { return this._cuitCorporativo; }
-            set { this._cuitCorporativo = value; }
+            get { return this.cuitCorporativo; }
+            set { this.cuitCorporativo = value; }
         }
 
 		public Usuario()
@@ -80,10 +80,10 @@ namespace AplicacionCAI
         {
 
             var datos = linea.Split(';');
-            _dniUsuario = int.Parse(datos[0]);
-            _nombreUsuario = datos[1];
-            _cuitCorporativo = long.Parse(datos[2]);
-            _claveUsuario = datos[3];
+            dniUsuario = int.Parse(datos[0]);
+            nombreUsuario = datos[1];
+            cuitCorporativo = long.Parse(datos[2]);
+            claveUsuario = datos[3];
         }
 
 		public static Usuario CrearNuevoUsuario()
@@ -186,6 +186,7 @@ namespace AplicacionCAI
 			{
 				return false;
 			}
+			
 
 			return true;
 		}
@@ -201,6 +202,28 @@ namespace AplicacionCAI
 			return true;
 		}
 
+
+		private static string IngresarString(string mensaje)
+		{
+
+			Console.WriteLine(mensaje);
+
+			do
+			{
+				var ingreso = Console.ReadLine();
+
+				if (string.IsNullOrEmpty(ingreso))
+				{
+					Console.Clear();
+					Console.WriteLine("El ingreso no debe ser vacio");
+					continue;
+				}
+	
+
+				return ingreso;
+
+			} while (true);
+		}
 
 
 		public void MenuUsuario(List<Producto> producto, List<Pedido> pedido, List<Factura> factura,

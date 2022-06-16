@@ -10,6 +10,7 @@ namespace AplicacionCAI
     {
         static void Main(string[] args)
         {
+            Continuar();
             Menu();
            
          
@@ -80,6 +81,7 @@ namespace AplicacionCAI
                             }
                             else
                             {
+                                
                                 Console.WriteLine("Digitó una clave incorrecta, vuelvalo a intentar con los datos correctos");
                                 Validador.VolverMenu();
                             }
@@ -88,13 +90,24 @@ namespace AplicacionCAI
                         }
                         else
                         {
+                            
                             Console.WriteLine("No existe el usuario, intente con otro usuario");
+                            usuarioDni = null;
                             Validador.VolverMenu();
                         }
+                        
                         break;
+                    case 2:
+                        
+                    break;
 
                 }
             } while (ingreso != 2);
+
+        }
+
+        public static void Continuar()
+        {
 
         }
 
