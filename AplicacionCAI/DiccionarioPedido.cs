@@ -12,6 +12,7 @@ namespace AplicacionCAI
 
         private static readonly Dictionary<int, Pedido> pedidoDiccionario = new Dictionary<int, Pedido>();
 
+        
         const string archivoPedido = "pedidoLista.txt";
 
 
@@ -67,9 +68,9 @@ namespace AplicacionCAI
             using (var writer = new StreamWriter(archivoPedido, append: false))
             {
 
-                foreach (var servicio in pedidoDiccionario.Values)
+                foreach (var pedido in pedidoDiccionario.Values)
                 {
-                    var linea = servicio.ObtenerLineaDatos();
+                    var linea = pedido.ObtenerLineaDatos();
                     writer.WriteLine(linea);
                 }
 

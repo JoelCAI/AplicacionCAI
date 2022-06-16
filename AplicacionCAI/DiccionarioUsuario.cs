@@ -12,26 +12,31 @@ namespace AplicacionCAI
         /* esto va a estar disponible para cada uno de los metodos de la clase */
         /* Readonly significa que una vez que se crea el diccionario ya no se modifica los datos. */
         private static readonly Dictionary<int, Usuario> usuarioDiccionario = new Dictionary<int, Usuario>();
-
+            
+        
         const string archivoUsuario = "usuarioLista.txt";
 
-
+ 
         /*  */
         static DiccionarioUsuario()
         {
             usuarioDiccionario = new Dictionary<int, Usuario>();
 
+ 
             if (File.Exists(archivoUsuario))
 
             {
+                
+
                 using (var reader = new StreamReader(archivoUsuario))
 
                 {
-
+                    
                     while (!reader.EndOfStream)
                     {
                         var linea = reader.ReadLine();
                         var usuario = new Usuario(linea);
+                        
                         usuarioDiccionario.Add(usuario.DniUsuario, usuario);
                     }
 
@@ -40,6 +45,8 @@ namespace AplicacionCAI
             }
 
         }
+
+  
 
         public static void AgregarUsuario(Usuario usuario)
 
@@ -73,7 +80,7 @@ namespace AplicacionCAI
             Validador.VolverMenu();
             Program.Menu();
             
-            return dni;
+            return null;
         }
 
         public static Usuario BuscarUsuarioClave()

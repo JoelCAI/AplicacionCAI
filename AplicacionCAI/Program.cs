@@ -8,9 +8,13 @@ namespace AplicacionCAI
 {
     internal class Program
     {
+       
+       
+
         static void Main(string[] args)
         {
-            Menu();
+           
+           Menu();
            
          
 
@@ -18,6 +22,7 @@ namespace AplicacionCAI
 
         public static void Menu()
         {
+            
             int ingreso;
             int dni = 0;
             string nombre = "";
@@ -27,6 +32,7 @@ namespace AplicacionCAI
             do
             {
                 Console.Clear();
+                
                 ingreso = Validador.PedirIntMenu("\n Aplicación Corporativa." +
                                        "\n [1] Ingresar Como Usuario Corporativo. " +
                                        "\n [2] Salir del Sistema.", 1, 2);
@@ -80,6 +86,7 @@ namespace AplicacionCAI
                             }
                             else
                             {
+                                
                                 Console.WriteLine("Digitó una clave incorrecta, vuelvalo a intentar con los datos correctos");
                                 Validador.VolverMenu();
                             }
@@ -88,13 +95,24 @@ namespace AplicacionCAI
                         }
                         else
                         {
+                            
                             Console.WriteLine("No existe el usuario, intente con otro usuario");
+                            usuarioDni = null;
                             Validador.VolverMenu();
                         }
+                        
                         break;
+                    case 2:
+                        
+                    break;
 
                 }
             } while (ingreso != 2);
+
+        }
+
+        public static void Continuar()
+        {
 
         }
 
@@ -102,48 +120,11 @@ namespace AplicacionCAI
         {
             var pedido = Pedido.CrearPedido();
 
-            Console.WriteLine("\n El costo total por el pedido es: " + pedido.PrecioEncomienda);
-
-            do
-            {
-                string opcion1 = Validador.ValidarSioNo("¿Confirma Operacion de acuerdo a valor generado? Responder S/N");
-                
-
-                if (opcion1 == "SI")
-                {
-                    DiccionarioPedido.AgregarPedido(pedido);
-                    break;
-                }
-                if (opcion1 == "NO")
-                {
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("Por favor introducir un valor correcto");
-
-                }
-            } while (true);
-            Console.WriteLine("Pulse una tecla para continuar");
-            Console.ReadKey();
-            Console.Clear();
+            
 
         }
 
-        private static void ConsultaPedido()
-        {
-            var pedido = DiccionarioPedido.SeleccionarPedido();
-            if (pedido != null)
-            {
-                Console.Clear();
-                pedido.MostrarPedido();
-            }
-            Console.WriteLine("Pulse una tecla para continuar");
-            Console.ReadKey();
-            Console.Clear();
-        }
-
-
+ 
         public static void ConsultarEstadoPedido()
         {
 
@@ -163,14 +144,17 @@ namespace AplicacionCAI
         /* Alta Nuevo Producto */
         public static void CrearProducto(string codigoProductoNuevo)
         {
+            /*
             string valor = codigoProductoNuevo;
             var producto = Producto.CrearNuevoProducto(valor);
             DiccionarioProducto.AgregarProducto(producto);
+            */
         }
 
 
         public static void EliminarProducto()
         {
+            /*
             var producto = DiccionarioProducto.SelecccionarProducto();
             producto.VerProducto();
             Console.WriteLine("\n Usted va a eliminar a " + producto.DatosProducto);
@@ -186,21 +170,26 @@ namespace AplicacionCAI
                 producto.VerProducto();
                 Console.WriteLine("\n Como puede ver no se eliminó ningún Producto");
             }
+            */
             
         }
 
        
         public static void EditarProducto()
         {
+            /*
             var producto = DiccionarioProducto.SelecccionarProducto();
             producto.EditarProducto();
+            */
         }
 
         public static void BuscarProducto()
         {
+
             
-            var producto = DiccionarioProducto.SelecccionarProducto();
-            producto.VerProducto();
+            //var producto = DiccionarioProducto.SelecccionarProducto();
+            //producto.VerProducto();
+            
         }
 
 
