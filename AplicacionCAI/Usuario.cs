@@ -8,82 +8,54 @@ namespace AplicacionCAI
 {
     internal class Usuario
     {
-		private List<Pedido> _pedido;
-		private List<Factura> _factura;
-		private List<Reclamo> _reclamo;
-		private List<Item> _item;
-		private List<Producto> _producto;
+		List<Usuario> usuarioLista;
+		protected int dniUsuario;
+        protected string nombreUsuario;
+        protected string claveUsuario;
+        protected long cuitCorporativo;
 
-		protected int _dniUsuario;
-        protected string _nombreUsuario;
-        protected string _claveUsuario;
-        protected long _cuitCorporativo;
-
-		public List<Pedido> Pedido
+		public List<Usuario> UsuarioLista
 		{
-			get { return this._pedido; }
-			set { this._pedido = value; }
-		}
-
-		public List<Factura> Factura
-		{
-			get { return this._factura; }
-			set { this._factura = value; }
-		}
-
-		public List<Reclamo> Reclamo
-		{
-			get { return this._reclamo; }
-			set { this._reclamo = value; }
-		}
-
-		public List<Item> Item
-		{
-			get { return this._item; }
-			set { this._item = value; }
-		}
-
-		public List<Producto> Producto
-		{
-			get { return this._producto; }
-			set { this._producto = value; }
+			get { return this.usuarioLista; }
+			set { this.usuarioLista = value; }
 		}
 
 		public string NombreUsuario
         {
-            get { return this._nombreUsuario; }
-            set { this._nombreUsuario = value; }
+            get { return this.nombreUsuario; }
+            set { this.nombreUsuario = value; }
         }
         public string ClaveUsuario
         {
-            get { return this._claveUsuario; }
-            set { this._claveUsuario = value; }
+            get { return this.claveUsuario; }
+            set { this.claveUsuario = value; }
         }
 
         public int DniUsuario
         {
-            get { return this._dniUsuario; }
-            set { this._dniUsuario = value; }
+            get { return this.dniUsuario; }
+            set { this.dniUsuario = value; }
         }
         public long CuitCorporativo
         {
-            get { return this._cuitCorporativo; }
-            set { this._cuitCorporativo = value; }
+            get { return this.cuitCorporativo; }
+            set { this.cuitCorporativo = value; }
         }
 
 		public Usuario()
         {
+			
 
-        }
+		}
 
         public Usuario(string linea)
         {
-
-            var datos = linea.Split(';');
-            _dniUsuario = int.Parse(datos[0]);
-            _nombreUsuario = datos[1];
-            _cuitCorporativo = long.Parse(datos[2]);
-            _claveUsuario = datos[3];
+			
+			var datos = linea.Split(';');
+            dniUsuario = int.Parse(datos[0]);
+            nombreUsuario = datos[1];
+            cuitCorporativo = long.Parse(datos[2]);
+            claveUsuario = datos[3];
         }
 
 		public static Usuario CrearNuevoUsuario()
@@ -186,6 +158,7 @@ namespace AplicacionCAI
 			{
 				return false;
 			}
+			
 
 			return true;
 		}
@@ -202,64 +175,30 @@ namespace AplicacionCAI
 		}
 
 
-
-		public void MenuUsuario(List<Producto> producto, List<Pedido> pedido, List<Factura> factura,
-								List<Reclamo> reclamo, List<Item> item)
+		private static string IngresarString(string mensaje)
 		{
-			
-			Producto = producto;
-			Pedido = pedido;
-			Factura = factura;
-			
-			Reclamo = reclamo;
-			Item = item;
 
-			/* Ojo ver esto*/
-			string codigoProducto ="";
+			Console.WriteLine(mensaje);
 
-			Console.Clear();
-			Console.WriteLine(" \n Bienvenido Usuario: " + NombreUsuario);
+			do
+			{
+				var ingreso = Console.ReadLine();
 
-					int opcion;
-					do
-					{
-						Console.Clear();
-						Console.WriteLine(" \n Bienvenido Usuario: " + NombreUsuario);
-						opcion = Validador.PedirIntMenu("\n Menu del Usuario Corporativo" +
-											   "\n [1] Generar Solicitud. " +
-											   "\n [2] Consultar Estado de Servicio. " +
-											   "\n [3] Consultar Estado de Cuenta. " +
-											   "\n [4] Emitir Factura. " +
-											   "\n [5] Generar Reclamo. " +
-											   "\n [6] Volver al Menú Inicial.", 1, 6);
+				if (string.IsNullOrEmpty(ingreso))
+				{
+					Console.Clear();
+					Console.WriteLine("El ingreso no debe ser vacio");
+					continue;
+				}
+	
 
-						switch (opcion)
-						{
-							case 1:
-							Program.CrearProducto(codigoProducto);
-								break;
-							case 2:
-							Program.EliminarProducto();
-							break;
-							case 3:
-							Program.EditarProducto();
-							break;
-							case 4:
-							Program.BuscarProducto();
-							break;
-							case 5:
-								break;
+				return ingreso;
 
-						}
-					} while (opcion != 6);
-
-
-
-			
-			
-
-
+			} while (true);
 		}
+
+
+		
 
 
 	}

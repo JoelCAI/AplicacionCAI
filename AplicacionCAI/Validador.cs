@@ -63,25 +63,25 @@ namespace AplicacionCAI
                     Console.Clear();
                     Console.WriteLine("\n Usted ingreso caracteres o valores que no están en el rango solicitado");
                     Console.WriteLine(mensajeMenu);
-                    Validador.VolverMenu();
-                    Program.Menu();
+                    VolverMenu();
+                    Program.Continuar();
 
                     contador--;
                    
                 }
-                if (contador == 0)
+                if (string.IsNullOrEmpty(dato))
                 {
-                    Validador.VolverMenu();
-                    Program.Menu();
+                    continue;
                     
                 }
                 if (dato == "")
                 {
                     Console.WriteLine("\n Usted presiono solo la tecla Enter");
                     Validador.VolverMenu();
-                    Program.Menu();
+                    Program.Continuar();
                    
                 }
+                
                 else
                 {
                     valido = true;
@@ -279,83 +279,7 @@ namespace AplicacionCAI
 
         }
 
-        public static string PedirCodigoProducto(string mensaje, int min, int max)
-        {
-            string valor;
-            bool valido = false;
-            string mensajeMenu = "\n El número de caracteres a ingresar es entre " + min + " y " + max;
-            string mensajeError = "\n El valor no puede ser vacio y tiene que estar dentro del rango solicitado. ";
-
-            do
-            {
-
-                Console.WriteLine(mensaje);
-                Console.WriteLine(mensajeMenu);
-
-                valor = Console.ReadLine().ToUpper();
-
-
-                if (valor.Length < min || valor.Length > max)
-                {
-                    Console.Clear();
-                    Console.WriteLine(mensajeError);
-
-                }
-                if (DiccionarioProducto.Existe(valor))
-                {
-                    Console.Clear();
-                    Console.WriteLine("El codigo ya existe");
-                    continue;
-                }
-                else
-                {
-
-                    valido = true;
-
-                }
-
-            } while (!valido);
-
-
-            return valor;
-
-        }
-
-        public static int PedirDniUsuario(string mensaje, int min, int max)
-        {
-            int valor;
-            bool valido = false;
-            string mensajeMenu = "\n Ingrese un valor entre " + min + " y " + max;
-            string mensajeError = "\n El valor no puede ser vacio y tiene que estar entre el rango del Menu solicitado. ";
-
-            do
-            {
-
-                Console.WriteLine(mensaje);
-                Console.WriteLine(mensajeMenu);
-
-                if (!int.TryParse(Console.ReadLine(), out valor) || valor < min || valor > max)
-                {
-                    Console.Clear();
-                    Console.WriteLine("\n");
-                    Console.WriteLine(mensajeError);
-                }
-                if (DiccionarioUsuario.UsuarioExiste(valor))
-                {
-                    Console.Clear();
-                    Console.WriteLine("El código ya existe, intente con otro");
-                    continue;
-                }
-                else
-                {
-                    valido = true;
-                }
-
-            } while (!valido);
-
-            return valor;
-        }
-
+ 
         public static string ValidarTipoRecargo(string mensaje)
         {
 
@@ -513,112 +437,7 @@ namespace AplicacionCAI
             return opcion;
         }
 
-        public static string ValidarSioNoItem(string mensaje)
-        {
-
-            string opcion;
-            bool valido = false;
-            string mensajeValidador = "\n Valores permitidos:" +
-                                      "\n *SI* ó" +
-                                      "\n *NO*";
-            string mensajeError = "\n Por favor ingrese el valor solicitado y que no sea vacio. ";
-
-            do
-            {
-                
-                Console.WriteLine(mensaje);
-                Console.WriteLine(mensajeError);
-                Console.WriteLine(mensajeValidador);
-                opcion = Console.ReadLine().ToUpper();
-                string opcionC = "SI";
-                string opcionD = "NO";
-
-                if (opcion == "" || (opcion != opcionC) & (opcion != opcionD))
-                {
-                    continue;
-
-                }
-                else
-                {
-                    valido = true;
-                }
-
-            } while (!valido);
-
-            return opcion;
-        }
-
-        public static long PedirLongMenu(string mensaje, long min, long max)
-        {
-
-            long valor;
-            bool valido = false;
-            string mensajeMenu = "\n Ingrese un valor entre " + min + " y " + max;
-            string mensajeError = "\n El valor no puede ser vacio y tiene que estar entre el rango del Menu solicitado. ";
-
-            do
-            {
-
-                Console.WriteLine(mensaje);
-                Console.WriteLine(mensajeMenu);
-
-                if (!long.TryParse(Console.ReadLine(), out valor) || valor < min || valor > max)
-                {
-                    Console.Clear();
-                    Console.WriteLine("\n");
-                    Console.WriteLine(mensajeError);
-                }
-                else
-                {
-                    valido = true;
-                }
-
-            } while (!valido);
-
-            return valor;
-
-        }
-
-        public static string ValidarSioNoProducto(string mensaje, string codigo, string nombre)
-        {
-
-            string opcion;
-            bool valido = false;
-            string mensajeValidador = "\n Valores permitidos:" +
-                                      "\n *SI* ó" +
-                                      "\n *NO*";
-            string mensajeError = "\n Por favor ingrese el valor solicitado y que no sea vacio. ";
-
-            string mensajeConfirmacion = "\n Producto a Borrar" +
-                                         "\n Código de Producto: " + codigo +
-                                         "\n Nombre de Producto: " + nombre;                                      
-
-            do
-            {
-                Console.Clear();
-                Console.WriteLine(mensaje);
-                Console.WriteLine(mensajeError);
-                Console.WriteLine(mensajeValidador);
-                Console.WriteLine(mensajeConfirmacion);
-                opcion = Console.ReadLine().ToUpper();
-                string opcionC = "SI";
-                string opcionD = "NO";
-
-                if (opcion == "" || (opcion != opcionC) & (opcion != opcionD))
-                {
-                    continue;
-
-                }
-                else
-                {
-                    valido = true;
-                }
-
-            } while (!valido);
-
-            return opcion;
-        }
-
+    
         public static DateTime ValidarFechaIngresada(string mensaje)
         {
             bool ingresoCorrecto;
@@ -646,7 +465,6 @@ namespace AplicacionCAI
 
             return fechaValida;
         }
-
 
         public static int PedirIntMayor(string mensaje, int min)
         {
@@ -710,8 +528,6 @@ namespace AplicacionCAI
 
             return opcion;
         }
-
-
 
         public static string ExtraerCodigoProducto(decimal peso, string distancia)
         {
