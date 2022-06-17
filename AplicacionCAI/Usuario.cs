@@ -58,78 +58,7 @@ namespace AplicacionCAI
             claveUsuario = datos[3];
         }
 
-		public static Usuario CrearNuevoUsuario()
-        {
-			var usuario = new Usuario();
-
-			Console.WriteLine("Ingrese el Dni del Usuario");
-
-			do
-			{
-				
-				var ingreso = Console.ReadLine();
-
-				if (!int.TryParse(ingreso, out var dni))
-                {
-					Console.Clear();
-					Console.WriteLine("No ha ingresado un correcto DNI");
-                }
-				if (dni < 10_000_000 || dni > 99_999_999)
-                {
-					Console.WriteLine("Recuerde que debe el Dni solo puede tener 8 cifras ");
-					Console.WriteLine("Vuelvalo a intentar considerando esta observación");
-					continue;
-				}
-				if (DiccionarioUsuario.UsuarioExiste(dni))
-                {
-					Console.WriteLine("El usuario Dni: *" + dni + "* ya existe. Intente con otro DNI.");
-					continue;
-				}
-
-			} while (usuario.DniUsuario == 0);
-
-			do
-			{
-				Console.WriteLine("Ingrese el nombre de la persona");
-				var ingreso = Console.ReadLine();
-
-				if (string.IsNullOrWhiteSpace(ingreso))
-                {
-					Console.WriteLine(" Recuerde que no se admite valores vacios. Ingrese el nombre.");
-					continue;
-                }
-				if (ingreso.Length < 6 || ingreso.Length > 9)
-				{
-					Console.Clear();
-					Console.WriteLine("Debe contener entre 6 y 9 caracteres");
-					continue;
-
-				}
-
-				bool ok = true;
-				for	(int i = 0; i < 10; i++)
-                {
-					if(ingreso.Contains(i.ToString()))
-                    {
-						Console.WriteLine("El nombre no puede contener números");
-						ok = false;
-						break;
-                    }
-                }
-				if (!ok)
-                {
-					continue;
-                }
-
-				usuario.NombreUsuario = ingreso;
-
-			} while (string.IsNullOrWhiteSpace(usuario.NombreUsuario));				
-
-
-			return usuario;
-
-
-        }
+		
 
 		public static Usuario ValidarDni()
 		{
@@ -175,27 +104,7 @@ namespace AplicacionCAI
 		}
 
 
-		private static string IngresarString(string mensaje)
-		{
-
-			Console.WriteLine(mensaje);
-
-			do
-			{
-				var ingreso = Console.ReadLine();
-
-				if (string.IsNullOrEmpty(ingreso))
-				{
-					Console.Clear();
-					Console.WriteLine("El ingreso no debe ser vacio");
-					continue;
-				}
-	
-
-				return ingreso;
-
-			} while (true);
-		}
+		
 
 
 		
