@@ -39,7 +39,8 @@ namespace AplicacionCAI
 		private string retiroEnSucursal;
 		private string retiroEnPuerta;
 
-		private decimal calculoPedido;
+		private decimal subTotalcalculoPedido;
+		private decimal totalcalculoPedido;
 
 
 		public int IdPedido
@@ -178,10 +179,16 @@ namespace AplicacionCAI
 			set { this.retiroEnPuerta = value; }
 		}
 
-		public decimal CalculoPedido
+		public decimal SubTotalCalculoPedido
 		{
-			get { return this.calculoPedido; }
-			set { this.calculoPedido = value; }
+			get { return this.subTotalcalculoPedido; }
+			set { this.subTotalcalculoPedido = value; }
+		}
+
+		public decimal TotalCalculoPedido
+		{
+			get { return this.totalcalculoPedido; }
+			set { this.totalcalculoPedido = value; }
 		}
 
 		public static int idContador = 1;
@@ -225,7 +232,8 @@ namespace AplicacionCAI
 			RetiroEnSucursal = datos[20];
 			RetiroEnPuerta = datos[21];
 
-			CalculoPedido = decimal.Parse(datos[22]);
+			SubTotalCalculoPedido = decimal.Parse(datos[22]);
+			TotalCalculoPedido = decimal.Parse(datos[23]);
 
 
 		}
@@ -278,6 +286,38 @@ namespace AplicacionCAI
 
 		}
 
+		public void MostrarPedidoMedio()
+		{
+			var usuario = DiccionarioUsuario.BuscarUsuarioDniUnico();
+
+			Console.Clear();
+			Console.WriteLine($"\n Estado del Pedido");
+
+			Console.WriteLine("\n Cuit: " + usuario.CuitCorporativo);
+			Console.WriteLine(" Razón Social: " + usuario.RazonSocial);
+
+			Console.WriteLine($"\n Id Pedido: {IdPedido}");
+			Console.WriteLine($" Estado: {EstadoPedido}");
+			Console.WriteLine($" Fecha de Pedido: {FechaPedido.ToLongDateString()}");
+
+			Console.WriteLine($"\n País de Origen: {PaisOrigen}");
+			Console.WriteLine($" Región de Origen: {RegionOrigen}");
+			Console.WriteLine($" Provincia de Origen: {ProvinciaOrigen}");
+			Console.WriteLine($" Localidad de Origen: {LocalidadOrigen}");
+			Console.WriteLine($" Domicilio de Origen: {DomicilioOrigen}");
+
+			Console.WriteLine($"\n País de Destino: {PaisDestino}");
+			Console.WriteLine($" Región de Destino: {RegionDestino}");
+			Console.WriteLine($" Provincia de Destino: {ProvinciaDestino}");
+			Console.WriteLine($" Localidad de Destino: {LocalidadDestino}");
+			Console.WriteLine($" Domicilio de Destino: {DomicilioDestino}");
+
+			Console.WriteLine($"\n Subtotal del Pedido: {SubTotalCalculoPedido}");
+
+			
+
+		}
+
 		public void MostrarPedidoFinal()
 		{
 			var usuario = DiccionarioUsuario.BuscarUsuarioDniUnico();
@@ -304,7 +344,16 @@ namespace AplicacionCAI
 			Console.WriteLine($" Localidad de Destino: {LocalidadDestino}");
 			Console.WriteLine($" Domicilio de Destino: {DomicilioDestino}");
 
-			Console.WriteLine($"\n Monto del Pedido: {CalculoPedido}");
+			Console.WriteLine($"\n Subtotal del Pedido: {SubTotalCalculoPedido}");
+
+			Console.WriteLine($"\n Tipo de Recargo: ");
+			Console.WriteLine($" Recargo Urgente (+30%): {Urgente}");
+			Console.WriteLine($" Retiro en Sucursal (+5%) : {RetiroEnSucursal}");
+			Console.WriteLine($" Retiro en Puerta (+15%): {RetiroEnPuerta}");
+
+			Console.WriteLine($"\n Total del Pedido con el Recargo incluido: {TotalCalculoPedido}");
+
+
 
 			Console.WriteLine("\n Presione cualquier tecla para continuar");
 			Console.ReadKey();
@@ -327,19 +376,21 @@ namespace AplicacionCAI
 			int opcion1;
 			int opcion2;
 			int opcion3;
+			int opcion4;
 
 			string continuarUno;
 			string continuarDos;
+			string continuarTres;
 
 			string direccionUno;
 			string direccionDos;
 
 			string seguirUno;
-			string seguirDos;
+			//string seguirDos;
 			//string seguirTres;
 
 			int validar = 0;
-
+			//int validarDos = 0;
 
 			do
 			{
@@ -434,7 +485,7 @@ namespace AplicacionCAI
 
 												{
 													Console.Clear();
-													Console.WriteLine("\n Usted decidió no continuar, volvera al Menú Anterior");
+													Console.WriteLine("\n Usted decidió no continuar");
 													Validador.VolverMenu();
 													opcion3 = 5;
 													opcion2 = 25;
@@ -467,7 +518,8 @@ namespace AplicacionCAI
 												else
 												{
 													Console.Clear();
-													Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+													Console.WriteLine("Usted decidió no continuar");
+													Validador.VolverMenu();
 													break;
 												}
 											case 3:
@@ -495,7 +547,8 @@ namespace AplicacionCAI
 												else
 												{
 													Console.Clear();
-													Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+													Console.WriteLine("Usted decidió no continuar");
+													Validador.VolverMenu();
 													break;
 												}
 											case 4:
@@ -523,7 +576,8 @@ namespace AplicacionCAI
 												else
 												{
 													Console.Clear();
-													Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+													Console.WriteLine("Usted decidió no continuar");
+													Validador.VolverMenu();
 													break;
 												}
 
@@ -604,7 +658,7 @@ namespace AplicacionCAI
 												else
 												{
 													Console.Clear();
-													Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+													Console.WriteLine("Usted decidió no continuar");
 													Validador.VolverMenu();
 													opcion3 = 4;
 													opcion2 = 4;
@@ -639,7 +693,7 @@ namespace AplicacionCAI
 												else
 												{
 													Console.Clear();
-													Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+													Console.WriteLine("Usted decidió no continuar");
 													Validador.VolverMenu();
 													opcion3 = 4;
 													opcion2 = 4;
@@ -777,7 +831,7 @@ namespace AplicacionCAI
 													else
 													{
 														Console.Clear();
-														Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+														Console.WriteLine("Usted decidió no continuar");
 														Validador.VolverMenu();
 														opcion3 = 5;
 														opcion2 = 25;
@@ -811,7 +865,8 @@ namespace AplicacionCAI
 													else
 													{
 														Console.Clear();
-														Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+														Console.WriteLine("Usted decidió no continuar");
+														Validador.VolverMenu();
 														opcion3 = 5;
 														opcion2 = 25;
 														opcion1 = 7;
@@ -843,7 +898,8 @@ namespace AplicacionCAI
 													else
 													{
 														Console.Clear();
-														Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+														Console.WriteLine("Usted decidió no continuar");
+														Validador.VolverMenu();
 														opcion3 = 5;
 														opcion2 = 25;
 														opcion1 = 7;
@@ -879,7 +935,8 @@ namespace AplicacionCAI
 														opcion1 = 7;
 														validar = 1;
 														Console.Clear();
-														Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+														Console.WriteLine("Usted decidió no continuar");
+														Validador.VolverMenu();
 														break;
 													}
 
@@ -934,7 +991,7 @@ namespace AplicacionCAI
 													else
 													{
 														Console.Clear();
-														Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+														Console.WriteLine("Usted decidió no continuar");
 														Validador.VolverMenu();
 														opcion3 = 5;
 														opcion2 = 25;
@@ -968,7 +1025,8 @@ namespace AplicacionCAI
 													else
 													{
 														Console.Clear();
-														Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+														Console.WriteLine("Usted decidió no continuar");
+														Validador.VolverMenu();
 														opcion3 = 5;
 														opcion2 = 25;
 														opcion1 = 7;
@@ -1049,7 +1107,7 @@ namespace AplicacionCAI
 													else
 													{
 														Console.Clear();
-														Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+														Console.WriteLine("Usted decidió no continuar");
 														Validador.VolverMenu();
 														opcion3 = 4;
 														opcion2 = 6;
@@ -1084,7 +1142,7 @@ namespace AplicacionCAI
 													else
 													{
 														Console.Clear();
-														Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+														Console.WriteLine("Usted decidió no continuar");
 														Validador.VolverMenu();
 														opcion3 = 4;
 														opcion2 = 6;
@@ -1118,7 +1176,7 @@ namespace AplicacionCAI
 													else
 													{
 														Console.Clear();
-														Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+														Console.WriteLine("Usted decidió no continuar");
 														Validador.VolverMenu();
 														opcion3 = 4;
 														opcion2 = 6;
@@ -1153,18 +1211,20 @@ namespace AplicacionCAI
 
 			else if (seguirUno == "NO")
 			{
-				Console.Clear();
-				Console.WriteLine("\n Usted decidió no continuar, volverá al Menú Anterior");
 				validar = 1;
+				Console.Clear();
+				Console.WriteLine("Usted decidió no continuar");
 				Validador.VolverMenu();
+				
 
 			}
 			else if (pedido.PaisOrigen == null)
 			{
+				validar = 1;
 				Console.Clear();
 				Console.WriteLine("\n Usted decidió continuar pero no ingresó ningún destino de Origen," +
 								  "\n Volverá al Menú para que vuelva a intentarlo.");
-				validar = 1;
+				
 				Validador.VolverMenu();
 
 			}
@@ -1191,28 +1251,32 @@ namespace AplicacionCAI
 							{
 								if (peso <= peso500g)
 								{
-									pedido.CalculoPedido = servicioPrecio.PrecioServicio500g + servicioPrecio.PrecioServicioLocal;
-									Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-									Validador.VolverMenu();
+									pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio500g + servicioPrecio.PrecioServicioLocal;
+									Console.WriteLine("\n El monto total es: " + pedido.SubTotalCalculoPedido);
+									Console.WriteLine("\n Presione cualquier tecla para continuar");
+									Console.ReadKey();
 
 								}
 								else if (peso > peso500g && peso <= peso10Kg)
 								{
-									pedido.CalculoPedido = servicioPrecio.PrecioServicio10Kg + servicioPrecio.PrecioServicioLocal;
-									Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-									Validador.VolverMenu();
+									pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio10Kg + servicioPrecio.PrecioServicioLocal;
+									Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+									Console.WriteLine("\n Presione cualquier tecla para continuar");
+									Console.ReadKey();
 								}
 								else if (peso > peso10Kg && peso <= peso20Kg)
 								{
-									pedido.CalculoPedido = servicioPrecio.PrecioServicio20Kg + servicioPrecio.PrecioServicioLocal;
-									Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-									Validador.VolverMenu();
+									pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio20Kg + servicioPrecio.PrecioServicioLocal;
+									Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+									Console.WriteLine("\n Presione cualquier tecla para continuar");
+									Console.ReadKey();
 								}
 								else if (peso > peso20Kg && peso <= peso30Kg)
 								{
-									pedido.CalculoPedido = servicioPrecio.PrecioServicio30Kg + servicioPrecio.PrecioServicioLocal;
-									Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-									Validador.VolverMenu();
+									pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio30Kg + servicioPrecio.PrecioServicioLocal;
+									Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+									Console.WriteLine("\n Presione cualquier tecla para continuar");
+									Console.ReadKey();
 								}
 
 							}
@@ -1220,28 +1284,32 @@ namespace AplicacionCAI
 							{
 								if (peso <= peso500g)
 								{
-									pedido.CalculoPedido = servicioPrecio.PrecioServicio500g + servicioPrecio.PrecioServicioProvincial;
-									Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-									Validador.VolverMenu();
+									pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio500g + servicioPrecio.PrecioServicioProvincial;
+									Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+									Console.WriteLine("\n Presione cualquier tecla para continuar");
+									Console.ReadKey();
 
 								}
 								else if (peso > peso500g && peso <= peso10Kg)
 								{
-									pedido.CalculoPedido = servicioPrecio.PrecioServicio10Kg + servicioPrecio.PrecioServicioProvincial;
-									Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-									Validador.VolverMenu();
+									pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio10Kg + servicioPrecio.PrecioServicioProvincial;
+									Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+									Console.WriteLine("\n Presione cualquier tecla para continuar");
+									Console.ReadKey();
 								}
 								else if (peso > peso10Kg && peso <= peso20Kg)
 								{
-									pedido.CalculoPedido = servicioPrecio.PrecioServicio20Kg + servicioPrecio.PrecioServicioProvincial;
-									Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-									Validador.VolverMenu();
+									pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio20Kg + servicioPrecio.PrecioServicioProvincial;
+									Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+									Console.WriteLine("\n Presione cualquier tecla para continuar");
+									Console.ReadKey();
 								}
 								else if (peso > peso20Kg && peso <= peso30Kg)
 								{
-									pedido.CalculoPedido = servicioPrecio.PrecioServicio30Kg + servicioPrecio.PrecioServicioProvincial;
-									Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-									Validador.VolverMenu();
+									pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio30Kg + servicioPrecio.PrecioServicioProvincial;
+									Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+									Console.WriteLine("\n Presione cualquier tecla para continuar");
+									Console.ReadKey();
 								}
 
 							}
@@ -1251,28 +1319,32 @@ namespace AplicacionCAI
 						{
 							if (peso <= peso500g)
 							{
-								pedido.CalculoPedido = servicioPrecio.PrecioServicio500g + servicioPrecio.PrecioServicioRegional;
-								Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-								Validador.VolverMenu();
+								pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio500g + servicioPrecio.PrecioServicioRegional;
+								Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+								Console.WriteLine("\n Presione cualquier tecla para continuar");
+								Console.ReadKey();
 
 							}
 							else if (peso > peso500g && peso <= peso10Kg)
 							{
-								pedido.CalculoPedido = servicioPrecio.PrecioServicio10Kg + servicioPrecio.PrecioServicioRegional;
-								Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-								Validador.VolverMenu();
+								pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio10Kg + servicioPrecio.PrecioServicioRegional;
+								Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+								Console.WriteLine("\n Presione cualquier tecla para continuar");
+								Console.ReadKey();
 							}
 							else if (peso > peso10Kg && peso <= peso20Kg)
 							{
-								pedido.CalculoPedido = servicioPrecio.PrecioServicio20Kg + servicioPrecio.PrecioServicioRegional;
-								Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-								Validador.VolverMenu();
+								pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio20Kg + servicioPrecio.PrecioServicioRegional;
+								Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+								Console.WriteLine("\n Presione cualquier tecla para continuar");
+								Console.ReadKey();
 							}
 							else if (peso > peso20Kg && peso <= peso30Kg)
 							{
-								pedido.CalculoPedido = servicioPrecio.PrecioServicio30Kg + servicioPrecio.PrecioServicioRegional;
-								Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-								Validador.VolverMenu();
+								pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio30Kg + servicioPrecio.PrecioServicioRegional;
+								Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+								Console.WriteLine("\n Presione cualquier tecla para continuar");
+								Console.ReadKey();
 							}
 
 						}
@@ -1281,28 +1353,32 @@ namespace AplicacionCAI
 					{
 						if (peso <= peso500g)
 						{
-							pedido.CalculoPedido = servicioPrecio.PrecioServicio500g + servicioPrecio.PrecioServicioNacional;
-							Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-							Validador.VolverMenu();
+							pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio500g + servicioPrecio.PrecioServicioNacional;
+							Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+							Console.WriteLine("\n Presione cualquier tecla para continuar");
+							Console.ReadKey();
 
 						}
 						else if (peso > peso500g && peso <= peso10Kg)
 						{
-							pedido.CalculoPedido = servicioPrecio.PrecioServicio10Kg + servicioPrecio.PrecioServicioNacional;
-							Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-							Validador.VolverMenu();
+							pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio10Kg + servicioPrecio.PrecioServicioNacional;
+							Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+							Console.WriteLine("\n Presione cualquier tecla para continuar");
+							Console.ReadKey();
 						}
 						else if (peso > peso10Kg && peso <= peso20Kg)
 						{
-							pedido.CalculoPedido = servicioPrecio.PrecioServicio20Kg + servicioPrecio.PrecioServicioNacional;
-							Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-							Validador.VolverMenu();
+							pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio20Kg + servicioPrecio.PrecioServicioNacional;
+							Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+							Console.WriteLine("\n Presione cualquier tecla para continuar");
+							Console.ReadKey();
 						}
 						else if (peso > peso20Kg && peso <= peso30Kg)
 						{
-							pedido.CalculoPedido = servicioPrecio.PrecioServicio30Kg + servicioPrecio.PrecioServicioNacional;
-							Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-							Validador.VolverMenu();
+							pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio30Kg + servicioPrecio.PrecioServicioNacional;
+							Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+							Console.WriteLine("\n Presione cualquier tecla para continuar");
+							Console.ReadKey();
 						}
 
 					}
@@ -1314,28 +1390,32 @@ namespace AplicacionCAI
 				{
 					if (peso <= peso500g)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio500g + servicioPrecio.PrecioServicioPaisLimitrofe;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio500g + servicioPrecio.PrecioServicioPaisLimitrofe;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 
 					}
 					else if (peso > peso500g && peso <= peso10Kg)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio10Kg + servicioPrecio.PrecioServicioPaisLimitrofe;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio10Kg + servicioPrecio.PrecioServicioPaisLimitrofe;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 					}
 					else if (peso > peso10Kg && peso <= peso20Kg)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio20Kg + servicioPrecio.PrecioServicioPaisLimitrofe;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio20Kg + servicioPrecio.PrecioServicioPaisLimitrofe;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 					}
 					else if (peso > peso20Kg && peso <= peso30Kg)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio30Kg + servicioPrecio.PrecioServicioPaisLimitrofe;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio30Kg + servicioPrecio.PrecioServicioPaisLimitrofe;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 					}
 				}
 				else if ((pedido.PaisOrigen == "ARGENTINA" && pedido.ContinenteDestino == "RESTO DE AMERICA LATINA")
@@ -1343,28 +1423,32 @@ namespace AplicacionCAI
 				{
 					if (peso <= peso500g)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio500g + servicioPrecio.PrecioServicioRestoAmerica;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio500g + servicioPrecio.PrecioServicioRestoAmerica;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 
 					}
 					else if (peso > peso500g && peso <= peso10Kg)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio10Kg + servicioPrecio.PrecioServicioRestoAmerica;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio10Kg + servicioPrecio.PrecioServicioRestoAmerica;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 					}
 					else if (peso > peso10Kg && peso <= peso20Kg)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio20Kg + servicioPrecio.PrecioServicioRestoAmerica;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio20Kg + servicioPrecio.PrecioServicioRestoAmerica;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 					}
 					else if (peso > peso20Kg && peso <= peso30Kg)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio30Kg + servicioPrecio.PrecioServicioRestoAmerica;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio30Kg + servicioPrecio.PrecioServicioRestoAmerica;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 					}
 
 				}
@@ -1373,28 +1457,32 @@ namespace AplicacionCAI
 				{
 					if (peso <= peso500g)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio500g + servicioPrecio.PrecioServicioAmericaNorte;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio500g + servicioPrecio.PrecioServicioAmericaNorte;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 
 					}
 					else if (peso > peso500g && peso <= peso10Kg)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio10Kg + servicioPrecio.PrecioServicioAmericaNorte;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio10Kg + servicioPrecio.PrecioServicioAmericaNorte;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 					}
 					else if (peso > peso10Kg && peso <= peso20Kg)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio20Kg + servicioPrecio.PrecioServicioAmericaNorte;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio20Kg + servicioPrecio.PrecioServicioAmericaNorte;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 					}
 					else if (peso > peso20Kg && peso <= peso30Kg)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio30Kg + servicioPrecio.PrecioServicioAmericaNorte;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio30Kg + servicioPrecio.PrecioServicioAmericaNorte;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 					}
 
 				}
@@ -1403,28 +1491,32 @@ namespace AplicacionCAI
 				{
 					if (peso <= peso500g)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio500g + servicioPrecio.PrecioServicioEuropa;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio500g + servicioPrecio.PrecioServicioEuropa;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 
 					}
 					else if (peso > peso500g && peso <= peso10Kg)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio10Kg + servicioPrecio.PrecioServicioEuropa;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio10Kg + servicioPrecio.PrecioServicioEuropa;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey(); ;
 					}
 					else if (peso > peso10Kg && peso <= peso20Kg)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio20Kg + servicioPrecio.PrecioServicioEuropa;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio20Kg + servicioPrecio.PrecioServicioEuropa;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 					}
 					else if (peso > peso20Kg && peso <= peso30Kg)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio30Kg + servicioPrecio.PrecioServicioEuropa;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio30Kg + servicioPrecio.PrecioServicioEuropa;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 					}
 
 				}
@@ -1433,28 +1525,32 @@ namespace AplicacionCAI
 				{
 					if (peso <= peso500g)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio500g + servicioPrecio.PrecioServicioAsia;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio500g + servicioPrecio.PrecioServicioAsia;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 
 					}
 					else if (peso > peso500g && peso <= peso10Kg)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio10Kg + servicioPrecio.PrecioServicioAsia;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio10Kg + servicioPrecio.PrecioServicioAsia;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 					}
 					else if (peso > peso10Kg && peso <= peso20Kg)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio20Kg + servicioPrecio.PrecioServicioAsia;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio20Kg + servicioPrecio.PrecioServicioAsia;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 					}
 					else if (peso > peso20Kg && peso <= peso30Kg)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio30Kg + servicioPrecio.PrecioServicioAsia;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio30Kg + servicioPrecio.PrecioServicioAsia;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 					}
 
 				}
@@ -1463,28 +1559,32 @@ namespace AplicacionCAI
 				{
 					if (peso <= peso500g)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio500g + servicioPrecio.PrecioServicioRestoMundo;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio500g + servicioPrecio.PrecioServicioRestoMundo;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 
 					}
 					else if (peso > peso500g && peso <= peso10Kg)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio10Kg + servicioPrecio.PrecioServicioRestoMundo;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio10Kg + servicioPrecio.PrecioServicioRestoMundo;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 					}
 					else if (peso > peso10Kg && peso <= peso20Kg)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio20Kg + servicioPrecio.PrecioServicioRestoMundo;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio20Kg + servicioPrecio.PrecioServicioRestoMundo;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 					}
 					else if (peso > peso20Kg && peso <= peso30Kg)
 					{
-						pedido.CalculoPedido = servicioPrecio.PrecioServicio30Kg + servicioPrecio.PrecioServicioRestoAmerica;
-						Console.WriteLine("El monto total es: " + pedido.CalculoPedido);
-						Validador.VolverMenu();
+						pedido.SubTotalCalculoPedido = servicioPrecio.PrecioServicio30Kg + servicioPrecio.PrecioServicioRestoAmerica;
+						Console.WriteLine("El monto total es: " + pedido.SubTotalCalculoPedido);
+						Console.WriteLine("\n Presione cualquier tecla para continuar");
+						Console.ReadKey();
 					}
 
 				}
@@ -1498,21 +1598,122 @@ namespace AplicacionCAI
 			{
 				Console.Clear();
 
-				Console.WriteLine("Usted decidió no continuar, volverá al Menú Anterior");
+				Console.WriteLine("Usted decidió no continuar");
 				Validador.VolverMenu();
 			}
 
 
 
-			if (pedido.CalculoPedido != 0)
+			if (validar !=1)
 			{
-		
-				seguirDos = pedido.ValidarSioNoPedidoFinal("¿Desea generar el Pedido?");
+				do
+				{
+
+					Console.Clear();
+					opcion4 = Validador.PedirIntMenu("\n Elegir el tipo de Recargo" +
+									"\n [1]	 URGENTE (+ 30% SOBRE EL SUBTOTAL)"  +
+									"\n [2]  RETIRO EN PUERTA (+ 15% SOBRE EL SUBTOTAL)" +
+									"\n [3]  RETIRO EN SUCURSAL (+ 5% SOBRE EL SUBTOTAL)" +
+									"\n [4]  SALIR Y VOLVER AL MENU SIN CARGAR EL PEDIDO", 1, 4);
+
+					switch (opcion4)
+					{
+						case 1:
+							Console.Clear();
+							
+							continuarTres = pedido.ValidarSioNoPedidoMedio("\n ¿Desea agregar este Recargo?" +
+																	       "\n Sera de + 30% sobre el Subtotal del Pedido: ");
+							if (continuarTres == "SI")
+							{
+								
+								pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido * servicioPrecio.PrecioServicioUrgente;
+								pedido.Urgente = "SI (+30%)";
+								pedido.RetiroEnPuerta = "NO";
+								pedido.RetiroEnSucursal = "NO";
+								
+								opcion4 = 4;
+
+								break;
+
+							}
+							else
+							{
+								Console.Clear();
+								Console.WriteLine("\n Usted decidió no continuar");
+								Validador.VolverMenu();
+								opcion4 = 4;
+								
+								break;
+							}
+
+						case 2:
+							Console.Clear();
+
+							continuarTres = pedido.ValidarSioNoPedidoMedio("\n ¿Desea agregar este Recargo?" +
+																		   "\n Sera de + 15% sobre el Subtotal del Pedido: ");
+							if (continuarTres == "SI")
+							{
+
+								pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido * servicioPrecio.PrecioServicioEnPuerta;
+								pedido.Urgente = "NO";
+								pedido.RetiroEnPuerta = "SI (+15%)";
+								pedido.RetiroEnSucursal = "NO";
+								
+								opcion4 = 4;
+
+								break;
+
+							}
+							else
+							{
+								Console.Clear();
+								Console.WriteLine("\n Usted decidió no continuar");
+								Validador.VolverMenu();
+								opcion4 = 4;
+								
+								break;
+							}
+						case 3:
+							Console.Clear();
+
+							continuarTres = pedido.ValidarSioNoPedidoMedio("\n ¿Desea agregar este Recargo?" +
+																		   "\n Sera de + 5% sobre el Subtotal del Pedido: ");
+							if (continuarTres == "SI")
+							{
+
+								pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido * servicioPrecio.PrecioServicioEnSucursal;
+								pedido.Urgente = "NO";
+								pedido.RetiroEnPuerta = "NO";
+								pedido.RetiroEnSucursal = "SI (+5%)";
+								
+								opcion4 = 4;
+
+								break;
+
+							}
+							else
+							{
+								Console.Clear();
+								Console.WriteLine("\n Usted decidió no continuar");
+								Validador.VolverMenu();
+								opcion4 = 4;
+								
+								break;
+							}
+
+					}
+
+				} while (opcion4 != 4);
+
+
+				
 
 			}
 
-
-
+			
+			pedido.MostrarPedidoFinal();
+			
+			
 
 
 
@@ -1534,6 +1735,42 @@ namespace AplicacionCAI
 			{
 				Console.Clear();
 				MostrarPedidoInicio();
+				Console.WriteLine(mensaje);
+				Console.WriteLine(mensajeError);
+				Console.WriteLine(mensajeValidador);
+				opcion = Console.ReadLine().ToUpper();
+				string opcionC = "SI";
+				string opcionD = "NO";
+
+				if (opcion == "" || (opcion != opcionC) & (opcion != opcionD))
+				{
+					continue;
+
+				}
+				else
+				{
+					valido = true;
+				}
+
+			} while (!valido);
+
+			return opcion;
+		}
+
+		private string ValidarSioNoPedidoMedio(string mensaje)
+		{
+
+			string opcion;
+			bool valido = false;
+			string mensajeValidador = "\n Valores permitidos:" +
+									  "\n *SI* ó" +
+									  "\n *NO*";
+			string mensajeError = "\n Por favor ingrese el valor solicitado y que no sea vacio. ";
+
+			do
+			{
+				Console.Clear();
+				MostrarPedidoMedio();
 				Console.WriteLine(mensaje);
 				Console.WriteLine(mensajeError);
 				Console.WriteLine(mensajeValidador);
