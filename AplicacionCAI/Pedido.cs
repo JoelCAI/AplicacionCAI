@@ -28,7 +28,7 @@ namespace AplicacionCAI
 
 		private decimal precioEncomienda;
 		private decimal pesoEncomienda;
-		//public decimal ValorDeclarado;
+		
 
 		private long cuitCorporativo;
 		private string razonSocialCorporativo;
@@ -261,6 +261,33 @@ namespace AplicacionCAI
 
 		}
 
+		public void MostrarPedidoMedio()
+		{
+			Console.Clear();
+			Console.WriteLine($"\n Estado del Pedido");
+
+			Console.WriteLine($"\n Id Pedido: EN CREACIÓN");
+			Console.WriteLine($" Estado: {IdPedido}");
+			Console.WriteLine($" Fecha de Pedido: {FechaPedido.ToLongDateString()}");
+
+			Console.WriteLine($"\n País de Origen: {PaisOrigen}");
+			Console.WriteLine($" Región de Origen: {RegionOrigen}");
+			Console.WriteLine($" Provincia de Origen: {ProvinciaOrigen}");
+			Console.WriteLine($" Localidad de Origen: {LocalidadOrigen}");
+			Console.WriteLine($" Domicilio de Origen: {DomicilioOrigen}");
+
+
+			Console.WriteLine($"\n País de Destino: {PaisDestino}");
+			Console.WriteLine($" Región de Destino: {RegionDestino}");
+			Console.WriteLine($" Provincia de Destino: {ProvinciaDestino}");
+			Console.WriteLine($" Localidad de Destino: {LocalidadDestino}");
+			Console.WriteLine($" Domicilio de Destino: {DomicilioDestino}");
+
+			Console.WriteLine("\n Presione cualquier tecla para continuar");
+			Console.ReadKey();
+
+		}
+
 
 		public static Pedido CrearPedido()
 		{
@@ -271,36 +298,22 @@ namespace AplicacionCAI
 			
 			pedido.EstadoPedido = "INICIADO";
 
-			//testing metodo
-			pedido.FechaPedido = DateTime.Now;
-			//pedido.PaisOrigen = "ARGENTINA";
-			//pedido.RegionOrigen = "CUYO";
-			//pedido.ProvinciaOrigen = "MENDOZA";
-			//pedido.LocalidadOrigen = "CAPITAL";
-			//pedido.DomicilioOrigen = "123";
-			pedido.PaisDestino = "URUGUAY";
-			pedido.RegionDestino = "SUR";
-			pedido.ProvinciaDestino = "ARTIGAZ";
-			pedido.LocalidadDestino = "CANELONES";
-			pedido.DomicilioDestino = "456";
-			pedido.PrecioEncomienda = 1.65m;
-			pedido.PesoEncomienda = 16.45m;
-			pedido.CuitCorporativo = 123456789123;
-			pedido.RazonSocialCorporativo = "ASD";
-			pedido.Urgente = "SI";
-			pedido.RetiroEnSucursal = "NO";
-			pedido.RetiroEnPuerta = "SI";
-
 			
+			pedido.FechaPedido = DateTime.Now;
 			
 			int opcion1;
 			int opcion2;
 			int opcion3;
 
-			string continuar1;
+			string continuarUno;
+			string continuarDos;
 
-			string direccion1;
+			string direccionUno;
+			string direccionDos;
 
+			string seguirUno;
+			string seguirDos;
+			string seguirTres;
 			
 
 			do
@@ -370,18 +383,18 @@ namespace AplicacionCAI
 										{
 											case 1:
 												Console.Clear();
-												direccion1 = Validador.ValidarStringNoVacioSistema("\n Ingresar " +
+												direccionUno = Validador.ValidarStringNoVacioSistema("\n Ingresar " +
 													"dirección");
-												continuar1 = Validador.ValidarSioNo("\n Usted seleccionó: " +
+												continuarUno = Validador.ValidarSioNo("\n Usted seleccionó: " +
 													"\n PAIS: ARGENTINA, \n PROVINCIA: BUENOS AIRES, " +
-													"\n REGION: CENTRO \n LOCALIDAD: QUILMES, \n DIRECCIÓN: *" + direccion1 + "* \n\n desea continuar?");
-												if (continuar1 == "SI")
+													"\n REGION: CENTRO \n LOCALIDAD: QUILMES, \n DIRECCIÓN: *" + direccionUno + "* \n\n desea continuar?");
+												if (continuarUno == "SI")
 												{
 													pedido.PaisOrigen = "ARGENTINA";
 													pedido.RegionOrigen = "CENTRO";
 													pedido.ProvinciaOrigen = "BUENOS AIRES";
 													pedido.LocalidadOrigen = "QUILMES";
-													pedido.DomicilioOrigen = direccion1;
+													pedido.DomicilioOrigen = direccionUno;
 
 													opcion3 = 5;
 													opcion2 = 25;
@@ -403,18 +416,18 @@ namespace AplicacionCAI
 											
 											case 2:
 												Console.Clear();
-												direccion1 = Validador.ValidarStringNoVacioSistema("\n Ingresar " +
+												direccionUno = Validador.ValidarStringNoVacioSistema("\n Ingresar " +
 													"dirección");
-												continuar1 = Validador.ValidarSioNo("\n Usted seleccionó: " +
+												continuarUno = Validador.ValidarSioNo("\n Usted seleccionó: " +
 													"\n PAIS: ARGENTINA, \n PROVINCIA: BUENOS AIRES, " +
-													"\n REGION: CENTRO \n LOCALIDAD: MAR DEL PLATA, \n DIRECCIÓN: *" + direccion1 + "* \n\n desea continuar?");
-												if (continuar1 == "SI")
+													"\n REGION: CENTRO \n LOCALIDAD: MAR DEL PLATA, \n DIRECCIÓN: *" + direccionUno + "* \n\n desea continuar?");
+												if (continuarUno == "SI")
 												{
 													pedido.PaisOrigen = "ARGENTINA";
 													pedido.RegionOrigen = "CENTRO";
 													pedido.ProvinciaOrigen = "BUENOS AIRES";
 													pedido.LocalidadOrigen = "MAR DEL PLATA";
-													pedido.DomicilioOrigen = direccion1;
+													pedido.DomicilioOrigen = direccionUno;
 
 													opcion3 = 5;
 													opcion2 = 25;
@@ -431,18 +444,18 @@ namespace AplicacionCAI
 												}
 											case 3:
 												Console.Clear();
-												direccion1 = Validador.ValidarStringNoVacioSistema("\n Ingresar " +
+												direccionUno = Validador.ValidarStringNoVacioSistema("\n Ingresar " +
 													"dirección");
-												continuar1 = Validador.ValidarSioNo("\n Usted seleccionó: " +
+												continuarUno = Validador.ValidarSioNo("\n Usted seleccionó: " +
 													"\n PAIS: ARGENTINA, \n PROVINCIA: BUENOS AIRES, " +
-													"\n REGION: CENTRO \n LOCALIDAD: LOBOS \n DIRECCIÓN: *" + direccion1 + "* \n\n desea continuar?");
-												if (continuar1 == "SI")
+													"\n REGION: CENTRO \n LOCALIDAD: LOBOS \n DIRECCIÓN: *" + direccionUno + "* \n\n desea continuar?");
+												if (continuarUno == "SI")
 												{
 													pedido.PaisOrigen = "ARGENTINA";
 													pedido.RegionOrigen = "CENTRO";
 													pedido.ProvinciaOrigen = "BUENOS AIRES";
 													pedido.LocalidadOrigen = "LOBOS";
-													pedido.DomicilioOrigen = direccion1;
+													pedido.DomicilioOrigen = direccionUno;
 
 													opcion3 = 5;
 													opcion2 = 25;
@@ -459,18 +472,18 @@ namespace AplicacionCAI
 												}
 											case 4:
 												Console.Clear();
-												direccion1 = Validador.ValidarStringNoVacioSistema("\n Ingresar " +
+												direccionUno = Validador.ValidarStringNoVacioSistema("\n Ingresar " +
 													"dirección");
-												continuar1 = Validador.ValidarSioNo("\n Usted seleccionó: " +
+												continuarUno = Validador.ValidarSioNo("\n Usted seleccionó: " +
 													"\n PAIS: ARGENTINA, \n PROVINCIA: BUENOS AIRES, " +
-													"\n REGION: CENTRO \n LOCALIDAD: BAHIA BLANCA, \n DIRECCIÓN: *" + direccion1 + "* \n\n desea continuar?");
-												if (continuar1 == "SI")
+													"\n REGION: CENTRO \n LOCALIDAD: BAHIA BLANCA, \n DIRECCIÓN: *" + direccionUno + "* \n\n desea continuar?");
+												if (continuarUno == "SI")
 												{
 													pedido.PaisOrigen = "ARGENTINA";
 													pedido.RegionOrigen = "CENTRO";
 													pedido.ProvinciaOrigen = "BUENOS AIRES";
 													pedido.LocalidadOrigen = "BAHIA BLANCA";
-													pedido.DomicilioOrigen = direccion1;
+													pedido.DomicilioOrigen = direccionUno;
 
 													opcion3 = 5;
 													opcion2 = 25;
@@ -539,18 +552,18 @@ namespace AplicacionCAI
 										{
 											case 1:
 												Console.Clear();
-												direccion1 = Validador.ValidarStringNoVacioSistema("\n Ingresar " +
+												direccionUno = Validador.ValidarStringNoVacioSistema("\n Ingresar " +
 													"dirección");
-												continuar1 = Validador.ValidarSioNo("\n Usted seleccionó: " +
+												continuarUno = Validador.ValidarSioNo("\n Usted seleccionó: " +
 													"\n REGIÓN: AMERICA DEL NORTE \n PAÍS: USA \n ESTADO: NUEVA YORK " +
-													"\n LOCALIDAD: QUEENS \n DIRECCIÓN: *" + direccion1 + "* \n\n desea continuar?");
-												if (continuar1 == "SI")
+													"\n LOCALIDAD: QUEENS \n DIRECCIÓN: *" + direccionUno + "* \n\n desea continuar?");
+												if (continuarUno == "SI")
 												{
 													pedido.PaisOrigen = "USA";
 													pedido.RegionOrigen = "AMERICA DEL NORTE";
 													pedido.ProvinciaOrigen = "NUEVA YORK";
 													pedido.LocalidadOrigen = "QUEENS";
-													pedido.DomicilioOrigen = direccion1;
+													pedido.DomicilioOrigen = direccionUno;
 
 													opcion3 = 4;
 													opcion2 = 4;
@@ -572,18 +585,18 @@ namespace AplicacionCAI
 											
 											case 2:
 												Console.Clear();
-												direccion1 = Validador.ValidarStringNoVacioSistema("\n Ingresar " +
+												direccionUno = Validador.ValidarStringNoVacioSistema("\n Ingresar " +
 													"dirección");
-												continuar1 = Validador.ValidarSioNo("\n Usted seleccionó: " +
+												continuarUno = Validador.ValidarSioNo("\n Usted seleccionó: " +
 													"\n REGIÓN: AMERICA DEL NORTE \n PAÍS: USA \n ESTADO: LOS ANGELES " +
-													"\n LOCALIDAD: NORTH HOLLYWOOD \n DIRECCIÓN: *" + direccion1 + "* \n\n desea continuar?");
-												if (continuar1 == "SI")
+													"\n LOCALIDAD: NORTH HOLLYWOOD \n DIRECCIÓN: *" + direccionUno + "* \n\n desea continuar?");
+												if (continuarUno == "SI")
 												{
 													pedido.PaisOrigen = "USA";
 													pedido.RegionOrigen = "AMERICA DEL NORTE";
 													pedido.ProvinciaOrigen = "LOS ANGELES";
 													pedido.LocalidadOrigen = "NORTH HOLLYWOOD";
-													pedido.DomicilioOrigen = direccion1;
+													pedido.DomicilioOrigen = continuarUno;
 
 
 													opcion3 = 3;
@@ -641,16 +654,399 @@ namespace AplicacionCAI
 
 			pedido.MostrarPedidoInicio();
 
-			string seguir = Validador.ValidarSioNo("\n Desea Continuar?");
+			seguirUno = Validador.ValidarSioNo("\n Desea Continuar?");
+
+			if (seguirUno == "SI" )
+            {
+				do
+				{
+					Console.Clear();
+
+					opcion1 = Validador.PedirIntMenu("\n Elegir el País de Destino" +
+											"\n [1]  ARGENTINA" +
+											"\n [2]  PAISES LIMÍTROFES" +
+											"\n [3]  RESTO DE AMÉRICA LATINA" +
+											"\n [4]  AMERICA DEL NORTE" +
+											"\n [5]  EUROPA" +
+											"\n [6]  ASIA" +
+											"\n [7]  SALIR", 1, 7);
+
+
+					switch (opcion1)
+					{
+
+							case 1:
+							do
+							{
+								Console.Clear();
+								opcion2 = Validador.PedirIntMenu("\n Elegir la Provincia de Destino" +
+												"\n [1]  BUENOS AIRES" +
+												"\n [2]  CABA" +
+												"\n [3]  CATAMARCA" +
+												"\n [4]  CHACO" +
+												"\n [5]  CHUBUT" +
+												"\n [6]  CORDOBA" +
+												"\n [7]  CORRIENTES" +
+												"\n [8]  ENTRE RIOS" +
+												"\n [9]  FORMOSA" +
+												"\n [10] JUJUY" +
+												"\n [11] LA PAMPA" +
+												"\n [12] LA RIOJA" +
+												"\n [13] MENDOZA" +
+												"\n [14] MISIONES" +
+												"\n [15] NEUQUEN" +
+												"\n [16] RIO NEGRO" +
+												"\n [17] SALTA" +
+												"\n [18] SAN JUAN" +
+												"\n [19] LA RIOJA" +
+												"\n [20] SAN LUIS" +
+												"\n [21] SANTA FE" +
+												"\n [22] SANTIAGO DEL ESTERO" +
+												"\n [23] TIERRA DEL FUEGO" +
+												"\n [24] TUCUMAN" +
+												"\n [25] SALIR", 1, 25);
+
+								switch (opcion2)
+								{
+									case 1:
+
+										do
+										{
+
+											Console.Clear();
+											opcion3 = Validador.PedirIntMenu("\n Elegir la Localidad de Destino" +
+															"\n [1]  QUILMES" +
+															"\n [2]  MAR DEL PLATA" +
+															"\n [3]  LOBOS" +
+															"\n [4]  BAHIA BLANCA" +
+															"\n [5]  SALIR", 1, 5);
+
+											switch (opcion3)
+											{
+												case 1:
+													Console.Clear();
+													direccionUno = Validador.ValidarStringNoVacioSistema("\n Ingresar " +
+														"dirección");
+													continuarUno = Validador.ValidarSioNo("\n Usted seleccionó: " +
+														"\n PAIS: ARGENTINA, \n PROVINCIA: BUENOS AIRES, " +
+														"\n REGION: CENTRO \n LOCALIDAD: QUILMES, \n DIRECCIÓN: *" + direccionUno + "* \n\n desea continuar?");
+													if (continuarUno == "SI")
+													{
+														pedido.PaisDestino = "ARGENTINA";
+														pedido.RegionDestino = "CENTRO";
+														pedido.ProvinciaDestino = "BUENOS AIRES";
+														pedido.LocalidadDestino = "QUILMES";
+														pedido.DomicilioDestino = direccionUno;
+
+														opcion3 = 5;
+														opcion2 = 25;
+														opcion1 = 7;
+
+														break;
+
+													}
+													else
+													{
+														Console.Clear();
+														Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+														Validador.VolverMenu();
+														opcion3 = 5;
+														opcion2 = 25;
+														opcion1 = 7;
+														break;
+													}
+
+												case 2:
+													Console.Clear();
+													direccionUno = Validador.ValidarStringNoVacioSistema("\n Ingresar " +
+														"dirección");
+													continuarUno = Validador.ValidarSioNo("\n Usted seleccionó: " +
+														"\n PAIS: ARGENTINA, \n PROVINCIA: BUENOS AIRES, " +
+														"\n REGION: CENTRO \n LOCALIDAD: MAR DEL PLATA, \n DIRECCIÓN: *" + direccionUno + "* \n\n desea continuar?");
+													if (continuarUno == "SI")
+													{
+														pedido.PaisDestino = "ARGENTINA";
+														pedido.RegionDestino = "CENTRO";
+														pedido.ProvinciaDestino = "BUENOS AIRES";
+														pedido.LocalidadDestino = "MAR DEL PLATA";
+														pedido.DomicilioDestino = direccionUno;
+
+														opcion3 = 5;
+														opcion2 = 25;
+														opcion1 = 7;
+
+														break;
+
+													}
+													else
+													{
+														Console.Clear();
+														Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+														opcion3 = 5;
+														opcion2 = 25;
+														opcion1 = 7;
+														break;
+													}
+												case 3:
+													Console.Clear();
+													direccionUno = Validador.ValidarStringNoVacioSistema("\n Ingresar " +
+														"dirección");
+													continuarUno = Validador.ValidarSioNo("\n Usted seleccionó: " +
+														"\n PAIS: ARGENTINA, \n PROVINCIA: BUENOS AIRES, " +
+														"\n REGION: CENTRO \n LOCALIDAD: LOBOS \n DIRECCIÓN: *" + direccionUno + "* \n\n desea continuar?");
+													if (continuarUno == "SI")
+													{
+														pedido.PaisDestino = "ARGENTINA";
+														pedido.RegionDestino = "CENTRO";
+														pedido.ProvinciaDestino = "BUENOS AIRES";
+														pedido.LocalidadDestino = "LOBOS";
+														pedido.DomicilioDestino = direccionUno;
+
+														opcion3 = 5;
+														opcion2 = 25;
+														opcion1 = 7;
+
+														break;
+
+													}
+													else
+													{
+														Console.Clear();
+														Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+														opcion3 = 5;
+														opcion2 = 25;
+														opcion1 = 7;
+														break;
+													}
+												case 4:
+													Console.Clear();
+													direccionUno = Validador.ValidarStringNoVacioSistema("\n Ingresar " +
+														"dirección");
+													continuarUno = Validador.ValidarSioNo("\n Usted seleccionó: " +
+														"\n PAIS: ARGENTINA, \n PROVINCIA: BUENOS AIRES, " +
+														"\n REGION: CENTRO \n LOCALIDAD: BAHIA BLANCA, \n DIRECCIÓN: *" + direccionUno + "* \n\n desea continuar?");
+													if (continuarUno == "SI")
+													{
+														pedido.PaisOrigen = "ARGENTINA";
+														pedido.RegionOrigen = "CENTRO";
+														pedido.ProvinciaOrigen = "BUENOS AIRES";
+														pedido.LocalidadOrigen = "BAHIA BLANCA";
+														pedido.DomicilioOrigen = direccionUno;
+
+														opcion3 = 5;
+														opcion2 = 25;
+														opcion1 = 7;
+
+														break;
+
+													}
+													else
+													{
+														opcion3 = 5;
+														opcion2 = 25;
+														opcion1 = 7;
+														Console.Clear();
+														Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+														break;
+													}
+
+
+
+											}
+
+										} while (opcion3 != 5);
+
+
+										break;
+
+
+									case 2:
+										break;
+
+
+
+								}
+
+							} while (opcion2 != 25);
+							break;
+
+
+							case 2:
+							do
+							{
+								Console.Clear();
+								opcion2 = Validador.PedirIntMenu("\n Elegir País Limítrofe de Destino" +
+												"\n [1]  BOLIVIA" +
+												"\n [2]  BRASIL" +
+												"\n [3]  CHILE" +
+												"\n [4]  PARAGUAY" +
+												"\n [5]  URUGUAY" +
+												"\n [6]  SALIR" 
+												, 1, 6);
+
+								switch (opcion2)
+								{
+									case 1:
+									break;
+
+									case 2:
+										do
+										{
+
+											Console.Clear();
+											opcion3 = Validador.PedirIntMenu("\n Elegir la ciudad de Destino" +
+															"\n [1]	 SAO PAULO" +
+															"\n [2]  PORTO ALEGRE" +
+															"\n [3]  BRASILIA" +
+															"\n [4]  SALIR", 1, 4);
+
+											switch (opcion3)
+											{
+												case 1:
+													Console.Clear();
+													direccionDos = Validador.ValidarStringNoVacioSistema("\n Ingresar " +
+														"dirección");
+													continuarDos = Validador.ValidarSioNo("\n Usted seleccionó: " +
+														"\n PAIS: BRASIL, \n PROVINCIA: ESTADO SAO PAULO, " +
+														"\n REGION: CENTRO \n LOCALIDAD: SAO PAULO, \n DIRECCIÓN: *" + direccionDos + "* \n\n desea continuar?");
+													if (continuarDos == "SI")
+													{
+														pedido.PaisDestino = "BRASIL";
+														pedido.RegionDestino = "CENTRO";
+														pedido.ProvinciaDestino = "ESTADO SAO PAULO";
+														pedido.LocalidadDestino = "SAO PAULO";
+														pedido.DomicilioDestino = direccionDos;
+
+														opcion3 = 4;
+														opcion2 = 6;
+														opcion1 = 7;
+
+														break;
+
+													}
+													else
+													{
+														Console.Clear();
+														Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+														Validador.VolverMenu();
+														opcion3 = 4;
+														opcion2 = 6;
+														opcion1 = 7;
+														break;
+													}
+
+												case 2:
+													Console.Clear();
+													direccionDos = Validador.ValidarStringNoVacioSistema("\n Ingresar " +
+														"dirección");
+													continuarDos = Validador.ValidarSioNo("\n Usted seleccionó: " +
+														"\n PAIS: BRASIL, \n PROVINCIA: RIO GRANDE DEL SUR, " +
+														"\n REGION: SUR\n LOCALIDAD: PORTO ALEGRE, \n DIRECCIÓN: *" + direccionDos + "* \n\n desea continuar?");
+													if (continuarDos == "SI")
+													{
+														pedido.PaisDestino = "BRASIL";
+														pedido.RegionDestino = "SUR";
+														pedido.ProvinciaDestino = "RIO GRANDE DEL SUR";
+														pedido.LocalidadDestino = "PORTO ALEGRE";
+														pedido.DomicilioDestino = direccionDos;
+
+														opcion3 = 4;
+														opcion2 = 6;
+														opcion1 = 7;
+
+														break;
+
+													}
+													else
+													{
+														Console.Clear();
+														Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+														Validador.VolverMenu();
+														opcion3 = 4;
+														opcion2 = 6;
+														opcion1 = 7;
+														break;
+													}
+												case 3:
+													Console.Clear();
+													direccionDos = Validador.ValidarStringNoVacioSistema("\n Ingresar " +
+														"dirección");
+													continuarDos = Validador.ValidarSioNo("\n Usted seleccionó: " +
+														"\n PAIS: BRASIL, \n PROVINCIA: BRASILIA, " +
+														"\n REGION: CENTRO \n LOCALIDAD: BRASILIA \n DIRECCIÓN: *" + direccionDos + "* \n\n desea continuar?");
+													if (continuarDos == "SI")
+													{
+														pedido.PaisDestino = "BRASIL";
+														pedido.RegionDestino = "CENTRO";
+														pedido.ProvinciaDestino = "BRASILIA";
+														pedido.LocalidadDestino = "BRASILIA";
+														pedido.DomicilioDestino = direccionDos;
+
+														opcion3 = 4;
+														opcion2 = 6;
+														opcion1 = 7;
+
+														break;
+
+													}
+													else
+													{
+														Console.Clear();
+														Console.WriteLine("Usted decidió no continuar, volvera al Menú Anterior");
+														Validador.VolverMenu();
+														opcion3 = 4;
+														opcion2 = 6;
+														opcion1 = 7;
+														break;
+													}
+												
+											}
+
+										} while (opcion3 != 4);
+
+								break;
+
+								}
+
+							} while (opcion2 != 6);
+
+
+						break;
+						
+						case 3:
+						break;
+						case 4:
+						break; 
+
+					}
+
+				} while (opcion1 != 7);
+
+			}
+			else
+			{
+				Console.Clear();
+				Console.WriteLine("Usted decidió no continuar, volverá al Menú Anterior");
+				Validador.VolverMenu();
+			}
+
+			pedido.MostrarPedidoMedio();
+
+			seguirDos = Validador.ValidarSioNo("\n Desea Continuar?");
+
+
+			
 
 			decimal peso;
 
 			decimal peso500g = 0.5m;
-			
-
-			if (seguir == "SI")
+			decimal peso10Kg = 10;
+			decimal peso20Kg = 20;
+			decimal peso30Kg = 30;
+ 
+			if (seguirDos == "SI")
             {
-				peso = Validador.PedirDecimal("\n Ingrese el peso del bulto", 0, 30);
+				peso = Validador.PedirDecimal("\n Por favor ingrese el peso del bulto", 0, 30);
 
 				if(pedido.PaisOrigen == "ARGENTINA" && (peso < peso500g))
                 {
@@ -674,9 +1070,10 @@ namespace AplicacionCAI
 				Validador.VolverMenu();
 			}
 
-		
-			
-			
+			seguirTres = Validador.ValidarSioNo("\n Desea Continuar?");
+
+
+
 
 
 
