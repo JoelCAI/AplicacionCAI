@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,21 +41,7 @@ namespace AplicacionCAI
 
         }
 
-        public static void AgregarServicio(ServicioPrecio servicio)
-
-        {
-            servicioPrecioDiccionario.Add(servicio.IdServicio, servicio);
-        }
-
-        public static void EliminarServicio(ServicioPrecio servicio)
-        {
-            servicioPrecioDiccionario.Remove(servicio.IdServicio);
-        }
-
-        public static bool ServicioExiste(int idServicio)
-        {
-            return servicioPrecioDiccionario.ContainsKey(idServicio);
-        }
+   
 
         public static ServicioPrecio BuscarServicioIdPedido()
         {

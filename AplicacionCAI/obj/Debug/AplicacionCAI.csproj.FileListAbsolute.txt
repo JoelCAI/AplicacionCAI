@@ -1,0 +1,15 @@
+C:/Users/TOSHIBA/source/repos/AplicacionCAI/AplicacionCAI/obj/Debug/AplicacionCAI.csproj.AssemblyReference.cache
+C:/Users/TOSHIBA/source/repos/AplicacionCAI/AplicacionCAI/obj/Debug/AplicacionCAI.csproj.SuggestedBindingRedirects.cache
+C:/Users/TOSHIBA/source/repos/AplicacionCAI/AplicacionCAI/obj/Debug/AplicacionCAI.csproj.CoreCompileInputs.cache
+C:/Users/TOSHIBA/source/repos/AplicacionCAI/AplicacionCAI/bin/Debug/AplicacionCAI.exe.config
+C:/Users/TOSHIBA/source/repos/AplicacionCAI/AplicacionCAI/bin/Debug/AplicacionCAI.exe
+C:/Users/TOSHIBA/source/repos/AplicacionCAI/AplicacionCAI/bin/Debug/AplicacionCAI.pdb
+C:/Users/TOSHIBA/source/repos/AplicacionCAI/AplicacionCAI/obj/Debug/AplicacionCAI.exe
+C:/Users/TOSHIBA/source/repos/AplicacionCAI/AplicacionCAI/obj/Debug/AplicacionCAI.pdb
+/Users/rmartin/Downloads/AplicacionCAI-5/AplicacionCAI/bin/Debug/AplicacionCAI.exe.config
+/Users/rmartin/Downloads/AplicacionCAI-5/AplicacionCAI/bin/Debug/AplicacionCAI.exe
+/Users/rmartin/Downloads/AplicacionCAI-5/AplicacionCAI/bin/Debug/AplicacionCAI.pdb
+/Users/rmartin/Downloads/AplicacionCAI-5/AplicacionCAI/obj/Debug/AplicacionCAI.csproj.AssemblyReference.cache
+/Users/rmartin/Downloads/AplicacionCAI-5/AplicacionCAI/obj/Debug/AplicacionCAI.csproj.CoreCompileInputs.cache
+/Users/rmartin/Downloads/AplicacionCAI-5/AplicacionCAI/obj/Debug/AplicacionCAI.exe
+/Users/rmartin/Downloads/AplicacionCAI-5/AplicacionCAI/obj/Debug/AplicacionCAI.pdb

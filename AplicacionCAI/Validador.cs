@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -90,6 +90,61 @@ namespace AplicacionCAI
                 
 
             } while (!valido && contador != 0);
+
+            return valor;
+
+        }
+
+        public static long PedirLongMenuInicial(string mensaje, int min, int max)
+        {
+            long valor;
+            bool valido = false;
+            string mensajeMenu = "\n Ingrese un valor entre " + min + " y " + max;
+            //string mensajeError = "\n El valor no puede ser vacio y tiene que estar entre el rango del Menu solicitado. ";
+
+            int contador = 2;
+            string dato;
+
+            do
+            {
+
+                Console.WriteLine(mensaje);
+                Console.WriteLine(mensajeMenu);
+
+                //Console.WriteLine("\n Le queda: *" + contador + "* intento y volverá al Menú Principal");
+
+                dato = Console.ReadLine();
+
+                if (!long.TryParse(dato, out valor) || valor < min || valor > max)
+                {
+                    Console.Clear();
+                    Console.WriteLine("\n Usted ingreso caracteres o valores que no están en el rango solicitado");
+                   
+
+                    contador--;
+
+                }
+                if (string.IsNullOrEmpty(dato))
+                {
+                    continue;
+
+                }
+                if (dato == "")
+                {
+                    Console.WriteLine("\n Usted presiono solo la tecla Enter");
+                    Validador.VolverMenu();
+                    
+
+                }
+
+                else
+                {
+                    valido = true;
+                }
+                contador--;
+
+
+            } while (!valido);
 
             return valor;
 
