@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cuenta.cs" />
+    <Compile Include="DiccionarioCuenta.cs" />
     <Compile Include="DiccionarioPedido.cs" />
     <Compile Include="DiccionarioServicioPrecio.cs" />
     <Compile Include="DiccionarioUsuario.cs" />
