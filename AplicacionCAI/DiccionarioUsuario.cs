@@ -9,15 +9,14 @@ namespace AplicacionCAI
 {
     static class DiccionarioUsuario
     {
-        /* esto va a estar disponible para cada uno de los metodos de la clase */
-        /* Readonly significa que una vez que se crea el diccionario ya no se modifica los datos. */
+        
         private static readonly Dictionary<int, Usuario> usuarioDiccionario = new Dictionary<int, Usuario>();
             
         
         const string archivoUsuario = "usuarioLista.txt";
 
  
-        /*  */
+        
         static DiccionarioUsuario()
         {
             usuarioDiccionario = new Dictionary<int, Usuario>();
@@ -82,6 +81,24 @@ namespace AplicacionCAI
             
             return null;
         }
+
+
+        public static Usuario BuscarUsuarioDniUnico()
+        {
+            var dni = Usuario.ValidarDniUnico();
+
+            foreach (var usuario in usuarioDiccionario.Values)
+            {
+                if (usuario.CompararDniCoincidencia(dni))
+                {
+                    return usuario;
+                }
+            }
+  
+            return null;
+        }
+
+
 
         public static Usuario BuscarUsuarioClave()
         {
