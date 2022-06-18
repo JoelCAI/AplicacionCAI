@@ -82,6 +82,24 @@ namespace AplicacionCAI
             return null;
         }
 
+
+        public static Usuario BuscarUsuarioDniUnico()
+        {
+            var dni = Usuario.ValidarDniUnico();
+
+            foreach (var usuario in usuarioDiccionario.Values)
+            {
+                if (usuario.CompararDniCoincidencia(dni))
+                {
+                    return usuario;
+                }
+            }
+  
+            return null;
+        }
+
+
+
         public static Usuario BuscarUsuarioClave()
         {
             var clave = Usuario.ValidarClave();

@@ -42,6 +42,8 @@ namespace AplicacionCAI
                         Console.Clear();
                         var usuarioDni = DiccionarioUsuario.BuscarUsuarioDni();
 
+
+
                         if (usuarioDni != null)
                         {
                             var usuarioClave = DiccionarioUsuario.BuscarUsuarioClave();
@@ -110,6 +112,8 @@ namespace AplicacionCAI
 
         }
 
+
+        
         public static void Continuar()
         {
 
