@@ -1,0 +1,9 @@
+idPedido;estadoPedido;fechaPedido;paisOrigen;regionOrigen;provinciaOrigen;localidadOrigen;domicilioOrigen;paisDestino;regionDestino;provinciaDestino;localidadDestino;domicilioDestino;precioEncomienda;pesoEncomienda;cuitCorporativo;razonSocialCorporativo;urgente;retiroEnSucursal;retiroEnPuerta
+00000001;INICIADO;02/06/2022;Argentina;Cuyo;Mendoza;Capital;Calle;Falsa 123;Uruguay;Sur;Artigas;Canelones;Av Prueba 321;500	200;301234567891;JUAN;NO;NO;SI
+00000001;RECIBIDO;06/05/2022;Paraguay;Sur;Capital;Asunsion;Gral. Test 65;Argentina;Patagonia;Chubut;Rawson;Pasaje CAI 678;1500;1000;301234567891;JUAN;SI;NO;NO
+
+        
+
+     
+
+	
