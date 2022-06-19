@@ -1457,11 +1457,12 @@ namespace AplicacionCAI
 				{
 
 					Console.Clear();
-					opcion4 = Validador.PedirIntMenu("\n Elegir el tipo de Recargo" +
+					opcion4 = Validador.PedirIntMenu("\n ¿Desea agregar algún servicio extra por un valor diferencial?" +
 									"\n [1]	 URGENTE (+ 30% SOBRE EL SUBTOTAL)"  +
 									"\n [2]  RETIRO EN PUERTA (+ 15% SOBRE EL SUBTOTAL)" +
-									"\n [3]  RETIRO EN SUCURSAL (+ 5% SOBRE EL SUBTOTAL)" +
-									"\n [4]  SALIR Y VOLVER AL MENU SIN CARGAR EL PEDIDO", 1, 4);
+									"\n [3]  ENTREGA A DOMICILIO (+ 5% SOBRE EL SUBTOTAL)" +
+									"\n [4]  CONTINUAR SIN AGREGAR NINGÚN SERVICIO EXTRA" +
+									"\n [5]  SALIR Y VOLVER AL MENU SIN CARGAR EL PEDIDO", 1, 5);
 
 					switch (opcion4)
 					{
@@ -1478,7 +1479,7 @@ namespace AplicacionCAI
 								pedido.RetiroEnPuerta = false;
 								pedido.RetiroEnSucursal = false;
 								
-								opcion4 = 4;
+								opcion4 = 5;
 
 								break;
 
@@ -1488,7 +1489,7 @@ namespace AplicacionCAI
 								Console.Clear();
 								Console.WriteLine("\n Usted decidió no continuar");
 								Validador.VolverMenu();
-								opcion4 = 4;
+								opcion4 = 5;
 								
 								break;
 							}
@@ -1506,7 +1507,7 @@ namespace AplicacionCAI
 								pedido.RetiroEnPuerta = true;
 								pedido.RetiroEnSucursal = false;
 								
-								opcion4 = 4;
+								opcion4 = 5;
 
 								break;
 
@@ -1516,7 +1517,7 @@ namespace AplicacionCAI
 								Console.Clear();
 								Console.WriteLine("\n Usted decidió no continuar");
 								Validador.VolverMenu();
-								opcion4 = 4;
+								opcion4 = 5;
 								
 								break;
 							}
@@ -1533,36 +1534,51 @@ namespace AplicacionCAI
 								pedido.RetiroEnPuerta = false;
 								pedido.RetiroEnSucursal = true;
 								
-								opcion4 = 4;
+								opcion4 = 5;
+								
+							}
+
+							break;
+
+						case 4:
+							Console.Clear();
+
+							continuarTres = pedido.ValidarSioNoPedidoMedio("\nNingún recargo será agregado al pedido. " +
+																					"\n¿Desea continuar?");
+							if (continuarTres == "SI")
+							{
+
+								pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido;
+								pedido.Urgente = false;
+								pedido.RetiroEnPuerta = false;
+								pedido.RetiroEnSucursal = false;
+								
+								opcion4 = 5;
 
 								break;
 
-							}
+							}							
 							else
 							{
 								Console.Clear();
 								Console.WriteLine("\n Usted decidió no continuar");
 								Validador.VolverMenu();
-								opcion4 = 4;
+								opcion4 = 5;
 								
 								break;
 							}
 
 					}
 
-				} while (opcion4 != 4);
-
+				} while (opcion4 != 5);
 
 				
-
 			}
 
 			
 			pedido.MostrarPedidoFinal();
 			
 			
-
-
 
 			return pedido;
 		}
