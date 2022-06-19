@@ -77,7 +77,7 @@ namespace AplicacionCAI
             Console.Clear();
             Console.WriteLine("\n No se ha encontrado el usuario ingresado");
             Validador.VolverMenu();
-            Program.Menu();
+            //Program.Menu();
             
             return null;
         }
@@ -114,7 +114,7 @@ namespace AplicacionCAI
             Console.Clear();
             Console.WriteLine("\n No se ha encontrado el usuario ingresado");
             Validador.VolverMenu();
-            Program.Menu();
+            //Program.Menu();
             return null;
         }
 

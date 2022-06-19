@@ -64,7 +64,7 @@ namespace AplicacionCAI
                     Console.WriteLine("\n Usted ingreso caracteres o valores que no están en el rango solicitado");
                     Console.WriteLine(mensajeMenu);
                     VolverMenu();
-                    Program.Continuar();
+                    //Program.Continuar();
 
                     contador--;
                    
@@ -78,7 +78,7 @@ namespace AplicacionCAI
                 {
                     Console.WriteLine("\n Usted presiono solo la tecla Enter");
                     Validador.VolverMenu();
-                    Program.Continuar();
+                    //Program.Continuar();
                    
                 }
                 
@@ -298,7 +298,7 @@ namespace AplicacionCAI
                     Console.WriteLine("\n Usted ingreso caracteres o valores que no están en el rango solicitado");
                     Console.WriteLine(mensajeMenu);
                     VolverMenu();
-                    Program.Menu();
+                    //Program.Menu();
 
                     contador--;
 
@@ -307,7 +307,7 @@ namespace AplicacionCAI
                 {
                     Console.Clear();
                     VolverMenu();
-                    Program.Menu();
+                    //Program.Menu();
 
                     contador--;
                 }
@@ -316,7 +316,7 @@ namespace AplicacionCAI
                     Console.Clear();
                     Console.WriteLine("\n Usted presiono solo la tecla Enter");
                     VolverMenu();
-                    Program.Menu();
+                    //Program.Menu();
 
                 }
                 else
@@ -520,7 +520,37 @@ namespace AplicacionCAI
 
             return fechaValida;
         }
+        public static int IngresarEntero(string titulo)
+        {
 
+            Console.WriteLine(titulo);
+
+            do
+            {
+                var ingreso = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(ingreso))
+                {
+                    Console.WriteLine("El ingreso no debe ser vacio");
+                    continue;
+                }
+
+                if (!Int32.TryParse(ingreso, out var salida))
+                {
+                    Console.WriteLine("El dato ingresado es incorrecto, ingrese nuevamente");
+                    continue;
+                }
+
+                if (salida <= 0)
+                {
+                    Console.WriteLine("El valor ingresado debe ser mayor a cero");
+                    continue;
+                }
+
+                return salida;
+
+            } while (true);
+        }
         public static int PedirIntMayor(string mensaje, int min)
         {
 
