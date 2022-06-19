@@ -29,7 +29,7 @@ namespace AplicacionCAI
 		public string PaisDestino { get; set; }
 		public decimal PrecioEncomienda { get; set; }
 		public bool Urgente { get; set; }
-		public bool RetiroEnSucursal { get; set; }
+		public bool EntregaDomicilio { get; set; }
 		public bool RetiroEnPuerta { get; set; }
 		public decimal PesoEncomienda { get; set; }
 		public decimal SubTotalCalculoPedido { get; set; }
@@ -70,7 +70,7 @@ namespace AplicacionCAI
 			RazonSocialCorporativo = datos[18];
 
 			Urgente = bool.Parse(datos[19]);
-			RetiroEnSucursal = bool.Parse(datos[20]);
+			EntregaDomicilio = bool.Parse(datos[20]);
 			RetiroEnPuerta = bool.Parse(datos[21]);
 
 			SubTotalCalculoPedido = decimal.Parse(datos[22]);
@@ -79,7 +79,7 @@ namespace AplicacionCAI
 
 		public string ObtenerLineaDatos()
 		{
-			return $"{IdPedido};{EstadoPedido};{FechaPedido};{PaisOrigen};{RegionOrigen};{ProvinciaOrigen};{LocalidadOrigen};{DomicilioOrigen};{ContinenteOrigen};{PaisDestino};{RegionDestino};{ProvinciaDestino};{LocalidadDestino};{DomicilioDestino};{ContinenteDestino};{PrecioEncomienda};{PesoEncomienda};{CuitCorporativo};{RazonSocialCorporativo};{Urgente};{RetiroEnSucursal};{RetiroEnPuerta};{SubTotalCalculoPedido};{TotalCalculoPedido}";
+			return $"{IdPedido};{EstadoPedido};{FechaPedido};{PaisOrigen};{RegionOrigen};{ProvinciaOrigen};{LocalidadOrigen};{DomicilioOrigen};{ContinenteOrigen};{PaisDestino};{RegionDestino};{ProvinciaDestino};{LocalidadDestino};{DomicilioDestino};{ContinenteDestino};{PrecioEncomienda};{PesoEncomienda};{CuitCorporativo};{RazonSocialCorporativo};{Urgente};{EntregaDomicilio};{RetiroEnPuerta};{SubTotalCalculoPedido};{TotalCalculoPedido}";
 		}
 
 		public static Pedido CrearModeloBusqueda()
@@ -172,10 +172,10 @@ namespace AplicacionCAI
 
 			Console.WriteLine($"\n Subtotal del Pedido: {SubTotalCalculoPedido}");
 
-			Console.WriteLine($"\n Tipo de Recargo: ");
-			Console.WriteLine($" Recargo Urgente (+30%): {Urgente}");
-			Console.WriteLine($" Retiro en Sucursal (+5%) : {RetiroEnSucursal}");
-			Console.WriteLine($" Retiro en Puerta (+15%): {RetiroEnPuerta}");
+			//Console.WriteLine($"\n Tipo de Recargo: ");
+			//Console.WriteLine($" Recargo Urgente (+30%): {Urgente}");
+			//Console.WriteLine($" Retiro en Sucursal (+5%) : {EntregaDomicilio}");
+			//Console.WriteLine($" Retiro en Puerta (+15%): {RetiroEnPuerta}");
 
 			Console.WriteLine($"\n Total del Pedido con el Recargo incluido: {TotalCalculoPedido}");
 
@@ -1447,128 +1447,111 @@ namespace AplicacionCAI
 
 			if (validar !=1)
 			{
+				bool avanzar = false;
 				do
 				{
+					Console.WriteLine("Por indique si el envío es urgente");
+					Console.WriteLine("[1] Urgente");
+					Console.WriteLine("[2] No Urgente");
 
-					Console.Clear();
-					opcion4 = Validador.PedirIntMenu("\n ¿Desea agregar algún servicio extra por un valor diferencial?" +
-									"\n [1]	 URGENTE (+ 30% SOBRE EL SUBTOTAL)"  +
-									"\n [2]  RETIRO EN PUERTA (+ 15% SOBRE EL SUBTOTAL)" +
-									"\n [3]  ENTREGA A DOMICILIO (+ 5% SOBRE EL SUBTOTAL)" +
-									"\n [4]  CONTINUAR SIN AGREGAR NINGÚN SERVICIO EXTRA" +
-									"\n [5]  SALIR Y VOLVER AL MENU SIN CARGAR EL PEDIDO", 1, 5);
+					var opcion = Console.ReadLine();
 
-					switch (opcion4)
+					switch (opcion)
 					{
-						case 1:
-							Console.Clear();
-							
-							continuarTres = pedido.ValidarSioNoPedidoMedio("\n ¿Desea agregar este Recargo?" +
-																	       "\n Sera de + 30% sobre el Subtotal del Pedido: ");
-							if (continuarTres == "SI")
-							{
-								
-								pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido * servicioPrecio.PrecioServicioUrgente;
-								pedido.Urgente = true;
-								pedido.RetiroEnPuerta = false;
-								pedido.RetiroEnSucursal = false;
-								
-								opcion4 = 5;
-
-								break;
-
-							}
-							else
-							{
-								Console.Clear();
-								Console.WriteLine("\n Usted decidió no continuar");
-								Validador.VolverMenu();
-								opcion4 = 5;
-								
-								break;
-							}
-
-						case 2:
-							Console.Clear();
-
-							continuarTres = pedido.ValidarSioNoPedidoMedio("\n ¿Desea agregar este Recargo?" +
-																		   "\n Sera de + 15% sobre el Subtotal del Pedido: ");
-							if (continuarTres == "SI")
-							{
-
-								pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido * servicioPrecio.PrecioServicioEnPuerta;
-								pedido.Urgente = false;
-								pedido.RetiroEnPuerta = true;
-								pedido.RetiroEnSucursal = false;
-								
-								opcion4 = 5;
-
-								break;
-
-							}
-							else
-							{
-								Console.Clear();
-								Console.WriteLine("\n Usted decidió no continuar");
-								Validador.VolverMenu();
-								opcion4 = 5;
-								
-								break;
-							}
-						case 3:
-							Console.Clear();
-
-							continuarTres = pedido.ValidarSioNoPedidoMedio("\n ¿Desea agregar este Recargo?" +
-																		   "\n Sera de + 5% sobre el Subtotal del Pedido: ");
-							if (continuarTres == "SI")
-							{
-
-								pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido * servicioPrecio.PrecioServicioEnSucursal;
-								pedido.Urgente = false;
-								pedido.RetiroEnPuerta = false;
-								pedido.RetiroEnSucursal = true;
-								
-								opcion4 = 5;
-								
-							}
-
+						case "1":
+							pedido.Urgente = true;
+							avanzar = true;
 							break;
 
-						case 4:
-							Console.Clear();
-
-							continuarTres = pedido.ValidarSioNoPedidoMedio("\nNingún recargo será agregado al pedido. " +
-																					"\n¿Desea continuar?");
-							if (continuarTres == "SI")
-							{
-
-								pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido;
-								pedido.Urgente = false;
-								pedido.RetiroEnPuerta = false;
-								pedido.RetiroEnSucursal = false;
-								
-								opcion4 = 5;
-
-								break;
-
-							}							
-							else
-							{
-								Console.Clear();
-								Console.WriteLine("\n Usted decidió no continuar");
-								Validador.VolverMenu();
-								opcion4 = 5;
-								
-								break;
-							}
+						case "2":
+							pedido.Urgente = false;
+							avanzar = true;
+							break;
+						
+						default:
+							Console.WriteLine("No ha ingresado una opcion correcta");
+							break;
 
 					}
 
-				} while (opcion4 != 5);
+				} while (!avanzar);
 
-				
+				bool avanzar2 = false;
+				do
+				{
+					Console.WriteLine("Por indique si desea solicitar retiro en puerta.");
+					Console.WriteLine("[1] Retiro en puerta");
+					Console.WriteLine("[2] Entrega en sucursa");
+
+					var opcion = Console.ReadLine();
+
+					switch (opcion)
+					{
+						case "1":
+							pedido.RetiroEnPuerta = true;
+							avanzar2 = true;
+							break;
+
+						case "2":
+							pedido.RetiroEnPuerta = false;
+							avanzar2 = true;
+							break;
+						
+						default:
+							Console.WriteLine("No ha ingresado una opcion correcta");
+							break;
+
+					}
+
+				} while (!avanzar2);
+			
+				bool avanzar3 = false;
+				do
+				{
+					Console.WriteLine("Por indique si se realizará la entrega en domicilio o en sucursal.");
+					Console.WriteLine("[1] Entrega a Domicilio");
+					Console.WriteLine("[2] Entrega en Sucursal");
+
+					var opcion = Console.ReadLine();
+
+					switch (opcion)
+					{
+						case "1":
+							pedido.EntregaDomicilio = true;
+							avanzar3 = true;
+							break;
+
+						case "2":
+							pedido.EntregaDomicilio = false;
+							avanzar3 = true;
+							break;
+						
+						default:
+							Console.WriteLine("No ha ingresado una opcion correcta");
+							break;
+
+					}
+
+				} while (!avanzar3);
+
 			}
-
+			
+			if (pedido.Urgente == true)
+			{
+				decimal cargo = RecargoUrgencia(pedido.Urgente);
+				pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido*cargo);
+               
+			}
+			if (pedido.EntregaDomicilio == true)
+			{
+				decimal cargo = RecargoEntrega(pedido.EntregaDomicilio);
+				pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido*cargo);
+			}
+			if (pedido.RetiroEnPuerta == true)
+			{
+				decimal cargo = RecargoRetiro(pedido.RetiroEnPuerta);
+				pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido*cargo);
+			}
 			
 			pedido.MostrarPedidoFinal();
 			
@@ -1577,6 +1560,29 @@ namespace AplicacionCAI
 			return pedido;
 		}
 
+		private static decimal RecargoUrgencia(bool entrada)
+		{
+			decimal cargo = TarifarioDiccionario.EnvioUrgente(entrada);
+			return cargo;
+		}
+
+		//private static decimal TopeRecargo(bool entrada)
+		//{
+		//	decimal cargo = AgendaTarifasAdicionales.SeleccionarTopeUrgente(entrada);
+		//	return cargo;
+		//}
+
+		private static decimal RecargoEntrega(bool entrada)
+		{
+			decimal cargo = TarifarioDiccionario.EntregaDomicilio(entrada);
+			return cargo;
+		}
+
+		private static decimal RecargoRetiro(bool entrada)
+		{
+			decimal cargo = TarifarioDiccionario.RetiroEnPuerta(entrada);
+			return cargo;
+		}		
 
 		private string ValidarSioNoPedidoInicial(string mensaje)
 		{

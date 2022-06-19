@@ -56,7 +56,66 @@ namespace AplicacionCAI
  
             return null;
         }
-        
+    
+        public static decimal EnvioUrgente(bool entrada)
+        {
+            var modelo = ServicioPrecio.Recargo(entrada);
+
+            foreach (var tarifas in servicioPrecioDiccionario.Values)
+            {
+
+                return tarifas.PrecioServicioUrgente;
+
+            }
+
+            return 0;
+
+        }
+
+        public static decimal TopeRecargo(bool entrada)
+        {
+            var modelo = ServicioPrecio.Recargo(entrada);
+
+            foreach (var tarifas in servicioPrecioDiccionario.Values)
+            {
+
+                return tarifas.TopeUrgente;
+
+            }
+
+            return 0;
+
+        }
+
+        public static decimal RetiroEnPuerta (bool entrada)
+        {
+            var modelo = ServicioPrecio.Recargo(entrada);
+
+            foreach (var tarifas in servicioPrecioDiccionario.Values)
+            {
+
+                return tarifas.PrecioServicioEnPuerta;
+
+            }
+
+            return 0;
+
+        }
+
+        public static decimal EntregaDomicilio (bool entrada)
+        {
+            var modelo = ServicioPrecio.Recargo(entrada);
+
+            foreach (var tarifas in servicioPrecioDiccionario.Values)
+            {
+
+                return tarifas.PrecioServicioEnSucursal;
+
+            }
+
+            return 0;
+
+        }    
         
         
     }

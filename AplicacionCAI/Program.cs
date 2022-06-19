@@ -153,7 +153,7 @@ namespace AplicacionCAI
             if (pedido != null)
             {
                 Console.Clear();
-                pedido.MostrarPedido();
+                pedido.MostrarPedidoFinal();
             }
             Console.WriteLine("Pulse una tecla para continuar");
             Console.ReadKey();
