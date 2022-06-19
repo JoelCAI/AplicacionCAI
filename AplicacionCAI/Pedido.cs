@@ -207,7 +207,7 @@ namespace AplicacionCAI
 
 			pedido.IdPedido = new Random().Next(50000000, 99999999);
 			
-			var servicioPrecio = DiccionarioServicioPrecio.BuscarServicioIdPedido();
+			var servicioPrecio = TarifarioDiccionario.BuscarServicioIdPedido();
 
 			pedido.EstadoPedido = "INICIADO";
 

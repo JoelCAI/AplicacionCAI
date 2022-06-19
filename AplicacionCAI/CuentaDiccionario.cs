@@ -13,17 +13,17 @@ namespace AplicacionCAI
 
         //private static readonly Dictionary<int, Cuenta> cuentaDiccionario = new Dictionary<int, Cuenta>();
 
-        const string nombreArchivo = "cuentaLista.txt";
+        const string fileName = "cuentaLista.txt";
         
         static DiccionarioCuenta()
         {
 
             cuentaDiccionario = new List<Cuenta>();
 
-            if (File.Exists(nombreArchivo))
+            if (File.Exists(fileName))
 
             {
-                using (var reader = new StreamReader(nombreArchivo))
+                using (var reader = new StreamReader(fileName))
 
                 {
 

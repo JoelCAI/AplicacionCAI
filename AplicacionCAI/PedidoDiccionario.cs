@@ -12,16 +12,16 @@ namespace AplicacionCAI
         
         private static readonly Dictionary<int, Pedido> items;
 
-        const string nombreArchivo = "pedidoLista.txt";
+        const string fileName = "pedidoLista.txt";
 
 
         static DiccionarioPedido()
         {
             items = new Dictionary<int, Pedido>();
 
-            if (File.Exists(nombreArchivo))
+            if (File.Exists(fileName))
             {
-                using (var reader = new StreamReader(nombreArchivo))
+                using (var reader = new StreamReader(fileName))
                 {
                     while (!reader.EndOfStream)
                     {
@@ -58,7 +58,7 @@ namespace AplicacionCAI
 
         public static void GrabarPedido()
         {
-            using (var writer = new StreamWriter(nombreArchivo, append: false))
+            using (var writer = new StreamWriter(fileName, append: false))
             {
 
                 foreach (var pedido in items.Values)

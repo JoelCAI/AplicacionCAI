@@ -7,24 +7,22 @@ using System.IO;
 
 namespace AplicacionCAI
 {
-    static class DiccionarioServicioPrecio
+    static class TarifarioDiccionario
     {
         
         private static readonly Dictionary<int, ServicioPrecio> servicioPrecioDiccionario = new Dictionary<int, ServicioPrecio>();
 
-
-        const string archivoServicioPrecio = "servicioPrecioLista.txt";
-
-
+        const string fileName = "servicioPrecioLista.txt";
         
-        static DiccionarioServicioPrecio()
+        
+        static TarifarioDiccionario()
         {
             servicioPrecioDiccionario = new Dictionary<int, ServicioPrecio>();
 
-            if (File.Exists(archivoServicioPrecio))
+            if (File.Exists(fileName))
 
             {
-                using (var reader = new StreamReader(archivoServicioPrecio))
+                using (var reader = new StreamReader(fileName))
 
                 {
 
@@ -41,7 +39,6 @@ namespace AplicacionCAI
 
         }
 
-   
 
         public static ServicioPrecio BuscarServicioIdPedido()
         {

@@ -13,7 +13,7 @@ namespace AplicacionCAI
         private static readonly Dictionary<int, Usuario> usuarioDiccionario = new Dictionary<int, Usuario>();
             
         
-        const string archivoUsuario = "usuarioLista.txt";
+        const string fileName = "usuarioLista.txt";
 
  
         
@@ -22,15 +22,12 @@ namespace AplicacionCAI
             usuarioDiccionario = new Dictionary<int, Usuario>();
 
  
-            if (File.Exists(archivoUsuario))
+            if (File.Exists(fileName))
 
             {
-                
-
-                using (var reader = new StreamReader(archivoUsuario))
+                using (var reader = new StreamReader(fileName))
 
                 {
-                    
                     while (!reader.EndOfStream)
                     {
                         var linea = reader.ReadLine();
