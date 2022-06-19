@@ -113,9 +113,6 @@ namespace AplicacionCAI
 			Console.WriteLine($" Provincia de Origen: {ProvinciaOrigen}");
 			Console.WriteLine($" Localidad de Origen: {LocalidadOrigen}");
 			Console.WriteLine($" DomicilioDeOrigen: {DomicilioOrigen}");
-
-
-
 		}
 
 		public void MostrarPedidoMedio()
@@ -145,9 +142,6 @@ namespace AplicacionCAI
 			Console.WriteLine($" Domicilio de Destino: {DomicilioDestino}");
 
 			Console.WriteLine($"\n Subtotal del Pedido: {SubTotalCalculoPedido}");
-
-			
-
 		}
 
 		public void MostrarPedidoFinal()

@@ -44,17 +44,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cuenta.cs" />
-    <Compile Include="DiccionarioCuenta.cs" />
-    <Compile Include="DiccionarioPedido.cs" />
-    <Compile Include="DiccionarioServicioPrecio.cs" />
-    <Compile Include="DiccionarioUsuario.cs" />
+    <Compile Include="CuentaDiccionario.cs" />
+    <Compile Include="PedidoDiccionario.cs" />
+    <Compile Include="TarifarioDiccionario.cs" />
+    <Compile Include="UsuarioDiccionario.cs" />
     <Compile Include="Factura.cs" />
-    <Compile Include="Item.cs" />
     <Compile Include="Pedido.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reclamo.cs" />
-    <Compile Include="ServicioPrecio.cs" />
+    <Compile Include="Tarifario.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Validador.cs" />
   </ItemGroup>
