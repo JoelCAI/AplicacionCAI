@@ -9,196 +9,37 @@ namespace AplicacionCAI
 {
 	class Pedido
 	{
-		private int idPedido;
 
-		private string estadoPedido;
-		private DateTime fechaPedido;
-
-		private string continenteOrigen;
-		private string paisOrigen;
-		private string regionOrigen;
-		private string provinciaOrigen;
-		private string localidadOrigen;
-		private string domicilioOrigen;
-
-		private string continenteDestino;
-		private string paisDestino;
-		private string regionDestino;
-		private string provinciaDestino;
-		private string localidadDestino;
-		private string domicilioDestino;
-
-		private decimal precioEncomienda;
-		private decimal pesoEncomienda;
-
-
-		private long cuitCorporativo;
-		private string razonSocialCorporativo;
-
-		private string urgente;
-		private string retiroEnSucursal;
-		private string retiroEnPuerta;
-
-		private decimal subTotalcalculoPedido;
-		private decimal totalcalculoPedido;
-
-
-		public int IdPedido
-		{
-			get { return this.idPedido; }
-			set { this.idPedido = value; }
-		}
-
-		public string EstadoPedido
-		{
-			get { return this.estadoPedido; }
-			set { this.estadoPedido = value; }
-		}
-
-		public DateTime FechaPedido
-		{
-			get { return this.fechaPedido; }
-			set { this.fechaPedido = value; }
-		}
-
-		public string ContinenteOrigen
-		{
-			get { return this.continenteOrigen; }
-			set { this.continenteOrigen = value; }
-		}
-
-		public string PaisOrigen
-		{
-			get { return this.paisOrigen; }
-			set { this.paisOrigen = value; }
-		}
-
-		public string RegionOrigen
-		{
-			get { return this.regionOrigen; }
-			set { this.regionOrigen = value; }
-		}
-
-		public string ProvinciaOrigen
-		{
-			get { return this.provinciaOrigen; }
-			set { this.provinciaOrigen = value; }
-		}
-
-		public string LocalidadOrigen
-		{
-			get { return this.localidadOrigen; }
-			set { this.localidadOrigen = value; }
-		}
-
-		public string DomicilioOrigen
-		{
-			get { return this.domicilioOrigen; }
-			set { this.domicilioOrigen = value; }
-		}
-
-		public string ContinenteDestino
-		{
-			get { return this.continenteDestino; }
-			set { this.continenteDestino = value; }
-		}
-
-
-		public string PaisDestino
-		{
-			get { return this.paisDestino; }
-			set { this.paisDestino = value; }
-		}
-
-		public string RegionDestino
-		{
-			get { return this.regionDestino; }
-			set { this.regionDestino = value; }
-		}
-
-		public string ProvinciaDestino
-		{
-			get { return this.provinciaDestino; }
-			set { this.provinciaDestino = value; }
-		}
-
-		public string LocalidadDestino
-		{
-			get { return this.localidadDestino; }
-			set { this.localidadDestino = value; }
-		}
-
-		public string DomicilioDestino
-		{
-			get { return this.domicilioDestino; }
-			set { this.domicilioDestino = value; }
-		}
-
-
-		public decimal PrecioEncomienda
-		{
-			get { return this.precioEncomienda; }
-			set { this.precioEncomienda = value; }
-		}
-
-		public decimal PesoEncomienda
-		{
-			get { return this.pesoEncomienda; }
-			set { this.pesoEncomienda = value; }
-		}
-
-
-		public long CuitCorporativo
-		{
-			get { return this.cuitCorporativo; }
-			set { this.cuitCorporativo = value; }
-		}
-
-		public string RazonSocialCorporativo
-		{
-			get { return this.razonSocialCorporativo; }
-			set { this.razonSocialCorporativo = value; }
-		}
-
-
-		public string Urgente
-		{
-			get { return this.urgente; }
-			set { this.urgente = value; }
-		}
-
-		public string RetiroEnSucursal
-		{
-			get { return this.retiroEnSucursal; }
-			set { this.retiroEnSucursal = value; }
-		}
-
-		public string RetiroEnPuerta
-		{
-			get { return this.retiroEnPuerta; }
-			set { this.retiroEnPuerta = value; }
-		}
-
-		public decimal SubTotalCalculoPedido
-		{
-			get { return this.subTotalcalculoPedido; }
-			set { this.subTotalcalculoPedido = value; }
-		}
-
-		public decimal TotalCalculoPedido
-		{
-			get { return this.totalcalculoPedido; }
-			set { this.totalcalculoPedido = value; }
-		}
-
-		public static int idContador = 1;
+		public int IdPedido { get; set; }
+		public long CuitCorporativo { get; set; }
+		public string RazonSocialCorporativo { get; set; }
+		public DateTime FechaPedido { get; set; }
+		public string EstadoPedido { get; set; }
+		public string ContinenteOrigen { get; set; }
+		public string DomicilioOrigen { get; set; }
+		public string LocalidadOrigen { get; set; }
+		public string ProvinciaOrigen { get; set; }
+		public string RegionOrigen { get; set; }
+		public string PaisOrigen { get; set; }
+		public string ContinenteDestino { get; set; }
+		public string DomicilioDestino { get; set; }
+		public string LocalidadDestino { get; set; }
+		public string ProvinciaDestino { get; set; }
+		public string RegionDestino { get; set; }
+		public string PaisDestino { get; set; }
+		public decimal PrecioEncomienda { get; set; }
+		public bool Urgente { get; set; }
+		public bool RetiroEnSucursal { get; set; }
+		public bool RetiroEnPuerta { get; set; }
+		public decimal PesoEncomienda { get; set; }
+		public decimal SubTotalCalculoPedido { get; set; }
+		public decimal TotalCalculoPedido { get; set; }
 
 		public Pedido()
 		{
-			idPedido = idContador;
-			idContador++;
 
 		}
+		
 
 		public Pedido(string linea)
 		{
@@ -208,19 +49,19 @@ namespace AplicacionCAI
 			EstadoPedido = datos[1];
 			FechaPedido = DateTime.Parse(datos[2]);
 
-			ContinenteOrigen = datos[3];
-			PaisOrigen = datos[4];
-			RegionOrigen = datos[5];
-			ProvinciaOrigen = datos[6];
-			LocalidadOrigen = datos[7];
-			DomicilioOrigen = datos[8];
-
-			ContinenteDestino = datos[9];
-			PaisDestino = datos[10];
-			RegionDestino = datos[11];
-			ProvinciaDestino = datos[12];
-			LocalidadDestino = datos[13];
-			DomicilioDestino = datos[14];
+			PaisOrigen = datos[3];
+			RegionOrigen = datos[4];
+			ProvinciaOrigen = datos[5];
+			LocalidadOrigen = datos[6];
+			DomicilioOrigen = datos[7];
+			ContinenteOrigen = datos[8];
+			
+			PaisDestino = datos[9];
+			RegionDestino = datos[10];
+			ProvinciaDestino = datos[11];
+			LocalidadDestino = datos[12];
+			DomicilioDestino = datos[13];
+			ContinenteDestino = datos[14];
 
 			PrecioEncomienda = decimal.Parse(datos[15]);
 			PesoEncomienda = decimal.Parse(datos[16]);
@@ -228,32 +69,23 @@ namespace AplicacionCAI
 			CuitCorporativo = long.Parse(datos[17]);
 			RazonSocialCorporativo = datos[18];
 
-			Urgente = datos[19];
-			RetiroEnSucursal = datos[20];
-			RetiroEnPuerta = datos[21];
+			Urgente = bool.Parse(datos[19]);
+			RetiroEnSucursal = bool.Parse(datos[20]);
+			RetiroEnPuerta = bool.Parse(datos[21]);
 
 			SubTotalCalculoPedido = decimal.Parse(datos[22]);
 			TotalCalculoPedido = decimal.Parse(datos[23]);
-
-
 		}
-
-
-
 
 		public string ObtenerLineaDatos()
 		{
-			return $"{IdPedido} ; {EstadoPedido} ; {FechaPedido};{PaisOrigen};{RegionOrigen};{ProvinciaOrigen};{LocalidadOrigen};{DomicilioOrigen};{PaisDestino};{RegionDestino};{ProvinciaDestino};{LocalidadDestino} ; {DomicilioDestino} ; {PrecioEncomienda} ; {PesoEncomienda} ; {CuitCorporativo} ; {RazonSocialCorporativo} ; {Urgente} ; {RetiroEnSucursal} ; {RetiroEnPuerta}";
+			return $"{IdPedido};{EstadoPedido};{FechaPedido};{PaisOrigen};{RegionOrigen};{ProvinciaOrigen};{LocalidadOrigen};{DomicilioOrigen};{ContinenteOrigen};{PaisDestino};{RegionDestino};{ProvinciaDestino};{LocalidadDestino};{DomicilioDestino};{ContinenteDestino};{PrecioEncomienda};{PesoEncomienda};{CuitCorporativo};{RazonSocialCorporativo};{Urgente};{RetiroEnSucursal};{RetiroEnPuerta};{SubTotalCalculoPedido};{TotalCalculoPedido}";
 		}
 
 		public static Pedido CrearModeloBusqueda()
 		{
 			var modelo = new Pedido();
-
-
-			modelo.IdPedido = Validador.PedirIntMayor("\n Por favor ingrese el nro de ID", 0);
-
-
+			modelo.IdPedido = Validador.IngresarEntero("\n Por favor ingrese el nro de ID");
 			return modelo;
 		}
 
@@ -360,13 +192,28 @@ namespace AplicacionCAI
 
 		}
 
+		public static Pedido BusquedaCuitCorporativo(long cuit)
+		{
+			var modelo = new Pedido();
+
+			modelo.CuitCorporativo = cuit;
+
+			return modelo;
+		}
+		
+		public void MostrarPedido()
+		{
+			Console.WriteLine($"ID Pedido: {IdPedido}");
+			Console.WriteLine($"Estado: {EstadoPedido}");
+		}
 
 		public static Pedido CrearPedido()
 		{
 			var pedido = new Pedido();
 
+			pedido.IdPedido = new Random().Next(50000000, 99999999);
+			
 			var servicioPrecio = DiccionarioServicioPrecio.BuscarServicioIdPedido();
-
 
 			pedido.EstadoPedido = "INICIADO";
 
@@ -736,7 +583,7 @@ namespace AplicacionCAI
 			} while (opcion1 != 7);
 
 
-			seguirUno = pedido.ValidarSioNoPedidoInicial("\n Desea Continuar?");
+			seguirUno = pedido.ValidarSioNoPedidoInicial("\n¿Desea Continuar?");
 
 
 			if (seguirUno == "SI" && pedido.PaisOrigen != null)
@@ -1627,9 +1474,9 @@ namespace AplicacionCAI
 							{
 								
 								pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido * servicioPrecio.PrecioServicioUrgente;
-								pedido.Urgente = "SI (+30%)";
-								pedido.RetiroEnPuerta = "NO";
-								pedido.RetiroEnSucursal = "NO";
+								pedido.Urgente = true;
+								pedido.RetiroEnPuerta = false;
+								pedido.RetiroEnSucursal = false;
 								
 								opcion4 = 4;
 
@@ -1655,9 +1502,9 @@ namespace AplicacionCAI
 							{
 
 								pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido * servicioPrecio.PrecioServicioEnPuerta;
-								pedido.Urgente = "NO";
-								pedido.RetiroEnPuerta = "SI (+15%)";
-								pedido.RetiroEnSucursal = "NO";
+								pedido.Urgente = false;
+								pedido.RetiroEnPuerta = true;
+								pedido.RetiroEnSucursal = false;
 								
 								opcion4 = 4;
 
@@ -1682,9 +1529,9 @@ namespace AplicacionCAI
 							{
 
 								pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido * servicioPrecio.PrecioServicioEnSucursal;
-								pedido.Urgente = "NO";
-								pedido.RetiroEnPuerta = "NO";
-								pedido.RetiroEnSucursal = "SI (+5%)";
+								pedido.Urgente = false;
+								pedido.RetiroEnPuerta = false;
+								pedido.RetiroEnSucursal = true;
 								
 								opcion4 = 4;
 
@@ -1745,7 +1592,6 @@ namespace AplicacionCAI
 				if (opcion == "" || (opcion != opcionC) & (opcion != opcionD))
 				{
 					continue;
-
 				}
 				else
 				{

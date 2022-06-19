@@ -9,14 +9,16 @@ namespace AplicacionCAI
 {
     static class DiccionarioCuenta
     {
-        private static readonly List<Cuenta> entradas;
+        private static readonly List<Cuenta> cuentaDiccionario;
+
+        //private static readonly Dictionary<int, Cuenta> cuentaDiccionario = new Dictionary<int, Cuenta>();
 
         const string nombreArchivo = "cuentaLista.txt";
-
+        
         static DiccionarioCuenta()
         {
 
-            entradas = new List<Cuenta>();
+            cuentaDiccionario = new List<Cuenta>();
 
             if (File.Exists(nombreArchivo))
 
@@ -29,7 +31,7 @@ namespace AplicacionCAI
                     {
                         var linea = reader.ReadLine();
                         var cuenta = new Cuenta(linea);
-                        entradas.Add(cuenta);
+                        cuentaDiccionario.Add(cuenta);
                     }
 
                 }
@@ -38,19 +40,19 @@ namespace AplicacionCAI
 
         }
 
-        public static void Seleccionar(int codigoCliente)
+        public static void SeleccionarCuenta(long cuit)
         {
-            var modelo = Cuenta.CrearModeloBusqueda(codigoCliente);
+            var modelo = Cuenta.CrearModeloBusqueda(cuit);
 
             bool found = false;
 
-            foreach (var cuenta in entradas)
+            foreach (var cuentas in cuentaDiccionario)
             {
-                if (cuenta.CoincideCon(modelo))
+                if (cuentas.CoincideCuenta(modelo))
                 {
-                    Console.WriteLine("\n El Numero de Factura es:{cuentas.codigoCliente}");
-                    Console.WriteLine("\n El Saldo es: " + cuenta.saldoCliente);
-                    Console.WriteLine("\n El Estado es: " + cuenta.estado);
+                    Console.WriteLine("\n Numero de la Factura es: " + cuentas.NumeroFactura +
+                                      "\n El Saldo es de: " + cuentas.SaldoCliente+
+                                      "\n El Estado es: " + cuentas.Estado);
                     found = true;
                 }
             }
@@ -60,15 +62,15 @@ namespace AplicacionCAI
                 Console.WriteLine("No se encontraron registros para el Cliente solicitado");
             }
         }
-
-        public static void CalcularSaldo(int codigoCliente, string estado)
+        
+        public static void CalculaSaldoCuenta (long cuit, string estado)
         {
-            var modelo = Cuenta.CrearModeloBusquedaClienteEstado(codigoCliente, estado);
+            var modelo = Cuenta.CrearModeloBusquedaClienteEstado(cuit, estado);
             decimal total = 0;
             bool found = false;
 
 
-            foreach (var cuenta in entradas)
+            foreach (var cuenta in cuentaDiccionario)
             {
                 if (cuenta.CoincideClienteEstado(modelo))
                 {
@@ -81,14 +83,12 @@ namespace AplicacionCAI
 
             }
 
-            Console.WriteLine("El Saldo es: " + total);
+            Console.WriteLine($"Saldo: ${total}");
 
             if (found == false)
             {
-                Console.WriteLine("No se encontraron registros para el Cliente solicitado");
+                Console.WriteLine("No se encontraron registros");
             }
-
-
         }
     }
 }

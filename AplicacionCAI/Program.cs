@@ -69,16 +69,16 @@ namespace AplicacionCAI
                                     switch (opcion)
                                     {
                                         case 1:
+                                            Console.Clear();
                                             GenerarSolicitudPedido();
-                                            
                                             break;
                                         case 2:
+                                            Console.Clear();
                                             ConsultarEstadoPedido();
-                                            
                                             break;
                                         case 3:
-                                            ConsultarEstadoCuenta();
-                                            
+                                            Console.Clear();
+                                            //ConsultarEstadoCuenta();
                                             break;
 
                                     }
@@ -87,7 +87,6 @@ namespace AplicacionCAI
                             }
                             else
                             {
-                                
                                 Console.WriteLine("Digitó una clave incorrecta, vuelvalo a intentar con los datos correctos");
                                 Validador.VolverMenu();
                             }
@@ -96,7 +95,6 @@ namespace AplicacionCAI
                         }
                         else
                         {
-                            
                             Console.WriteLine("No existe el usuario, intente con otro usuario");
                             usuarioDni = null;
                             Validador.VolverMenu();
@@ -111,8 +109,6 @@ namespace AplicacionCAI
             } while (ingreso != 2);
 
         }
-
-
         
         public static void Continuar()
         {
@@ -122,28 +118,77 @@ namespace AplicacionCAI
         private static void GenerarSolicitudPedido()
         {
             var pedido = Pedido.CrearPedido();
+            Console.WriteLine($"El costo total por el servicio es: {pedido.TotalCalculoPedido}");
             
+            do
+            {
+                Console.WriteLine("¿Desea confirmar? Responder S/N");
+                string ingreso = Console.ReadLine();
+                string opcion = ingreso.ToUpper();          
 
+                if (opcion == "S")
+                {
+                    DiccionarioPedido.AgregarPedido(pedido);
+                    Console.WriteLine("Su pedido se generó correctamente.");
+                    break;
+                }
+                if (opcion == "N")
+                {
+                    break;
+                }
+                else { 
+                    Console.WriteLine("Por favor introducir un valor correcto");
+                    
+                }
+            } while (true);
+            Console.WriteLine("Pulse una tecla para continuar");
+            Console.ReadKey();
+            Console.Clear();            
         }
 
  
-        public static void ConsultarEstadoPedido()
+        private static void ConsultarEstadoPedido()
         {
-            throw new NotImplementedException();
-
+            var pedido = DiccionarioPedido.SeleccionarPedido(); 
+            if (pedido != null)
+            {
+                Console.Clear();
+                pedido.MostrarPedido();
+            }
+            Console.WriteLine("Pulse una tecla para continuar");
+            Console.ReadKey();
+            Console.Clear();
         }
 
-        public static void ConsultarEstadoCuenta()
+        public static void ConsultarEstadoCuenta(long cuit , string estado)
         {
-            throw new NotImplementedException();
+            Console.Clear();
+            Console.WriteLine(" * * * * *                   * * * * * ");
+            Console.WriteLine(" * * * * *  ESTADO DE CUENTA * * * * * ");
+            Console.WriteLine(" * * * * *                   * * * * * ");
+           
+            Console.WriteLine("");
+            DiccionarioCuenta.SeleccionarCuenta(cuit); 
+           
+            Console.WriteLine("");
+            Console.WriteLine(" * * * * *                     * * * * * ");
+            Console.WriteLine(" * * * * * INFORMACION PEDIDOS * * * * *");
+            Console.WriteLine(" * * * * *                     * * * * * ");
+            Console.WriteLine("");
+            DiccionarioPedido.SeleccionarInfoPedido(cuit); // aca rompe
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine(" * * * * *                     * * * * * ");
+            Console.WriteLine(" * * * * * SALDO ACTUAL CUENTA * * * * *");
+            Console.WriteLine(" * * * * *                     * * * * * ");
+            Console.WriteLine("");
+            DiccionarioCuenta.CalculaSaldoCuenta(cuit, estado);
+            Console.WriteLine("");
+            Console.WriteLine("Pulse una tecla para continuar");
+            Console.ReadKey();
+            Console.Clear();
 
         }
-
-   
         
-
-
-		
-
-	}
+    }
 }
