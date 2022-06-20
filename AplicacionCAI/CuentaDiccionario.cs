@@ -9,21 +9,19 @@ namespace AplicacionCAI
 {
     static class DiccionarioCuenta
     {
-        private static readonly List<Cuenta> cuentaDiccionario;
+        private static readonly Dictionary<int,Cuenta> cuentaDiccionario = new Dictionary<int, Cuenta>();
 
-        //private static readonly Dictionary<int, Cuenta> cuentaDiccionario = new Dictionary<int, Cuenta>();
+        const string nombreArchivo = "cuentaLista.txt";
 
-        const string fileName = "cuentaLista.txt";
-        
         static DiccionarioCuenta()
         {
 
-            cuentaDiccionario = new List<Cuenta>();
+            cuentaDiccionario = new Dictionary<int, Cuenta>();
 
-            if (File.Exists(fileName))
+            if (File.Exists(nombreArchivo))
 
             {
-                using (var reader = new StreamReader(fileName))
+                using (var reader = new StreamReader(nombreArchivo))
 
                 {
 
@@ -31,7 +29,7 @@ namespace AplicacionCAI
                     {
                         var linea = reader.ReadLine();
                         var cuenta = new Cuenta(linea);
-                        cuentaDiccionario.Add(cuenta);
+                        cuentaDiccionario.Add(cuenta.operacionCuenta,cuenta);
                     }
 
                 }
@@ -39,56 +37,49 @@ namespace AplicacionCAI
             }
 
         }
-
-        public static void SeleccionarCuenta(long cuit)
-        {
-            var modelo = Cuenta.CrearModeloBusqueda(cuit);
-
-            bool found = false;
-
-            foreach (var cuentas in cuentaDiccionario)
-            {
-                if (cuentas.CoincideCuenta(modelo))
-                {
-                    Console.WriteLine("\n Numero de la Factura es: " + cuentas.NumeroFactura +
-                                      "\n El Saldo es de: " + cuentas.SaldoCliente+
-                                      "\n El Estado es: " + cuentas.Estado);
-                    found = true;
-                }
-            }
-
-            if (found == false)
-            {
-                Console.WriteLine("No se encontraron registros para el Cliente solicitado");
-            }
-        }
         
-        public static void CalculaSaldoCuenta (long cuit, string estado)
+ 
+         public static void VerEstadoCuenta(long cuit)
         {
-            var modelo = Cuenta.CrearModeloBusquedaClienteEstado(cuit, estado);
-            decimal total = 0;
-            bool found = false;
+            long cuitLogueado = cuit;
 
-
-            foreach (var cuenta in cuentaDiccionario)
+ 
+            Console.Clear();
+            Console.WriteLine("\n Facturas para el Cliente: " + cuitLogueado);
+           
+           
+            using (var cuentaLista = new FileStream("cuentaLista.txt", FileMode.Open))
             {
-                if (cuenta.CoincideClienteEstado(modelo))
+                using (var archivoCuenta = new StreamReader(cuentaLista))
                 {
-                    var saldo = cuenta.saldoCliente;
+                    foreach (var otro in cuentaDiccionario.Values)
+                    {
+                       
+                        if (otro.CuitCliente == cuit)
+                        {
+                            Console.Write("\n");
+                            Console.WriteLine("Fecha\t\tRazón Social\t\tCuit\t\tN° Factura.\t\tSaldo.\t\tEstado.");
+                            
+                            Console.Write(otro.Fecha.ToShortDateString());
+                            Console.Write("\t");
+                            Console.Write(otro.RazonSocial);
+                            Console.Write("\t\t");
+                            Console.Write(otro.CuitCliente);
+                            Console.Write("\t");
+                            Console.Write(otro.NumeroFactura);
+                            Console.Write("\t\t\t");
+                            Console.Write(otro.SaldoCliente);
+                            Console.Write("\t\t");
+                            Console.Write(otro.Estado);
+                            Console.Write("\t\t");
 
-                    total = total + saldo;
-                    found = true;
+                            Console.Write("\n");
+                            
+                        }
+                    }
                 }
-
-
             }
-
-            Console.WriteLine($"Saldo: ${total}");
-
-            if (found == false)
-            {
-                Console.WriteLine("No se encontraron registros");
-            }
+            //Validador.VolverMenu();
         }
     }
 }

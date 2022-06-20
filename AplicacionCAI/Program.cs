@@ -78,7 +78,7 @@ namespace AplicacionCAI
                                             break;
                                         case 3:
                                             Console.Clear();
-                                            //ConsultarEstadoCuenta();
+                                            ConsultarCuenta(cuit);
                                             break;
 
                                     }
@@ -159,35 +159,19 @@ namespace AplicacionCAI
             Console.ReadKey();
             Console.Clear();
         }
-
-        public static void ConsultarEstadoCuenta(long cuit , string estado)
+        
+        private static void ConsultarCuenta(long cuit)
         {
-            Console.Clear();
-            Console.WriteLine(" * * * * *                   * * * * * ");
-            Console.WriteLine(" * * * * *  ESTADO DE CUENTA * * * * * ");
-            Console.WriteLine(" * * * * *                   * * * * * ");
-           
             Console.WriteLine("");
-            DiccionarioCuenta.SeleccionarCuenta(cuit); 
-           
+            Console.WriteLine(":::::FACTURAS DISPONIBLES:::::");
+            DiccionarioCuenta.VerEstadoCuenta(cuit);
             Console.WriteLine("");
-            Console.WriteLine(" * * * * *                     * * * * * ");
-            Console.WriteLine(" * * * * * INFORMACION PEDIDOS * * * * *");
-            Console.WriteLine(" * * * * *                     * * * * * ");
-            Console.WriteLine("");
-            DiccionarioPedido.SeleccionarInfoPedido(cuit); // aca rompe
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine(" * * * * *                     * * * * * ");
-            Console.WriteLine(" * * * * * SALDO ACTUAL CUENTA * * * * *");
-            Console.WriteLine(" * * * * *                     * * * * * ");
-            Console.WriteLine("");
-            DiccionarioCuenta.CalculaSaldoCuenta(cuit, estado);
+            Console.WriteLine(":::::PEDIDOS PENDIENTES DE FACTURACIÓN:::::");
+            DiccionarioPedido.PedidosSinFacturar(cuit);
             Console.WriteLine("");
             Console.WriteLine("Pulse una tecla para continuar");
             Console.ReadKey();
             Console.Clear();
-
         }
         
     }

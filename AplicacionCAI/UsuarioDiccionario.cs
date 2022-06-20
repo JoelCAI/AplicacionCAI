@@ -11,11 +11,9 @@ namespace AplicacionCAI
     {
         
         private static readonly Dictionary<int, Usuario> usuarioDiccionario = new Dictionary<int, Usuario>();
-            
         
         const string fileName = "usuarioLista.txt";
-
- 
+        
         
         static DiccionarioUsuario()
         {
@@ -41,25 +39,7 @@ namespace AplicacionCAI
             }
 
         }
-
-  
-
-        public static void AgregarUsuario(Usuario usuario)
-
-        {
-            usuarioDiccionario.Add(usuario.DniUsuario, usuario);
-        }
-
-        public static void EliminarUsuario(Usuario usuario)
-        {
-            usuarioDiccionario.Remove(usuario.DniUsuario);
-        }
-
-        public static bool UsuarioExiste(int dni)
-        {
-            return usuarioDiccionario.ContainsKey(dni);
-        }
-
+        
         public static Usuario BuscarUsuarioDni()
         {
             var dni = Usuario.ValidarDni();
@@ -78,8 +58,7 @@ namespace AplicacionCAI
             
             return null;
         }
-
-
+        
         public static Usuario BuscarUsuarioDniUnico()
         {
             var dni = Usuario.ValidarDniUnico();
@@ -94,9 +73,7 @@ namespace AplicacionCAI
   
             return null;
         }
-
-
-
+        
         public static Usuario BuscarUsuarioClave()
         {
             var clave = Usuario.ValidarClave();
@@ -114,10 +91,6 @@ namespace AplicacionCAI
             //Program.Menu();
             return null;
         }
-
-
-
-
-
+        
     }
 }
