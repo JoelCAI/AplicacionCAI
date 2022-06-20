@@ -10,7 +10,7 @@ namespace AplicacionCAI
     {
 		
 		protected int dniUsuario;
-	    	protected string nombreUsuario;
+	    protected string nombreUsuario;
 		protected long cuitCorporativo;
 		protected string claveUsuario;
 		protected string razonSocial;
@@ -47,9 +47,8 @@ namespace AplicacionCAI
 
 		public Usuario()
         {
-			
 
-		}
+        }
 
         public Usuario(string linea)
         {
@@ -117,13 +116,6 @@ namespace AplicacionCAI
 			return true;
 		}
 
-
-		
-
-
-		
-
-
-	}
+    }
 
 }

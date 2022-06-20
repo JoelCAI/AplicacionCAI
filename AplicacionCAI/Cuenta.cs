@@ -12,6 +12,7 @@ namespace AplicacionCAI
         public int numeroFactura;
         public decimal saldoCliente;
         public string estado;
+        public long cuitCliente;
 
         public int CodigoCliente
         {
@@ -51,54 +52,50 @@ namespace AplicacionCAI
             Estado = datos[3];
         }
 
-        public static Cuenta CrearModeloBusqueda(int codigoCliente)
+        public static Cuenta CrearModeloBusqueda(long cuit)
         {
             var modelo = new Cuenta();
 
 
-            modelo.CodigoCliente = codigoCliente;
+            modelo.cuitCliente = cuit;
 
 
             return modelo;
         }
 
-        public static Cuenta CrearModeloBusquedaClienteEstado(int codigoCliente, string estado)
+        public static Cuenta CrearModeloBusquedaClienteEstado(long cuitCliente, string estado)
         {
             var modelo = new Cuenta();
 
 
-            modelo.codigoCliente = codigoCliente;
+            modelo.cuitCliente = cuitCliente;
             modelo.estado = estado;
 
 
             return modelo;
         }
 
-        public bool CoincideCon(Cuenta modelo)
+
+        public bool CoincideCuenta(Cuenta modelo)
         {
-            if (modelo.codigoCliente != 0 && codigoCliente != modelo.codigoCliente)
+            if (modelo.cuitCliente != 0 && cuitCliente != modelo.cuitCliente)
             {
                 return false;
             }
 
             return true;
         }
-
 
         public bool CoincideClienteEstado(Cuenta modelo)
         {
 
-            if (codigoCliente != modelo.codigoCliente || estado != modelo.estado)
+            if (cuitCliente != modelo.cuitCliente || estado != modelo.estado)
             {
                 return false;
             }
 
             return true;
         }
-
-
-
-
-
+        
     }
 }
