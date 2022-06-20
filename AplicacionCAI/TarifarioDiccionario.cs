@@ -13,8 +13,7 @@ namespace AplicacionCAI
         private static readonly Dictionary<int, ServicioPrecio> servicioPrecioDiccionario = new Dictionary<int, ServicioPrecio>();
 
         const string fileName = "servicioPrecioLista.txt";
-        
-        
+
         static TarifarioDiccionario()
         {
             servicioPrecioDiccionario = new Dictionary<int, ServicioPrecio>();
@@ -115,8 +114,6 @@ namespace AplicacionCAI
 
             return 0;
 
-        }    
-        
-        
+        }
     }
 }

@@ -8,16 +8,26 @@ namespace AplicacionCAI
 {
     internal class Cuenta
     {
-        public int codigoCliente;
+        public int operacionCuenta;
+
+        public long cuitCliente;
         public int numeroFactura;
         public decimal saldoCliente;
         public string estado;
-        public long cuitCliente;
 
-        public int CodigoCliente
+        public DateTime fecha;
+        public string razonSocial;
+
+        public int OperacionCuenta
         {
-            get { return this.codigoCliente; }
-            set { this.codigoCliente = value; }
+            get { return this.operacionCuenta; }
+            set { this.operacionCuenta = value; }
+        }
+
+        public long CuitCliente
+        {
+            get { return this.cuitCliente; }
+            set { this.cuitCliente = value; }
         }
 
         public int NumeroFactura
@@ -37,6 +47,17 @@ namespace AplicacionCAI
             get { return this.estado; }
             set { this.estado = value; }
         }
+        public DateTime Fecha
+        {
+            get { return this.fecha; }
+            set { this.fecha = value; }
+        }
+
+        public string RazonSocial
+        {
+            get { return this.razonSocial; }
+            set { this.razonSocial = value; }
+        }
 
         public Cuenta()
         {
@@ -46,39 +67,21 @@ namespace AplicacionCAI
         public Cuenta(string linea)
         {
             var datos = linea.Split(';');
-            CodigoCliente = int.Parse(datos[0]);
-            NumeroFactura = int.Parse(datos[1]);
-            SaldoCliente = decimal.Parse(datos[2]);
-            Estado = datos[3];
+            OperacionCuenta = int.Parse(datos[0]);
+            CuitCliente = long.Parse(datos[1]);
+            NumeroFactura = int.Parse(datos[2]);
+            SaldoCliente = decimal.Parse(datos[3]);
+            Estado = datos[4];
+
+            Fecha = DateTime.Parse(datos[5]);
+            RazonSocial = datos[6];
+
         }
 
-        public static Cuenta CrearModeloBusqueda(long cuit)
+        public bool CoincideCuit(Cuenta objetoCuenta)
         {
-            var modelo = new Cuenta();
 
-
-            modelo.cuitCliente = cuit;
-
-
-            return modelo;
-        }
-
-        public static Cuenta CrearModeloBusquedaClienteEstado(long cuitCliente, string estado)
-        {
-            var modelo = new Cuenta();
-
-
-            modelo.cuitCliente = cuitCliente;
-            modelo.estado = estado;
-
-
-            return modelo;
-        }
-
-
-        public bool CoincideCuenta(Cuenta modelo)
-        {
-            if (modelo.cuitCliente != 0 && cuitCliente != modelo.cuitCliente)
+            if (objetoCuenta.CuitCliente !=0 && CuitCliente != objetoCuenta.CuitCliente)
             {
                 return false;
             }
@@ -86,16 +89,15 @@ namespace AplicacionCAI
             return true;
         }
 
-        public bool CoincideClienteEstado(Cuenta modelo)
+        public static Cuenta ValidarCuit(long cuit)
         {
+            var cuenta = new Cuenta();
 
-            if (cuitCliente != modelo.cuitCliente || estado != modelo.estado)
-            {
-                return false;
-            }
+            cuenta.CuitCliente = cuit;
 
-            return true;
+            return cuenta;
         }
         
+
     }
 }

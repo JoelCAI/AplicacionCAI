@@ -34,6 +34,7 @@ namespace AplicacionCAI
 		public decimal PesoEncomienda { get; set; }
 		public decimal SubTotalCalculoPedido { get; set; }
 		public decimal TotalCalculoPedido { get; set; }
+		public bool Facturado { get; set; }
 
 		public Pedido()
 		{
@@ -75,11 +76,13 @@ namespace AplicacionCAI
 
 			SubTotalCalculoPedido = decimal.Parse(datos[22]);
 			TotalCalculoPedido = decimal.Parse(datos[23]);
+			
+			Facturado = bool.Parse(datos[24]);
 		}
 
 		public string ObtenerLineaDatos()
 		{
-			return $"{IdPedido};{EstadoPedido};{FechaPedido};{PaisOrigen};{RegionOrigen};{ProvinciaOrigen};{LocalidadOrigen};{DomicilioOrigen};{ContinenteOrigen};{PaisDestino};{RegionDestino};{ProvinciaDestino};{LocalidadDestino};{DomicilioDestino};{ContinenteDestino};{PrecioEncomienda};{PesoEncomienda};{CuitCorporativo};{RazonSocialCorporativo};{Urgente};{EntregaDomicilio};{RetiroEnPuerta};{SubTotalCalculoPedido};{TotalCalculoPedido}";
+			return $"{IdPedido};{EstadoPedido};{FechaPedido};{PaisOrigen};{RegionOrigen};{ProvinciaOrigen};{LocalidadOrigen};{DomicilioOrigen};{ContinenteOrigen};{PaisDestino};{RegionDestino};{ProvinciaDestino};{LocalidadDestino};{DomicilioDestino};{ContinenteDestino};{PrecioEncomienda};{PesoEncomienda};{CuitCorporativo};{RazonSocialCorporativo};{Urgente};{EntregaDomicilio};{RetiroEnPuerta};{SubTotalCalculoPedido};{TotalCalculoPedido};{Facturado}";
 		}
 
 		public static Pedido CrearModeloBusqueda()
@@ -88,7 +91,7 @@ namespace AplicacionCAI
 			modelo.IdPedido = Validador.IngresarEntero("\n Por favor ingrese el nro de ID");
 			return modelo;
 		}
-
+		
 		public bool CoincideCon(Pedido modelo)
 		{
 			if (modelo.IdPedido != 0 && IdPedido != modelo.IdPedido)
@@ -97,6 +100,20 @@ namespace AplicacionCAI
 			}
 
 			return true;
+		}
+
+		public static Pedido BusquedaCuitCorporativo(long clienteLogueado)
+		{
+			var modelo = new Pedido();
+			modelo.CuitCorporativo = clienteLogueado;
+			return modelo;
+		}
+		
+		public static long UsuarioLogueado()
+		{
+			var usuario = DiccionarioUsuario.BuscarUsuarioDni();
+			var clienteLogueado = usuario.CuitCorporativo;
+			return clienteLogueado;
 		}
 
 		public void MostrarPedidoInicio()
@@ -113,35 +130,6 @@ namespace AplicacionCAI
 			Console.WriteLine($" Provincia de Origen: {ProvinciaOrigen}");
 			Console.WriteLine($" Localidad de Origen: {LocalidadOrigen}");
 			Console.WriteLine($" DomicilioDeOrigen: {DomicilioOrigen}");
-		}
-
-		public void MostrarPedidoMedio()
-		{
-			var usuario = DiccionarioUsuario.BuscarUsuarioDniUnico();
-
-			Console.Clear();
-			Console.WriteLine($"\n Estado del Pedido");
-
-			Console.WriteLine("\n Cuit: " + usuario.CuitCorporativo);
-			Console.WriteLine(" Razón Social: " + usuario.RazonSocial);
-
-			Console.WriteLine($"\n Id Pedido: {IdPedido}");
-			Console.WriteLine($" Estado: {EstadoPedido}");
-			Console.WriteLine($" Fecha de Pedido: {FechaPedido.ToLongDateString()}");
-
-			Console.WriteLine($"\n País de Origen: {PaisOrigen}");
-			Console.WriteLine($" Región de Origen: {RegionOrigen}");
-			Console.WriteLine($" Provincia de Origen: {ProvinciaOrigen}");
-			Console.WriteLine($" Localidad de Origen: {LocalidadOrigen}");
-			Console.WriteLine($" Domicilio de Origen: {DomicilioOrigen}");
-
-			Console.WriteLine($"\n País de Destino: {PaisDestino}");
-			Console.WriteLine($" Región de Destino: {RegionDestino}");
-			Console.WriteLine($" Provincia de Destino: {ProvinciaDestino}");
-			Console.WriteLine($" Localidad de Destino: {LocalidadDestino}");
-			Console.WriteLine($" Domicilio de Destino: {DomicilioDestino}");
-
-			Console.WriteLine($"\n Subtotal del Pedido: {SubTotalCalculoPedido}");
 		}
 
 		public void MostrarPedidoFinal()
@@ -171,34 +159,12 @@ namespace AplicacionCAI
 			Console.WriteLine($" Domicilio de Destino: {DomicilioDestino}");
 
 			Console.WriteLine($"\n Subtotal del Pedido: {SubTotalCalculoPedido}");
-
-			//Console.WriteLine($"\n Tipo de Recargo: ");
-			//Console.WriteLine($" Recargo Urgente (+30%): {Urgente}");
-			//Console.WriteLine($" Retiro en Sucursal (+5%) : {EntregaDomicilio}");
-			//Console.WriteLine($" Retiro en Puerta (+15%): {RetiroEnPuerta}");
-
+			
 			Console.WriteLine($"\n Total del Pedido con el Recargo incluido: {TotalCalculoPedido}");
-
-
-
+			
 			Console.WriteLine("\n Presione cualquier tecla para continuar");
 			Console.ReadKey();
 
-		}
-
-		public static Pedido BusquedaCuitCorporativo(long cuit)
-		{
-			var modelo = new Pedido();
-
-			modelo.CuitCorporativo = cuit;
-
-			return modelo;
-		}
-		
-		public void MostrarPedido()
-		{
-			Console.WriteLine($"ID Pedido: {IdPedido}");
-			Console.WriteLine($"Estado: {EstadoPedido}");
 		}
 
 		public static Pedido CrearPedido()
@@ -210,18 +176,18 @@ namespace AplicacionCAI
 			var servicioPrecio = TarifarioDiccionario.BuscarServicioIdPedido();
 
 			pedido.EstadoPedido = "INICIADO";
-
-
 			pedido.FechaPedido = DateTime.Now;
+			pedido.CuitCorporativo = UsuarioLogueado();
+			pedido.Facturado = false;
 
 			int opcion1;
 			int opcion2;
 			int opcion3;
-			int opcion4;
+			//int opcion4;
 
 			string continuarUno;
 			string continuarDos;
-			string continuarTres;
+			//string continuarTres;
 
 			string direccionUno;
 			string direccionDos;

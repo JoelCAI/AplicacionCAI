@@ -55,6 +55,42 @@ namespace AplicacionCAI
             return null;
         }
         
+        public static void PedidosSinFacturar(long clienteLogueado)
+        {
+            var modelo = Pedido.BusquedaCuitCorporativo(clienteLogueado);
+
+            bool match = false;
+            
+                    foreach (var pedido in items.Values)
+                    {
+                        if (pedido.Facturado == false)
+                        {
+
+                            Console.Write("\n");
+                            Console.WriteLine("Fecha\t\tID\t\t\tEstado\t\t\tTotal");
+                            
+                            Console.Write(pedido.FechaPedido.ToShortDateString());
+                            Console.Write("\t");
+                            Console.Write(pedido.IdPedido);
+                            Console.Write("\t\t");
+                            Console.Write(pedido.EstadoPedido);
+                            Console.Write("\t\t");
+                            Console.Write(pedido.TotalCalculoPedido);
+                            Console.Write("\t\t");
+
+                            Console.Write("\n");                                
+                            
+                        }
+                    }
+
+                    match = true;
+                    
+
+            if (match == false)
+            {
+                Console.WriteLine("No se encontraron registros");
+            }
+        }        
 
         public static void GrabarPedido()
         {
@@ -70,29 +106,6 @@ namespace AplicacionCAI
             }
 
         }
-
-        public static void SeleccionarInfoPedido(long cuit)
-        {
-            var modelo = Pedido.BusquedaCuitCorporativo(cuit);
-
-            bool found = false;
-
-            foreach (var pedido in items.Values)
-            {
-
-                Console.WriteLine("Numero del Pedido: " + pedido.IdPedido + "\n" +
-                                  "Estado del pedido: "+ pedido.EstadoPedido + "\n" +
-                                  "Fecha del pedido: "+ pedido.FechaPedido + "\n");
-                found = true;
-
-            }
-
-            if (found == false)
-            {
-                Console.WriteLine("No se encontraron registros");
-            }
-        }
-
 
     }
 

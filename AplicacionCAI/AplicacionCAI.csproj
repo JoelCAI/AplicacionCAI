@@ -48,7 +48,6 @@
     <Compile Include="PedidoDiccionario.cs" />
     <Compile Include="TarifarioDiccionario.cs" />
     <Compile Include="UsuarioDiccionario.cs" />
-    <Compile Include="Factura.cs" />
     <Compile Include="Pedido.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
