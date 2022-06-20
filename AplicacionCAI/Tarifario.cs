@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,9 +58,9 @@ namespace AplicacionCAI
 			PrecioServicioAsia = decimal.Parse(datos[9]);
 			PrecioServicioRestoMundo = decimal.Parse(datos[10]);
 
-			PrecioServicioUrgente = decimal.Parse(datos[11]);
-			PrecioServicioEnPuerta = decimal.Parse(datos[12]);
-			PrecioServicioEnSucursal = decimal.Parse(datos[13]);
+			PrecioServicioUrgente = decimal.Parse(datos[11],new CultureInfo("es-ES"));
+			PrecioServicioEnPuerta = decimal.Parse(datos[12],new CultureInfo("es-ES"));
+			PrecioServicioEnSucursal = decimal.Parse(datos[13],new CultureInfo("es-ES"));
 
 			PrecioServicio500g = decimal.Parse(datos[14]);
 			PrecioServicio10Kg = decimal.Parse(datos[15]);
