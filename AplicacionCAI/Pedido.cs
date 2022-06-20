@@ -1451,7 +1451,7 @@ namespace AplicacionCAI
 				do
 				{
 					Console.WriteLine("Por indique si el envío es urgente");
-					Console.WriteLine("[1] Urgente");
+					Console.WriteLine("[1] Urgente (Recargo 30%)");
 					Console.WriteLine("[2] No Urgente");
 
 					var opcion = Console.ReadLine();
@@ -1479,9 +1479,9 @@ namespace AplicacionCAI
 				bool avanzar2 = false;
 				do
 				{
-					Console.WriteLine("Por indique si desea solicitar retiro en puerta.");
-					Console.WriteLine("[1] Retiro en puerta");
-					Console.WriteLine("[2] Entrega en sucursa");
+					Console.WriteLine("Por favor indique si desea solicitar retiro en puerta.");
+					Console.WriteLine("[1] Retiro en puerta (Recargo 15%)");
+					Console.WriteLine("[2] Entrega en sucursal");
 
 					var opcion = Console.ReadLine();
 
@@ -1500,7 +1500,6 @@ namespace AplicacionCAI
 						default:
 							Console.WriteLine("No ha ingresado una opcion correcta");
 							break;
-
 					}
 
 				} while (!avanzar2);
@@ -1509,7 +1508,7 @@ namespace AplicacionCAI
 				do
 				{
 					Console.WriteLine("Por indique si se realizará la entrega en domicilio o en sucursal.");
-					Console.WriteLine("[1] Entrega a Domicilio");
+					Console.WriteLine("[1] Entrega a Domicilio (Recargo 5%)");
 					Console.WriteLine("[2] Entrega en Sucursal");
 
 					var opcion = Console.ReadLine();
@@ -1568,7 +1567,7 @@ namespace AplicacionCAI
 
 		//private static decimal TopeRecargo(bool entrada)
 		//{
-		//	decimal cargo = AgendaTarifasAdicionales.SeleccionarTopeUrgente(entrada);
+		//	decimal cargo = TarifarioDiccionario.TopeRecargo(entrada);
 		//	return cargo;
 		//}
 
@@ -1618,81 +1617,7 @@ namespace AplicacionCAI
 
 			return opcion;
 		}
-
-		private string ValidarSioNoPedidoMedio(string mensaje)
-		{
-
-			string opcion;
-			bool valido = false;
-			string mensajeValidador = "\n Valores permitidos:" +
-									  "\n *SI* ó" +
-									  "\n *NO*";
-			string mensajeError = "\n Por favor ingrese el valor solicitado y que no sea vacio. ";
-
-			do
-			{
-				Console.Clear();
-				MostrarPedidoMedio();
-				Console.WriteLine(mensaje);
-				Console.WriteLine(mensajeError);
-				Console.WriteLine(mensajeValidador);
-				opcion = Console.ReadLine().ToUpper();
-				string opcionC = "SI";
-				string opcionD = "NO";
-
-				if (opcion == "" || (opcion != opcionC) & (opcion != opcionD))
-				{
-					continue;
-
-				}
-				else
-				{
-					valido = true;
-				}
-
-			} while (!valido);
-
-			return opcion;
-		}
-
-		private string ValidarSioNoPedidoFinal(string mensaje)
-		{
-
-			string opcion;
-			bool valido = false;
-			string mensajeValidador = "\n Valores permitidos:" +
-									  "\n *SI* ó" +
-									  "\n *NO*";
-			string mensajeError = "\n Por favor ingrese el valor solicitado y que no sea vacio. ";
-
-			do
-			{
-				Console.Clear();
-				MostrarPedidoFinal();
-				Console.WriteLine(mensaje);
-				Console.WriteLine(mensajeError);
-				Console.WriteLine(mensajeValidador);
-				opcion = Console.ReadLine().ToUpper();
-				string opcionC = "SI";
-				string opcionD = "NO";
-
-				if (opcion == "" || (opcion != opcionC) & (opcion != opcionD))
-				{
-					continue;
-
-				}
-				else
-				{
-					valido = true;
-				}
-
-			} while (!valido);
-
-			return opcion;
-		}
-
-
+		
 	}
-
 
 }
