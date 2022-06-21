@@ -345,9 +345,10 @@ namespace AplicacionCAI
 
             } while (flag2);
 
+            pedido.DomicilioDestino = Validador.TextInput("Por favor ingrese Domicilio y altura de Destino");
 
             pedido.PesoEncomienda = Validador.IngresarPeso("Ingrese el peso, máximo 30 kg ");
-            
+
             decimal peso;
 
             decimal peso500g = 0.5m;
@@ -370,16 +371,19 @@ namespace AplicacionCAI
                     switch (opcion)
                     {
                         case "1":
+                            Console.Clear();
                             pedido.Urgente = true;
                             avanzar = true;
                             break;
 
                         case "2":
+                            Console.Clear();
                             pedido.Urgente = false;
                             avanzar = true;
                             break;
                         
                         default:
+                            Console.Clear();
                             Console.WriteLine("No ha ingresado una opcion correcta");
                             break;
 
@@ -399,16 +403,19 @@ namespace AplicacionCAI
                     switch (opcion)
                     {
                         case "1":
+                            Console.Clear();
                             pedido.RetiroEnPuerta = true;
                             avanzar2 = true;
                             break;
 
                         case "2":
+                            Console.Clear();
                             pedido.RetiroEnPuerta = false;
                             avanzar2 = true;
                             break;
                         
                         default:
+                            Console.Clear();
                             Console.WriteLine("No ha ingresado una opcion correcta");
                             break;
                     }
@@ -427,16 +434,19 @@ namespace AplicacionCAI
                     switch (opcion)
                     {
                         case "1":
+                            Console.Clear();
                             pedido.EntregaDomicilio = true;
                             avanzar3 = true;
                             break;
 
                         case "2":
+                            Console.Clear();
                             pedido.EntregaDomicilio = false;
                             avanzar3 = true;
                             break;
                         
                         default:
+                            Console.Clear();
                             Console.WriteLine("No ha ingresado una opcion correcta");
                             break;
 
