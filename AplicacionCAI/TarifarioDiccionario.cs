@@ -63,7 +63,7 @@ namespace AplicacionCAI
             foreach (var tarifas in servicioPrecioDiccionario.Values)
             {
 
-                return tarifas.PrecioServicioUrgente;
+                return tarifas.RecargoUrgencia;
 
             }
 
@@ -93,7 +93,7 @@ namespace AplicacionCAI
             foreach (var tarifas in servicioPrecioDiccionario.Values)
             {
 
-                return tarifas.PrecioServicioEnPuerta;
+                return tarifas.RecargoRetiroPuerta;
 
             }
 
@@ -108,7 +108,7 @@ namespace AplicacionCAI
             foreach (var tarifas in servicioPrecioDiccionario.Values)
             {
 
-                return tarifas.PrecioServicioEnSucursal;
+                return tarifas.RecargoEntregaPuerta;
 
             }
 
