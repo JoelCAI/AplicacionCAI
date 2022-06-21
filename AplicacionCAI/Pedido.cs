@@ -257,7 +257,7 @@ namespace AplicacionCAI
                         break;                    
                     
                     default:
-                        Console.WriteLine("La opción ingresada is inválida.");
+                        Console.WriteLine("La opción ingresada es inválida.");
                         break;
                 }
 
@@ -273,87 +273,311 @@ namespace AplicacionCAI
             
             if (seguirUno == "SI" && pedido.PaisOrigen != null)
             {
+
+                bool flag2 = true;
+                do
+                {
+                    
+                    string[] lines = File.ReadAllLines("continentesLista.txt");
+                    foreach(var line in lines)
+                    {
+                        var firstValue = line.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[0];
+                        Console.WriteLine(firstValue);
+                    }
                 
+                    var InfoDestino = Console.ReadLine();
+
+                    switch (InfoDestino)
+                    {
+                        case "1":
+                            Console.Clear();
+                            pedido.PaisDestino = "ARGENTINA";
+
+                            bool subseleccionArg = true;
+
+                            do
+                            {
+                                string[] ciudadesAsia = File.ReadAllLines("ciudadesLista.txt");
+                                foreach(var line in ciudadesAsia)
+                                {
+                                    var firstValue = line.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[0];
+                                    Console.WriteLine(firstValue);
+                                }
+                                
+                                var seleccionArg = Console.ReadLine();
+                                
+                                switch (seleccionArg)
+                                {
+                                    
+                                case "1":
+                                    Console.Clear();
+                                    pedido.RegionDestino = "CENTRO";
+                                    pedido.ProvinciaDestino = "BUENOS AIRES";
+                                    pedido.LocalidadDestino = "CABA";
+                                    subseleccionArg = false;
+                                    flag2 = false;
+                                    break;
+
+                                 case "2":
+                                    Console.Clear();
+                                    pedido.RegionDestino = "CENTRO";
+                                    pedido.ProvinciaDestino = "GBA";
+                                    pedido.LocalidadDestino = "MAR DEL PLATA";
+                                    subseleccionArg = false;
+                                    flag2 = false;
+                                    break;
+                    
+                                case "3":
+                                    Console.Clear();
+                                    pedido.RegionDestino = "CUYO";
+                                    pedido.ProvinciaDestino = "SAN JUAN";
+                                    pedido.LocalidadDestino = "CIUDAD DE SAN JUAN"; 
+                                    subseleccionArg = false;
+                                    flag2 = false;
+                                    break;
+                    
+                                case "4":
+                                    Console.Clear();
+                                    pedido.RegionDestino = "NOA";
+                                    pedido.ProvinciaDestino = "JUJUY";
+                                    pedido.LocalidadDestino = "SAN SALVADOR DE JUJUY";    
+                                    subseleccionArg = false;
+                                    flag2 = false;
+                                    break;
+                    
+                                case "5":
+                                    Console.Clear();
+                                    pedido.RegionDestino = "PATAGONIA";
+                                    pedido.ProvinciaDestino = "RÍO NEGRO";
+                                    pedido.LocalidadDestino = "BARILOCHE";  
+                                    subseleccionArg = false;
+                                    flag2 = false;
+                                    break;                                   
+                                }
+                                
+                            } while (!subseleccionArg);
+                            break;
+
+                        case "2":
+                            Console.Clear();
+                            pedido.PaisDestino = "PAÍSES LIMÍTROFES";
+                            
+                            bool subseleccionLimitrofes = true;
+
+                            do
+                            {
+                                string[] ciudadesAsia = File.ReadAllLines("ciudadesLista.txt");
+                                foreach(var line in ciudadesAsia)
+                                {
+                                    var firstValue = line.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[1];
+                                    Console.WriteLine(firstValue);
+                                }
+                                
+                                var seleccionLimitrofes = Console.ReadLine();
+                                
+                                switch (seleccionLimitrofes)
+                                {
+                                    case "1":
+                                        Console.Clear();
+                                        pedido.RegionDestino = "";
+                                        pedido.ProvinciaDestino = "";
+                                        pedido.LocalidadDestino = "";
+                                        subseleccionLimitrofes = false;
+                                        flag2 = false;
+                                        break;
+
+                                    case "2":
+                                        Console.Clear();
+                                        pedido.RegionDestino = "";
+                                        pedido.ProvinciaDestino = "";
+                                        pedido.LocalidadDestino = "";
+                                        subseleccionLimitrofes = false;
+                                        flag2 = false;
+                                        break;
+                                }
+                                
+                            } while (!subseleccionLimitrofes);
+                            break;
+                    
+                        case "3":
+                            Console.Clear();
+                            pedido.PaisDestino = "RESTO DE AMÉRICA LATINA";
+
+                            bool subseleccionLatam = true;
+
+                            do
+                            {
+                                string[] ciudadesAsia = File.ReadAllLines("ciudadesLista.txt");
+                                foreach(var line in ciudadesAsia)
+                                {
+                                    var firstValue = line.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[2];
+                                    Console.WriteLine(firstValue);
+                                }
+                                
+                                var seleccionLatam = Console.ReadLine();
+                                
+                                switch (seleccionLatam)
+                                {
+                                    
+                                case "1":
+                                    Console.Clear();
+                                    pedido.RegionDestino = "";
+                                    pedido.ProvinciaDestino = "";
+                                    pedido.LocalidadDestino = "";
+                                    subseleccionLatam = false;
+                                    flag2 = false;
+                                    break;
+
+                                 case "2":
+                                    Console.Clear();
+                                    pedido.RegionDestino = "";
+                                    pedido.ProvinciaDestino = "";
+                                    pedido.LocalidadDestino = "";
+                                    subseleccionLatam = false;
+                                    flag2 = false;
+                                    break;
+                                }
+                                
+                            } while (!subseleccionLatam);
+                            
+                            break;
+                    
+                        case "4":
+                            Console.Clear();
+                            pedido.PaisDestino = "AMÉRICA DEL NORTE";
+
+                            bool subseleccionNoram = true;
+
+                            do
+                            {
+                                string[] ciudadesAsia = File.ReadAllLines("ciudadesLista.txt");
+                                foreach(var line in ciudadesAsia)
+                                {
+                                    var firstValue = line.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[3];
+                                    Console.WriteLine(firstValue);
+                                }
+                                
+                                var seleccionNoram = Console.ReadLine();
+                                
+                                switch (seleccionNoram)
+                                {
+                                    
+                                    case "1":
+                                        Console.Clear();
+                                        pedido.RegionDestino = "";
+                                        pedido.ProvinciaDestino = "";
+                                        pedido.LocalidadDestino = "";
+                                        subseleccionNoram = false;
+                                        flag2 = false;
+                                        break;
+
+                                    case "2":
+                                        Console.Clear();
+                                        pedido.RegionDestino = "";
+                                        pedido.ProvinciaDestino = "";
+                                        pedido.LocalidadDestino = "";
+                                        subseleccionNoram = false;
+                                        flag2 = false;
+                                        break;
+                                }
+                                
+                            } while (!subseleccionNoram);
+                            break;
+                    
+                        case "5":
+                            Console.Clear();
+                            pedido.PaisDestino = "EUROPA";
+
+                            bool subseleccionEuropa = true;
+
+                            do
+                            {
+                                string[] ciudadesAsia = File.ReadAllLines("ciudadesLista.txt");
+                                foreach(var line in ciudadesAsia)
+                                {
+                                    var firstValue = line.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[4];
+                                    Console.WriteLine(firstValue);
+                                }
+                                
+                                var seleccionEuropa = Console.ReadLine();
+                                
+                                switch (seleccionEuropa)
+                                {
+                                    
+                                    case "1":
+                                        Console.Clear();
+                                        pedido.RegionDestino = "";
+                                        pedido.ProvinciaDestino = "";
+                                        pedido.LocalidadDestino = "";
+                                        subseleccionEuropa = false;
+                                        flag2 = false;
+                                        break;
+
+                                    case "2":
+                                        Console.Clear();
+                                        pedido.RegionDestino = "";
+                                        pedido.ProvinciaDestino = "";
+                                        pedido.LocalidadDestino = "";
+                                        subseleccionEuropa = false;
+                                        flag2 = false;
+                                        break;
+                                }
+                                
+                            } while (!subseleccionEuropa);
+                            break;                    
+ 
+                        case "6":
+                            Console.Clear();
+                            pedido.PaisDestino = "ASIA";
+
+                            bool subseleccionAsia = true;
+
+                            do
+                            {
+                                string[] ciudadesAsia = File.ReadAllLines("ciudadesLista.txt");
+                                foreach(var line in ciudadesAsia)
+                                {
+                                    var firstValue = line.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[5];
+                                    Console.WriteLine(firstValue);
+                                }
+                                
+                                var seleccionAsia = Console.ReadLine();
+                                
+                                switch (seleccionAsia)
+                                {
+                                    
+                                case "1":
+                                    Console.Clear();
+                                    pedido.RegionDestino = "";
+                                    pedido.ProvinciaDestino = "";
+                                    pedido.LocalidadDestino = "";
+                                    subseleccionAsia = false;
+                                    flag2 = false;
+                                    break;
+
+                                case "2":
+                                    Console.Clear();
+                                    pedido.RegionDestino = "";
+                                    pedido.ProvinciaDestino = "";
+                                    pedido.LocalidadDestino = "";
+                                    subseleccionAsia = false;
+                                    flag2 = false;
+                                    break;
+                                 
+                                }
+                                
+                            } while (!subseleccionAsia);
+
+                            break;                           
+                        
+                        default:
+                            Console.WriteLine("La opción ingresada es inválida.");
+                            break;
+                    }
+
+                } while (flag2);                
             }   
-           
-
-            bool seleccionProvOrigen = true;
-            do
-            {
-                using (var provincias = new FileStream("regionesLista.txt", FileMode.Open))
-                {
-                    
-                    string[] lines = File.ReadAllLines("regionesLista.txt");
-                    foreach(var line in lines)
-                    {
-                        var firstValue = line.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[0];
-                        Console.WriteLine(firstValue);
-                    }
-                }               
-                
-                var RegOrigen = Console.ReadLine();
-
-                switch (RegOrigen)
-                {
-                    case "1":
-                        Console.Clear();
-                        pedido.RegionOrigen = "CENTRO";
-                        flag = false;
-                        break;
-
-                    case "2":
-                        Console.Clear();
-                        pedido.RegionOrigen = "PATAGONIA";
-                        flag = false;
-                        break;
-                    
-                    default:
-                        Console.WriteLine("La opción ingresada is inválida.");
-                        break;
-                }
-
-            } while (flag);
-
             
-            bool seleccionCiudOrigen = true;
-            do
-            {
-                using (var provincias = new FileStream("regionesLista.txt", FileMode.Open))
-                {
-                    
-                    string[] lines = File.ReadAllLines("regionesLista.txt");
-                    foreach(var line in lines)
-                    {
-                        var firstValue = line.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[0];
-                        Console.WriteLine(firstValue);
-                    }
-                }               
-                
-                var RegOrigen = Console.ReadLine();
-
-                switch (RegOrigen)
-                {
-                    case "1":
-                        Console.Clear();
-                        pedido.RegionOrigen = "CENTRO";
-                        flag = false;
-                        break;
-
-                    case "2":
-                        Console.Clear();
-                        pedido.RegionOrigen = "PATAGONIA";
-                        flag = false;
-                        break;
-                    
-                    default:
-                        Console.WriteLine("La opción ingresada is inválida.");
-                        break;
-                }
-
-            } while (flag);
-            
-            
-
             
             pedido.PesoEncomienda = Validador.IngresarPeso("Ingrese el peso, máximo 30 kg ");
             
@@ -364,8 +588,7 @@ namespace AplicacionCAI
             decimal peso20Kg = 20;
             decimal peso30Kg = 30;
             
-
-
+            
             //SERVICIOS ADICIONALES
             {
                 bool avanzar = false;
