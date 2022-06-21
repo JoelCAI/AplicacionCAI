@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -205,6 +206,8 @@ namespace AplicacionCAI
             do
             {
                 
+                Console.WriteLine("\n Elija la ciudad de origen");
+
                 string[] lineas = File.ReadAllLines("ciudadesLista.txt");
                 foreach(var datos in lineas)
                 {
@@ -270,15 +273,26 @@ namespace AplicacionCAI
 
             seguirUno = pedido.ValidarSioNoPedidoInicial("\n¿Desea Continuar?");
 
-            
+            bool flag2;
+
             if (seguirUno == "SI" && pedido.PaisOrigen != null)
             {
+                flag2 = true;
+                Console.Clear();
+            }
+            else
+            {
+                flag2 = false;
+                Console.Clear();
+            }
+            
+            
+            do
+            {
+                
+                Console.WriteLine("\n Elija Argentina para envíos locales. Elija otra opción para envíos internacionales.");
 
-                bool flag2 = true;
-                do
-                {
-                    
-                    string[] lines = File.ReadAllLines("continentesLista.txt");
+                string[] lines = File.ReadAllLines("continentesLista.txt");
                     foreach(var line in lines)
                     {
                         var firstValue = line.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[0];
@@ -289,294 +303,48 @@ namespace AplicacionCAI
 
                     switch (InfoDestino)
                     {
-                        case "1":
+                            case "1":
                             Console.Clear();
                             pedido.PaisDestino = "ARGENTINA";
+                            
+                            Console.WriteLine("\n Elija la ciudad de destino.");
 
-                            bool subseleccionArg = true;
-
-                            do
+                            string[] ciudadesAsia = File.ReadAllLines("ciudadesLista.txt");
+                            foreach(var line in ciudadesAsia)
                             {
-                                string[] ciudadesAsia = File.ReadAllLines("ciudadesLista.txt");
-                                foreach(var line in ciudadesAsia)
-                                {
-                                    var firstValue = line.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[0];
-                                    Console.WriteLine(firstValue);
-                                }
-                                
-                                var seleccionArg = Console.ReadLine();
-                                
-                                switch (seleccionArg)
-                                {
+                                var firstValue = line.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[0];
+                                Console.WriteLine(firstValue);
+                            }
+                            
+                            var seleccionArg = Console.ReadLine();
+
+                            switch (seleccionArg)
+                            {
                                     
                                 case "1":
                                     Console.Clear();
                                     pedido.RegionDestino = "CENTRO";
                                     pedido.ProvinciaDestino = "BUENOS AIRES";
                                     pedido.LocalidadDestino = "CABA";
-                                    subseleccionArg = false;
-                                    flag2 = false;
+                                    //flag2 = false;
                                     break;
 
-                                 case "2":
-                                    Console.Clear();
-                                    pedido.RegionDestino = "CENTRO";
-                                    pedido.ProvinciaDestino = "GBA";
-                                    pedido.LocalidadDestino = "MAR DEL PLATA";
-                                    subseleccionArg = false;
-                                    flag2 = false;
-                                    break;
-                    
-                                case "3":
-                                    Console.Clear();
-                                    pedido.RegionDestino = "CUYO";
-                                    pedido.ProvinciaDestino = "SAN JUAN";
-                                    pedido.LocalidadDestino = "CIUDAD DE SAN JUAN"; 
-                                    subseleccionArg = false;
-                                    flag2 = false;
-                                    break;
-                    
-                                case "4":
-                                    Console.Clear();
-                                    pedido.RegionDestino = "NOA";
-                                    pedido.ProvinciaDestino = "JUJUY";
-                                    pedido.LocalidadDestino = "SAN SALVADOR DE JUJUY";    
-                                    subseleccionArg = false;
-                                    flag2 = false;
-                                    break;
-                    
-                                case "5":
-                                    Console.Clear();
-                                    pedido.RegionDestino = "PATAGONIA";
-                                    pedido.ProvinciaDestino = "RÍO NEGRO";
-                                    pedido.LocalidadDestino = "BARILOCHE";  
-                                    subseleccionArg = false;
-                                    flag2 = false;
-                                    break;                                   
-                                }
-                                
-                            } while (!subseleccionArg);
-                            break;
+                            }
 
-                        case "2":
-                            Console.Clear();
-                            pedido.PaisDestino = "PAÍSES LIMÍTROFES";
+                            //var seleccionArg = Console.ReadLine();
+                            //SubOpcionesArg(seleccionArg);
                             
-                            bool subseleccionLimitrofes = true;
-
-                            do
-                            {
-                                string[] ciudadesAsia = File.ReadAllLines("ciudadesLista.txt");
-                                foreach(var line in ciudadesAsia)
-                                {
-                                    var firstValue = line.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[1];
-                                    Console.WriteLine(firstValue);
-                                }
-                                
-                                var seleccionLimitrofes = Console.ReadLine();
-                                
-                                switch (seleccionLimitrofes)
-                                {
-                                    case "1":
-                                        Console.Clear();
-                                        pedido.RegionDestino = "";
-                                        pedido.ProvinciaDestino = "";
-                                        pedido.LocalidadDestino = "";
-                                        subseleccionLimitrofes = false;
-                                        flag2 = false;
-                                        break;
-
-                                    case "2":
-                                        Console.Clear();
-                                        pedido.RegionDestino = "";
-                                        pedido.ProvinciaDestino = "";
-                                        pedido.LocalidadDestino = "";
-                                        subseleccionLimitrofes = false;
-                                        flag2 = false;
-                                        break;
-                                }
-                                
-                            } while (!subseleccionLimitrofes);
+                            flag2 = false;
                             break;
-                    
-                        case "3":
-                            Console.Clear();
-                            pedido.PaisDestino = "RESTO DE AMÉRICA LATINA";
-
-                            bool subseleccionLatam = true;
-
-                            do
-                            {
-                                string[] ciudadesAsia = File.ReadAllLines("ciudadesLista.txt");
-                                foreach(var line in ciudadesAsia)
-                                {
-                                    var firstValue = line.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[2];
-                                    Console.WriteLine(firstValue);
-                                }
-                                
-                                var seleccionLatam = Console.ReadLine();
-                                
-                                switch (seleccionLatam)
-                                {
-                                    
-                                case "1":
-                                    Console.Clear();
-                                    pedido.RegionDestino = "";
-                                    pedido.ProvinciaDestino = "";
-                                    pedido.LocalidadDestino = "";
-                                    subseleccionLatam = false;
-                                    flag2 = false;
-                                    break;
-
-                                 case "2":
-                                    Console.Clear();
-                                    pedido.RegionDestino = "";
-                                    pedido.ProvinciaDestino = "";
-                                    pedido.LocalidadDestino = "";
-                                    subseleccionLatam = false;
-                                    flag2 = false;
-                                    break;
-                                }
-                                
-                            } while (!subseleccionLatam);
                             
-                            break;
-                    
-                        case "4":
-                            Console.Clear();
-                            pedido.PaisDestino = "AMÉRICA DEL NORTE";
-
-                            bool subseleccionNoram = true;
-
-                            do
-                            {
-                                string[] ciudadesAsia = File.ReadAllLines("ciudadesLista.txt");
-                                foreach(var line in ciudadesAsia)
-                                {
-                                    var firstValue = line.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[3];
-                                    Console.WriteLine(firstValue);
-                                }
-                                
-                                var seleccionNoram = Console.ReadLine();
-                                
-                                switch (seleccionNoram)
-                                {
-                                    
-                                    case "1":
-                                        Console.Clear();
-                                        pedido.RegionDestino = "";
-                                        pedido.ProvinciaDestino = "";
-                                        pedido.LocalidadDestino = "";
-                                        subseleccionNoram = false;
-                                        flag2 = false;
-                                        break;
-
-                                    case "2":
-                                        Console.Clear();
-                                        pedido.RegionDestino = "";
-                                        pedido.ProvinciaDestino = "";
-                                        pedido.LocalidadDestino = "";
-                                        subseleccionNoram = false;
-                                        flag2 = false;
-                                        break;
-                                }
-                                
-                            } while (!subseleccionNoram);
-                            break;
-                    
-                        case "5":
-                            Console.Clear();
-                            pedido.PaisDestino = "EUROPA";
-
-                            bool subseleccionEuropa = true;
-
-                            do
-                            {
-                                string[] ciudadesAsia = File.ReadAllLines("ciudadesLista.txt");
-                                foreach(var line in ciudadesAsia)
-                                {
-                                    var firstValue = line.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[4];
-                                    Console.WriteLine(firstValue);
-                                }
-                                
-                                var seleccionEuropa = Console.ReadLine();
-                                
-                                switch (seleccionEuropa)
-                                {
-                                    
-                                    case "1":
-                                        Console.Clear();
-                                        pedido.RegionDestino = "";
-                                        pedido.ProvinciaDestino = "";
-                                        pedido.LocalidadDestino = "";
-                                        subseleccionEuropa = false;
-                                        flag2 = false;
-                                        break;
-
-                                    case "2":
-                                        Console.Clear();
-                                        pedido.RegionDestino = "";
-                                        pedido.ProvinciaDestino = "";
-                                        pedido.LocalidadDestino = "";
-                                        subseleccionEuropa = false;
-                                        flag2 = false;
-                                        break;
-                                }
-                                
-                            } while (!subseleccionEuropa);
-                            break;                    
- 
-                        case "6":
-                            Console.Clear();
-                            pedido.PaisDestino = "ASIA";
-
-                            bool subseleccionAsia = true;
-
-                            do
-                            {
-                                string[] ciudadesAsia = File.ReadAllLines("ciudadesLista.txt");
-                                foreach(var line in ciudadesAsia)
-                                {
-                                    var firstValue = line.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[5];
-                                    Console.WriteLine(firstValue);
-                                }
-                                
-                                var seleccionAsia = Console.ReadLine();
-                                
-                                switch (seleccionAsia)
-                                {
-                                    
-                                case "1":
-                                    Console.Clear();
-                                    pedido.RegionDestino = "";
-                                    pedido.ProvinciaDestino = "";
-                                    pedido.LocalidadDestino = "";
-                                    subseleccionAsia = false;
-                                    flag2 = false;
-                                    break;
-
-                                case "2":
-                                    Console.Clear();
-                                    pedido.RegionDestino = "";
-                                    pedido.ProvinciaDestino = "";
-                                    pedido.LocalidadDestino = "";
-                                    subseleccionAsia = false;
-                                    flag2 = false;
-                                    break;
-                                 
-                                }
-                                
-                            } while (!subseleccionAsia);
-
-                            break;                           
-                        
                         default:
                             Console.WriteLine("La opción ingresada es inválida.");
                             break;
                     }
 
-                } while (flag2);                
-            }   
+            } while (flag2);
+                
+                
             
             
             pedido.PesoEncomienda = Validador.IngresarPeso("Ingrese el peso, máximo 30 kg ");
@@ -678,6 +446,7 @@ namespace AplicacionCAI
                 } while (!avanzar3);
 
             }
+            
             
             if (pedido.Urgente == true)
             {
