@@ -415,6 +415,37 @@ namespace AplicacionCAI
             return opcion;
         }
 
+        public static int IngresarPeso(string titulo)
+        {
+
+            Console.WriteLine(titulo);
+
+            do
+            {
+                var ingreso = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(ingreso))
+                {
+                    Console.WriteLine("El ingreso no debe ser vacio");
+                    continue;
+                }
+
+                if (!Int32.TryParse(ingreso, out var salida))
+                {
+                    Console.WriteLine("El dato ingresado es incorrecto, ingrese nuevamente");
+                    continue;
+                }
+
+                if (salida <= 0 || salida >= 30000)
+                {
+                    Console.WriteLine("El valor ingresado debe ser mayor a cero y menor o igual a 30000");
+                    continue;
+                }
+
+                return salida;
+
+            } while (true);
+        }
        
 
         public static string ValidarPesoProducto(string mensaje)
@@ -550,6 +581,35 @@ namespace AplicacionCAI
                 return salida;
 
             } while (true);
+        }
+
+        public static string TextInput(string titulo, bool permiteNumeros = false)
+        {
+            string ingreso;
+            do
+            {
+
+                Console.WriteLine(titulo);
+
+                ingreso = Console.ReadLine();
+                
+
+                if (string.IsNullOrWhiteSpace(ingreso))
+                {
+                    Console.WriteLine("Debe ingresar un valor");
+                    continue;
+                }
+
+                if (permiteNumeros && !ingreso.Any(Char.IsDigit))
+                {
+                    Console.WriteLine("El valor ingresado debe contener numeros");
+                    continue;
+                }
+
+                string ingreso1 = ingreso.ToUpper();
+                return ingreso1;
+            } while (true);
+
         }
         public static int PedirIntMayor(string mensaje, int min)
         {
