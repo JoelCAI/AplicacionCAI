@@ -209,7 +209,7 @@ namespace AplicacionCAI
                 //SELECCIÓN CIUDAD DE ORIGEN
                 Console.WriteLine("\n Elija la ciudad de origen");
 
-                string[] lineas = File.ReadAllLines("ciudadesLista.txt");
+                string[] lineas = File.ReadAllLines("ubicacionesLocales.txt");
                 foreach(var datos in lineas)
                 {
                     var opciones = datos.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[0];
@@ -293,7 +293,7 @@ namespace AplicacionCAI
             {
                 Console.WriteLine("\n Elija Argentina para envíos locales. Elija otra opción para envíos internacionales.");
 
-                string[] lines = File.ReadAllLines("continentesLista.txt");
+                string[] lines = File.ReadAllLines("ubicacionesGlobales.txt");
                     foreach(var line in lines)
                     {
                         var firstValue = line.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[0];
@@ -310,7 +310,7 @@ namespace AplicacionCAI
                             
                             Console.WriteLine("\n Elija la ciudad de destino.");
 
-                            string[] ciudades = File.ReadAllLines("ciudadesLista.txt");
+                            string[] ciudades = File.ReadAllLines("ubicacionesLocales.txt");
                             foreach(var linea in ciudades)
                             {
                                 var datos = linea.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[0];
