@@ -37,27 +37,6 @@ namespace AplicacionCAI
             }
 
         }
-        
-        public class RangoPeso{
-            public decimal Desde;
-            public decimal Hasta;
-            public decimal Precio;
-        }
-
-        //public class TarifaXPeso
-        //{
-        //    public string Tipo;
-        //    List<RangoPeso> Rangos;
-        //          private decimal peso;
-            //public decimal PrecioPeso(peso){
-            //      foreach(var r in Rangos){
-            //      if(peso >= r.Desde && peso <= r.Hasta){
-            //          return r.Precio;
-            //      }
-            //  }
-            //  return -1; //indicando que el usuario ingreso un pedido fuera del tarifario
-            //}
-            //}
 
 
         public static ServicioPrecio BuscarServicioIdPedido()
@@ -80,41 +59,61 @@ namespace AplicacionCAI
         public static decimal EnvioUrgente(bool entrada)
         {
             var modelo = ServicioPrecio.Recargo(entrada);
+
             foreach (var tarifas in servicioPrecioDiccionario.Values)
             {
+
                 return tarifas.PrecioServicioUrgente;
+
             }
+
             return 0;
+
         }
 
         public static decimal TopeRecargo(bool entrada)
         {
             var modelo = ServicioPrecio.Recargo(entrada);
+
             foreach (var tarifas in servicioPrecioDiccionario.Values)
             {
+
                 return tarifas.TopeUrgente;
+
             }
+
             return 0;
+
         }
 
         public static decimal RetiroEnPuerta (bool entrada)
         {
             var modelo = ServicioPrecio.Recargo(entrada);
+
             foreach (var tarifas in servicioPrecioDiccionario.Values)
             {
+
                 return tarifas.PrecioServicioEnPuerta;
+
             }
+
             return 0;
+
         }
 
         public static decimal EntregaDomicilio (bool entrada)
         {
             var modelo = ServicioPrecio.Recargo(entrada);
+
             foreach (var tarifas in servicioPrecioDiccionario.Values)
             {
+
                 return tarifas.PrecioServicioEnSucursal;
+
             }
+
             return 0;
+
         }
     }
 }

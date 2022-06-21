@@ -67,8 +67,7 @@ namespace AplicacionCAI
 			PrecioServicio20Kg = decimal.Parse(datos[16]);
 			PrecioServicio30Kg = decimal.Parse(datos[17]);
 		}
-
-
+		
 		public static ServicioPrecio CrearNuevoServicio(string codigoNuevoProducto)
 		{
 			var producto = new ServicioPrecio();
