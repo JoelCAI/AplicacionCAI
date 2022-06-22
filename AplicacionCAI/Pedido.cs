@@ -416,7 +416,6 @@ namespace AplicacionCAI
         {
             int newid = 0;
             string ultimaLinea = File.ReadLines("pedidoLista.txt").LastOrDefault();
-            Console.WriteLine(File.ReadLines("pedidoLista.txt").LastOrDefault());
 
             if (!string.IsNullOrEmpty(ultimaLinea))
             {
