@@ -18,7 +18,7 @@ namespace AplicacionCAI
 	    public decimal RecargoUrgencia { get; }
 	    public decimal RecargoRetiroPuerta { get; }
 	    public decimal RecargoEntregaPuerta { get; }
-	    public decimal TopeUrgente { get; set; }
+	    public decimal TopeUrgente { get; }
 
 	    
 		public TarifaPorPeso()
@@ -58,16 +58,6 @@ namespace AplicacionCAI
 				return $"\n Código de Servicio es: {IdServicio},";
 			}
 		}
-
-		public static TarifaPorPeso ValidarServicio()
-		{
-			var idServicio = new TarifaPorPeso();
-
-			idServicio.IdServicio = "Local";
-
-			return idServicio;
-		}
-
 		
 		public static TarifaPorPeso Recargo(bool entrada)
 		{
@@ -75,19 +65,6 @@ namespace AplicacionCAI
 			modelo.Bool = entrada;
 			return modelo;
 		}
-		
-		public bool CompararServicioCoincidencia(TarifaPorPeso tarifaPorPeso)
-		{
 
-			if (tarifaPorPeso.IdServicio != "Local" && IdServicio != tarifaPorPeso.IdServicio)
-			{
-				return false;
-			}
-
-			return true;
-		}
-		
-
-
-	}
+    }
 }

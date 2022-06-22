@@ -13,8 +13,7 @@ namespace AplicacionCAI
         private static readonly Dictionary<int, Pedido> items;
 
         const string fileName = "pedidoLista.txt";
-
-
+        
         static DiccionarioPedido()
         {
             items = new Dictionary<int, Pedido>();
@@ -59,7 +58,7 @@ namespace AplicacionCAI
         {
             var modelo = Pedido.BusquedaCuitCorporativo(clienteLogueado);
 
-            bool match = false;
+            bool match;
             
                     foreach (var pedido in items.Values)
                     {

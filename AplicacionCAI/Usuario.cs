@@ -8,12 +8,11 @@ namespace AplicacionCAI
 {
     internal class Usuario
     {
-		
-		protected int dniUsuario;
-	    protected string nombreUsuario;
-		protected long cuitCorporativo;
-		protected string claveUsuario;
-		protected string razonSocial;
+	    private int dniUsuario;
+		private string nombreUsuario;
+	    private long cuitCorporativo;
+		private string claveUsuario;
+		private string razonSocial;
 
 		public int DniUsuario
 		{

@@ -10,7 +10,7 @@ namespace AplicacionCAI
     static class TarifarioDiccionario
     {
         
-        private static readonly Dictionary<int, TarifaPorPeso> servicioPrecioDiccionario = new Dictionary<int, TarifaPorPeso>();
+        //private static readonly Dictionary<int, TarifaPorPeso> servicioPrecioDiccionario = new Dictionary<int, TarifaPorPeso>();
         public static Dictionary<string, TarifaPorPeso> tarifarioDiccionario = new Dictionary<string, TarifaPorPeso>();
 
         const string fileName = "tarifarioLista.txt";
@@ -34,30 +34,12 @@ namespace AplicacionCAI
                 }
             }
         }
-
-        public static TarifaPorPeso BuscarServicioIdPedido()
-        {
-            var idServicio = TarifaPorPeso.ValidarServicio();
-
-            foreach (var servicio in servicioPrecioDiccionario.Values)
-            {
-                if (servicio.CompararServicioCoincidencia(idServicio))
-                {
-                    return servicio;
-                }
-            }
-            Console.Clear();
-            Console.WriteLine("\n No se ha encontrado el servicio ingresado");
- 
-            return null;
-        }
-        
         
         public static decimal EnvioUrgente(bool entrada)
         {
             var modelo = TarifaPorPeso.Recargo(entrada);
 
-            foreach (var tarifas in servicioPrecioDiccionario.Values)
+            foreach (var tarifas in tarifarioDiccionario.Values)
             {
 
                 return tarifas.RecargoUrgencia;
@@ -72,7 +54,7 @@ namespace AplicacionCAI
         {
             var modelo = TarifaPorPeso.Recargo(entrada);
 
-            foreach (var tarifas in servicioPrecioDiccionario.Values)
+            foreach (var tarifas in tarifarioDiccionario.Values)
             {
 
                 return tarifas.TopeUrgente;
@@ -87,7 +69,7 @@ namespace AplicacionCAI
         {
             var modelo = TarifaPorPeso.Recargo(entrada);
 
-            foreach (var tarifas in servicioPrecioDiccionario.Values)
+            foreach (var tarifas in tarifarioDiccionario.Values)
             {
 
                 return tarifas.RecargoRetiroPuerta;
@@ -102,7 +84,7 @@ namespace AplicacionCAI
         {
             var modelo = TarifaPorPeso.Recargo(entrada);
 
-            foreach (var tarifas in servicioPrecioDiccionario.Values)
+            foreach (var tarifas in tarifarioDiccionario.Values)
             {
 
                 return tarifas.RecargoEntregaPuerta;
@@ -112,8 +94,5 @@ namespace AplicacionCAI
             return 0;
 
         }
-        
-        
-
     }
 }

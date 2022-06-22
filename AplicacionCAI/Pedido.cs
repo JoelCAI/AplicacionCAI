@@ -11,44 +11,15 @@ namespace AplicacionCAI
 {
     class Pedido
     {
+        private static int newId;
 
-        public int IdPedido { get; set; }
-        public long CuitCorporativo { get; set; }
-        public string RazonSocialCorporativo { get; set; }
-        public DateTime FechaPedido { get; set; }
-        public string EstadoPedido { get; set; }
-        public string ContinenteOrigen { get; set; }
-        public string RegionOrigen { get; set; }
-        public string ProvinciaOrigen { get; set; }
-        public string LocalidadOrigen { get; set; }
-        public string DomicilioOrigen { get; set; }
-        public string PaisOrigen { get; set; }
-        public string ContinenteDestino { get; set; }
-        public string RegionDestino { get; set; }
-        public string ProvinciaDestino { get; set; }
-        public string LocalidadDestino { get; set; }
-        public string DomicilioDestino { get; set; }
-        public string PaisDestino { get; set; }
-        public decimal PrecioEncomienda { get; set; }
-        public bool Urgente { get; set; }
-        public bool EntregaDomicilio { get; set; }
-        public bool RetiroEnPuerta { get; set; }
-        public decimal PesoEncomienda { get; set; }
-        public decimal SubTotalCalculoPedido { get; set; }
-        public decimal TotalCalculoPedido { get; set; }
-        public bool Facturado { get; set; }
-        public string TipoServicio { get; set; }
-
-        public static int newId = CrearIdPedido();
-
-        public Pedido()
+        private Pedido()
         {
-
+            newId = CrearIdPedido();
         }
 
         public Pedido(string linea)
         {
-
             var datos = linea.Split(';');
             IdPedido = int.Parse(datos[0]);
             EstadoPedido = datos[1];
@@ -60,7 +31,7 @@ namespace AplicacionCAI
             LocalidadOrigen = datos[6];
             DomicilioOrigen = datos[7];
             ContinenteOrigen = datos[8];
-            
+
             PaisDestino = datos[9];
             RegionDestino = datos[10];
             ProvinciaDestino = datos[11];
@@ -80,41 +51,66 @@ namespace AplicacionCAI
 
             SubTotalCalculoPedido = decimal.Parse(datos[22]);
             TotalCalculoPedido = decimal.Parse(datos[23]);
-            
+
             Facturado = bool.Parse(datos[24]);
             TipoServicio = (datos[25]);
         }
-        
+
+        public int IdPedido { get; set; }
+        private long CuitCorporativo { get; set; }
+        private string RazonSocialCorporativo { get; }
+        public DateTime FechaPedido { get; private set; }
+        public string EstadoPedido { get; private set; }
+        private string ContinenteOrigen { get; set; }
+        private string RegionOrigen { get; set; }
+        private string ProvinciaOrigen { get; set; }
+        private string LocalidadOrigen { get; set; }
+        private string DomicilioOrigen { get; set; }
+        private string PaisOrigen { get; set; }
+        private string ContinenteDestino { get; set; }
+        private string RegionDestino { get; set; }
+        private string ProvinciaDestino { get; set; }
+        private string LocalidadDestino { get; set; }
+        private string DomicilioDestino { get; set; }
+        private string PaisDestino { get; set; }
+        private decimal PrecioEncomienda { get; set; }
+        private bool Urgente { get; set; }
+        private bool EntregaDomicilio { get; set; }
+        private bool RetiroEnPuerta { get; set; }
+        private decimal PesoEncomienda { get; set; }
+        private decimal SubTotalCalculoPedido { get; set; }
+        public decimal TotalCalculoPedido { get; set; }
+        public bool Facturado { get; set; }
+        private string TipoServicio { get; set; }
+
         public static Pedido CrearPedido()
         {
             // COMIENZO DE SOLICITUD DE NUEVO PEDIDO
             var pedido = new Pedido();
 
             pedido.IdPedido = newId;
-            
-            var servicioPrecio = TarifarioDiccionario.BuscarServicioIdPedido();
 
             pedido.EstadoPedido = "INICIADO";
             pedido.FechaPedido = DateTime.Now;
             pedido.CuitCorporativo = UsuarioLogueado();
             pedido.Facturado = false;
             //LOS ENVÍOS SIEMPRE TENDRÁN ARGENTINA COMO ORIGEN 
-            pedido.PaisOrigen = "ARGENTINA"; 
-            
+            pedido.PaisOrigen = "ARGENTINA";
+
             bool flag = true;
-            
+
             do
             {
                 //SELECCIÓN CIUDAD DE ORIGEN
                 Console.WriteLine("\n Elija la ciudad de origen");
 
                 string[] lineas = File.ReadAllLines("ubicacionesLocales.txt");
-                foreach(var datos in lineas)
+                foreach (var datos in lineas)
                 {
-                    var opciones = datos.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[0];
+                    var opciones = datos.Split(new[] {";"}, StringSplitOptions.RemoveEmptyEntries)[0];
                     Console.WriteLine(opciones);
                 }
-                
+
                 var infoOrigen = Console.ReadLine();
 
                 // REGIÓN, PROVINCIA Y LOCALIDAD SE AUTOASIGNAN DE ACUERDO A LA CIUDAD ELEGIDA
@@ -135,41 +131,40 @@ namespace AplicacionCAI
                         pedido.LocalidadOrigen = "MAR DEL PLATA";
                         flag = false;
                         break;
-                    
+
                     case "3":
                         Console.Clear();
                         pedido.RegionOrigen = "CUYO";
                         pedido.ProvinciaOrigen = "SAN JUAN";
-                        pedido.LocalidadOrigen = "CIUDAD DE SAN JUAN";                      
+                        pedido.LocalidadOrigen = "CIUDAD DE SAN JUAN";
                         flag = false;
                         break;
-                    
+
                     case "4":
                         Console.Clear();
                         pedido.RegionOrigen = "NOA";
                         pedido.ProvinciaOrigen = "JUJUY";
-                        pedido.LocalidadOrigen = "SAN SALVADOR DE JUJUY";                    
+                        pedido.LocalidadOrigen = "SAN SALVADOR DE JUJUY";
                         flag = false;
                         break;
-                    
+
                     case "5":
                         Console.Clear();
                         pedido.RegionOrigen = "PATAGONIA";
                         pedido.ProvinciaOrigen = "RÍO NEGRO";
-                        pedido.LocalidadOrigen = "BARILOCHE";  
+                        pedido.LocalidadOrigen = "BARILOCHE";
                         flag = false;
-                        break;                    
-                    
+                        break;
+
                     default:
                         Console.WriteLine("La opción ingresada es inválida.");
                         break;
                 }
-
             } while (flag);
-            
-            
+
+
             pedido.DomicilioOrigen = Validador.TextInput("Por favor ingrese Domicilio y altura de Origen");
-            
+
             string seguirUno;
 
             seguirUno = pedido.ValidarSioNoPedidoInicial("\n¿Desea Continuar?");
@@ -186,68 +181,66 @@ namespace AplicacionCAI
                 flag2 = false;
                 Console.Clear();
             }
-            
+
             //INFORMACIÓN DE DESTINO
             do
             {
-                Console.WriteLine("\n Elija Argentina para envíos locales. Elija otra opción para envíos internacionales.");
+                Console.WriteLine(
+                    "\n Elija Argentina para envíos locales. Elija otra opción para envíos internacionales.");
 
                 string[] lines = File.ReadAllLines("ubicacionesGlobales.txt");
-                    foreach(var line in lines)
-                    {
-                        var firstValue = line.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[0];
-                        Console.WriteLine(firstValue);
-                    }
-                
-                    var InfoDestino = Console.ReadLine();
+                foreach (var line in lines)
+                {
+                    var firstValue = line.Split(new[] {";"}, StringSplitOptions.RemoveEmptyEntries)[0];
+                    Console.WriteLine(firstValue);
+                }
 
-                    switch (InfoDestino)
-                    {
+                var InfoDestino = Console.ReadLine();
+
+                switch (InfoDestino)
+                {
+                    case "1":
+                        Console.Clear();
+                        pedido.PaisDestino = "ARGENTINA";
+
+                        Console.WriteLine("\n Elija la ciudad de destino.");
+
+                        string[] ciudades = File.ReadAllLines("ubicacionesLocales.txt");
+                        foreach (var linea in ciudades)
+                        {
+                            var datos = linea.Split(new string[] {";"}, StringSplitOptions.RemoveEmptyEntries)[0];
+                            Console.WriteLine(datos);
+                        }
+
+                        var seleccionArg = Console.ReadLine();
+
+                        switch (seleccionArg)
+                        {
                             case "1":
-                            Console.Clear();
-                            pedido.PaisDestino = "ARGENTINA";
-                            
-                            Console.WriteLine("\n Elija la ciudad de destino.");
+                                Console.Clear();
+                                pedido.RegionDestino = "CENTRO";
+                                pedido.ProvinciaDestino = "BUENOS AIRES";
+                                pedido.LocalidadDestino = "CABA";
+                                //flag2 = false;
+                                break;
+                        }
 
-                            string[] ciudades = File.ReadAllLines("ubicacionesLocales.txt");
-                            foreach(var linea in ciudades)
-                            {
-                                var datos = linea.Split(new string[]{";"}, StringSplitOptions.RemoveEmptyEntries)[0];
-                                Console.WriteLine(datos);
-                            }
-                            
-                            var seleccionArg = Console.ReadLine();
+                        //var seleccionArg = Console.ReadLine();
+                        //SubOpcionesArg(seleccionArg);
 
-                            switch (seleccionArg)
-                            {
-                                    
-                                case "1":
-                                    Console.Clear();
-                                    pedido.RegionDestino = "CENTRO";
-                                    pedido.ProvinciaDestino = "BUENOS AIRES";
-                                    pedido.LocalidadDestino = "CABA";
-                                    //flag2 = false;
-                                    break;
+                        flag2 = false;
+                        break;
 
-                            }
-
-                            //var seleccionArg = Console.ReadLine();
-                            //SubOpcionesArg(seleccionArg);
-                            
-                            flag2 = false;
-                            break;
-                            
-                        default:
-                            Console.WriteLine("La opción ingresada es inválida.");
-                            break;
-                    }
-
+                    default:
+                        Console.WriteLine("La opción ingresada es inválida.");
+                        break;
+                }
             } while (flag2);
 
             pedido.DomicilioDestino = Validador.TextInput("Por favor ingrese Domicilio y altura de Destino");
 
             pedido.PesoEncomienda = Validador.IngresarPeso("Ingrese el peso, máximo 30 kg ");
-            
+
             //SERVICIOS ADICIONALES
             {
                 bool avanzar = false;
@@ -272,14 +265,12 @@ namespace AplicacionCAI
                             pedido.Urgente = false;
                             avanzar = true;
                             break;
-                        
+
                         default:
                             Console.Clear();
                             Console.WriteLine("No ha ingresado una opcion correcta");
                             break;
-
                     }
-
                 } while (!avanzar);
 
                 bool avanzar2 = false;
@@ -304,15 +295,14 @@ namespace AplicacionCAI
                             pedido.RetiroEnPuerta = false;
                             avanzar2 = true;
                             break;
-                        
+
                         default:
                             Console.Clear();
                             Console.WriteLine("No ha ingresado una opcion correcta");
                             break;
                     }
-
                 } while (!avanzar2);
-            
+
                 bool avanzar3 = false;
                 do
                 {
@@ -335,28 +325,29 @@ namespace AplicacionCAI
                             pedido.EntregaDomicilio = false;
                             avanzar3 = true;
                             break;
-                        
+
                         default:
                             Console.Clear();
                             Console.WriteLine("No ha ingresado una opcion correcta");
                             break;
-
                     }
-
                 } while (!avanzar3);
-
             }
-            
-            //EMPIEZA CÁLCULO 
-            if (pedido.PaisOrigen == pedido.PaisDestino && pedido.RegionOrigen == pedido.RegionDestino && pedido.ProvinciaOrigen == pedido.ProvinciaDestino && pedido.LocalidadOrigen == pedido.LocalidadDestino)
+
+            // DETERMINO QUÉ TIPO DE SERVICIO APLICA
+            if (pedido.PaisOrigen == pedido.PaisDestino && pedido.RegionOrigen == pedido.RegionDestino &&
+                pedido.ProvinciaOrigen == pedido.ProvinciaDestino && pedido.LocalidadOrigen == pedido.LocalidadDestino)
             {
                 pedido.TipoServicio = "Local";
             }
-            else if (pedido.PaisOrigen == pedido.PaisDestino && pedido.RegionOrigen == pedido.RegionDestino && pedido.ProvinciaOrigen == pedido.ProvinciaDestino && pedido.LocalidadOrigen != pedido.LocalidadDestino)
+            else if (pedido.PaisOrigen == pedido.PaisDestino && pedido.RegionOrigen == pedido.RegionDestino &&
+                     pedido.ProvinciaOrigen == pedido.ProvinciaDestino &&
+                     pedido.LocalidadOrigen != pedido.LocalidadDestino)
             {
-                pedido.TipoServicio = "Provincial";    
-            } 
-            else if (pedido.PaisOrigen == pedido.PaisDestino && pedido.RegionOrigen == pedido.RegionDestino && pedido.ProvinciaOrigen != pedido.ProvinciaDestino)
+                pedido.TipoServicio = "Provincial";
+            }
+            else if (pedido.PaisOrigen == pedido.PaisDestino && pedido.RegionOrigen == pedido.RegionDestino &&
+                     pedido.ProvinciaOrigen != pedido.ProvinciaDestino)
             {
                 pedido.TipoServicio = "Regional";
             }
@@ -366,48 +357,54 @@ namespace AplicacionCAI
             }
             else if (pedido.PaisOrigen != pedido.PaisDestino && pedido.PaisDestino == "URUGUAY")
             {
-                pedido.TipoServicio = "Plimit";  
+                pedido.TipoServicio = "Plimit";
             }
-            else 
+            else
             {
-                pedido.TipoServicio = "Local";  
+                pedido.TipoServicio = "Local";
             }
-            
-            
-            if(pedido.PesoEncomienda < 0.5M){
+
+            //CÁLCULO PRECIO BASE 
+            if (pedido.PesoEncomienda < 0.5M)
+            {
                 pedido.SubTotalCalculoPedido = TarifarioDiccionario.tarifarioDiccionario[pedido.TipoServicio].P500g;
             }
-            else if(pedido.PesoEncomienda > 0.5M && pedido.PesoEncomienda < 10){
+            else if (pedido.PesoEncomienda > 0.5M && pedido.PesoEncomienda < 10)
+            {
                 pedido.SubTotalCalculoPedido = TarifarioDiccionario.tarifarioDiccionario[pedido.TipoServicio].P10Kg;
             }
-            if(pedido.PesoEncomienda > 10 && pedido.PesoEncomienda < 20){
+            else if (pedido.PesoEncomienda > 10 && pedido.PesoEncomienda < 20)
+            {
                 pedido.SubTotalCalculoPedido = TarifarioDiccionario.tarifarioDiccionario[pedido.TipoServicio].P20Kg;
             }
-            else if(pedido.PesoEncomienda > 20){
+            else if (pedido.PesoEncomienda > 20)
+            {
                 pedido.SubTotalCalculoPedido = TarifarioDiccionario.tarifarioDiccionario[pedido.TipoServicio].P30Kg;
             }
             else
             {
                 pedido.SubTotalCalculoPedido = TarifarioDiccionario.tarifarioDiccionario[pedido.TipoServicio].P500g;
             }
-            
+
+            //RECARGO SERVICIOS ADICIONALES 
             if (pedido.Urgente == true)
             {
                 decimal cargo = RecargoUrgencia(pedido.Urgente);
-                pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido*cargo);
-               
+                pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido * cargo);
             }
+
             if (pedido.EntregaDomicilio == true)
             {
                 decimal cargo = RecargoEntrega(pedido.EntregaDomicilio);
-                pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido*cargo);
+                pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido * cargo);
             }
+
             if (pedido.RetiroEnPuerta == true)
             {
                 decimal cargo = RecargoRetiro(pedido.RetiroEnPuerta);
-                pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido*cargo);
+                pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido * cargo);
             }
-            
+
             pedido.MostrarPedidoFinal();
 
             return pedido;
@@ -419,7 +416,9 @@ namespace AplicacionCAI
         {
             int newid = 0;
             string ultimaLinea = File.ReadLines("pedidoLista.txt").LastOrDefault();
-            if(!string.IsNullOrEmpty(ultimaLinea))
+            Console.WriteLine(File.ReadLines("pedidoLista.txt").LastOrDefault());
+
+            if (!string.IsNullOrEmpty(ultimaLinea))
             {
                 var valores = ultimaLinea.Split(';');
                 newid = int.Parse(valores[0]);
@@ -429,12 +428,14 @@ namespace AplicacionCAI
             {
                 newid = new Random().Next(50000000, 99999999);
             }
+
             return newid;
         }
-        
-                public string ObtenerLineaDatos()
+
+        public string ObtenerLineaDatos()
         {
-            return $"{IdPedido};{EstadoPedido};{FechaPedido};{PaisOrigen};{RegionOrigen};{ProvinciaOrigen};{LocalidadOrigen};{DomicilioOrigen};{ContinenteOrigen};{PaisDestino};{RegionDestino};{ProvinciaDestino};{LocalidadDestino};{DomicilioDestino};{ContinenteDestino};{PrecioEncomienda};{PesoEncomienda};{CuitCorporativo};{RazonSocialCorporativo};{Urgente};{EntregaDomicilio};{RetiroEnPuerta};{SubTotalCalculoPedido};{TotalCalculoPedido};{Facturado};{TipoServicio}";
+            return
+                $"{IdPedido};{EstadoPedido};{FechaPedido};{PaisOrigen};{RegionOrigen};{ProvinciaOrigen};{LocalidadOrigen};{DomicilioOrigen};{ContinenteOrigen};{PaisDestino};{RegionDestino};{ProvinciaDestino};{LocalidadDestino};{DomicilioDestino};{ContinenteDestino};{PrecioEncomienda};{PesoEncomienda};{CuitCorporativo};{RazonSocialCorporativo};{Urgente};{EntregaDomicilio};{RetiroEnPuerta};{SubTotalCalculoPedido};{TotalCalculoPedido};{Facturado};{TipoServicio}";
         }
 
         public static Pedido CrearModeloBusqueda()
@@ -443,13 +444,14 @@ namespace AplicacionCAI
             modelo.IdPedido = Validador.IngresarEntero("\n Por favor ingrese el nro de ID");
             return modelo;
         }
-        
+
         public bool CoincideCon(Pedido modelo)
         {
             if (modelo.IdPedido != 0 && IdPedido != modelo.IdPedido)
             {
                 return false;
             }
+
             return true;
         }
 
@@ -459,7 +461,7 @@ namespace AplicacionCAI
             modelo.CuitCorporativo = clienteLogueado;
             return modelo;
         }
-        
+
         public static long UsuarioLogueado()
         {
             var usuario = DiccionarioUsuario.BuscarUsuarioDni();
@@ -489,7 +491,7 @@ namespace AplicacionCAI
 
             Console.Clear();
             Console.WriteLine($"\n Estado del Pedido");
-            
+
             Console.WriteLine($"\n Id Pedido: {IdPedido}");
             Console.WriteLine($" Estado: {EstadoPedido}");
             Console.WriteLine($" Fecha de Pedido: {FechaPedido.ToLongDateString()}");
@@ -507,12 +509,11 @@ namespace AplicacionCAI
             Console.WriteLine($" Domicilio de Destino: {DomicilioDestino}");
 
             Console.WriteLine($"\n Subtotal del Pedido: {SubTotalCalculoPedido}");
-            
+
             Console.WriteLine($"\n Total del Pedido con el Recargo incluido: {TotalCalculoPedido}");
-            
+
             Console.WriteLine("\n Presione cualquier tecla para continuar");
             Console.ReadKey();
-
         }
 
         private static decimal RecargoUrgencia(bool entrada)
@@ -520,7 +521,6 @@ namespace AplicacionCAI
             decimal cargo = TarifarioDiccionario.EnvioUrgente(entrada);
             return cargo;
         }
-        
 
         private static decimal RecargoEntrega(bool entrada)
         {
@@ -532,11 +532,11 @@ namespace AplicacionCAI
         {
             decimal cargo = TarifarioDiccionario.RetiroEnPuerta(entrada);
             return cargo;
-        }       
+        }
+
 
         private string ValidarSioNoPedidoInicial(string mensaje)
         {
-
             string opcion;
             bool valido = false;
             string mensajeValidador = "\n Valores permitidos:" +
@@ -551,7 +551,7 @@ namespace AplicacionCAI
                 Console.WriteLine(mensaje);
                 Console.WriteLine(mensajeError);
                 Console.WriteLine(mensajeValidador);
-                opcion = Console.ReadLine().ToUpper();
+                opcion = Console.ReadLine()?.ToUpper();
                 string opcionC = "SI";
                 string opcionD = "NO";
 
@@ -563,12 +563,9 @@ namespace AplicacionCAI
                 {
                     valido = true;
                 }
-
             } while (!valido);
 
             return opcion;
         }
-        
     }
-
 }
