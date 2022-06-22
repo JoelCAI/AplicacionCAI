@@ -11,12 +11,12 @@ namespace AplicacionCAI
     {
         
         private static readonly Dictionary<int, TarifaPorPeso> servicioPrecioDiccionario = new Dictionary<int, TarifaPorPeso>();
-        private static Dictionary<string, TarifaPorPeso> tarifarioDiccionario = new Dictionary<string, TarifaPorPeso>();
+        public static Dictionary<string, TarifaPorPeso> tarifarioDiccionario = new Dictionary<string, TarifaPorPeso>();
 
         const string fileName = "tarifarioLista.txt";
 
 
-        public static void DiccionarioTarifas()
+        static TarifarioDiccionario()
         {
             tarifarioDiccionario = new Dictionary<string, TarifaPorPeso> ();
 
@@ -52,15 +52,6 @@ namespace AplicacionCAI
             return null;
         }
         
-        //public static string CostoEnvio(string entrada)
-        //{
-        //    var modelo = TarifaPorPeso.CostoBase(entrada);
-        //          foreach (var tarifas in servicioPrecioDiccionario.Values)
-        //    {
-        //        return tarifas.P500g;
-        //   }
-        //    return 0;
-        //}
         
         public static decimal EnvioUrgente(bool entrada)
         {

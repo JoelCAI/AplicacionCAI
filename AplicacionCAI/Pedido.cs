@@ -373,6 +373,24 @@ namespace AplicacionCAI
                 pedido.TipoServicio = "Local";  
             }
             
+            
+            if(pedido.PesoEncomienda < 0.5M){
+                pedido.SubTotalCalculoPedido = TarifarioDiccionario.tarifarioDiccionario[pedido.TipoServicio].P500g;
+            }
+            else if(pedido.PesoEncomienda > 0.5M && pedido.PesoEncomienda < 10){
+                pedido.SubTotalCalculoPedido = TarifarioDiccionario.tarifarioDiccionario[pedido.TipoServicio].P10Kg;
+            }
+            if(pedido.PesoEncomienda > 10 && pedido.PesoEncomienda < 20){
+                pedido.SubTotalCalculoPedido = TarifarioDiccionario.tarifarioDiccionario[pedido.TipoServicio].P20Kg;
+            }
+            else if(pedido.PesoEncomienda > 20){
+                pedido.SubTotalCalculoPedido = TarifarioDiccionario.tarifarioDiccionario[pedido.TipoServicio].P30Kg;
+            }
+            else
+            {
+                pedido.SubTotalCalculoPedido = TarifarioDiccionario.tarifarioDiccionario[pedido.TipoServicio].P500g;
+            }
+            
             if (pedido.Urgente == true)
             {
                 decimal cargo = RecargoUrgencia(pedido.Urgente);
@@ -390,19 +408,12 @@ namespace AplicacionCAI
                 pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido*cargo);
             }
             
-            //if(pedido.PesoEncomienda < (10))
-            //{
-            //    string aplica = "";
-            //    aplica = pedido.TipoServicio;
-            //    SubTotalCalculoPedido = TarifaPorPeso.CrearNuevoServicio[TipoServicio].P500g;
-            //}
-
-            
             pedido.MostrarPedidoFinal();
 
             return pedido;
         }
-        
+
+
         //NUEVO ID DE PEDIDO CON INCREMENTO RESPECTO AL ÚLTIMO GUARDADO
         public static int CrearIdPedido()
         {
@@ -509,12 +520,7 @@ namespace AplicacionCAI
             decimal cargo = TarifarioDiccionario.EnvioUrgente(entrada);
             return cargo;
         }
-
-        //private static decimal TopeRecargo(bool entrada)
-        //{
-        //  decimal cargo = TarifarioDiccionario.TopeRecargo(entrada);
-        //  return cargo;
-        //}
+        
 
         private static decimal RecargoEntrega(bool entrada)
         {

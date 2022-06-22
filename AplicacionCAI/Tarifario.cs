@@ -68,7 +68,6 @@ namespace AplicacionCAI
 			return idServicio;
 		}
 
-
 		
 		public static TarifaPorPeso Recargo(bool entrada)
 		{
