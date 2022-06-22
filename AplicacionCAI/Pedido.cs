@@ -387,19 +387,19 @@ namespace AplicacionCAI
             }
 
             //RECARGO SERVICIOS ADICIONALES 
-            if (pedido.Urgente == true)
+            if (pedido.Urgente)
             {
                 decimal cargo = RecargoUrgencia(pedido.Urgente);
                 pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido * cargo);
             }
 
-            if (pedido.EntregaDomicilio == true)
+            if (pedido.EntregaDomicilio)
             {
                 decimal cargo = RecargoEntrega(pedido.EntregaDomicilio);
                 pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido * cargo);
             }
 
-            if (pedido.RetiroEnPuerta == true)
+            if (pedido.RetiroEnPuerta)
             {
                 decimal cargo = RecargoRetiro(pedido.RetiroEnPuerta);
                 pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido * cargo);
