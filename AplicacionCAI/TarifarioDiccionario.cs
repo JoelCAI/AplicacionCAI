@@ -10,11 +10,9 @@ namespace AplicacionCAI
     static class TarifarioDiccionario
     {
         
-        //private static readonly Dictionary<int, TarifaPorPeso> servicioPrecioDiccionario = new Dictionary<int, TarifaPorPeso>();
         public static Dictionary<string, TarifaPorPeso> tarifarioDiccionario = new Dictionary<string, TarifaPorPeso>();
 
         const string fileName = "tarifarioLista.txt";
-
 
         static TarifarioDiccionario()
         {
