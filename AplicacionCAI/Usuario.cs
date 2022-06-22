@@ -43,8 +43,7 @@ namespace AplicacionCAI
 			get { return this.razonSocial; }
 			set { this.razonSocial = value; }
 		}
-
-
+		
 		public Usuario()
         {
 
@@ -68,9 +67,8 @@ namespace AplicacionCAI
 		{
 			var dni = new Usuario();
 
-			dni.DniUsuario = Validador.PedirIntMenuInicial("\n Por favor ingresar el numero de dni autorizado para continuar",10_000_000,99_999_999);
+			dni.DniUsuario = Validador.PedirIntMenuInicial("\n Por favor ingresar el numero de dni autorizado para continuar",1,99_999_999);
 			
-
 			return dni;
 		}
 

@@ -85,7 +85,6 @@ namespace AplicacionCAI
 
                     match = true;
                     
-
             if (match == false)
             {
                 Console.WriteLine("No se encontraron registros");

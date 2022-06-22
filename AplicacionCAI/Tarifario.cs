@@ -7,42 +7,31 @@ using System.Threading.Tasks;
 
 namespace AplicacionCAI
 {
-     class ServicioPrecio
+     class TarifaPorPeso
     {
-	    public int IdServicio { get; set; }
+	    public string IdServicio { get; set; }
 	    public decimal P500g { get; }
 	    public decimal P10Kg { get; }
 	    public decimal P20Kg { get; }
 	    public decimal P30Kg { get; }
-	 
-	    //public int PesoLimite { get; set; }
-	    public decimal TarifaLocal { get; }
-	    public decimal TarifaProvincial { get; }
-	    public decimal PrecioServicioRestoAmerica { get; }
-	    public decimal PrecioServicioAmericaNorte { get; }
-	    public decimal PrecioServicioEuropa { get; }
-	    public decimal PrecioServicioAsia { get; }
-	    public decimal PrecioServicioRestoMundo { get; }
-
 	    public bool Bool { get; set; }
 	    public decimal RecargoUrgencia { get; }
 	    public decimal RecargoRetiroPuerta { get; }
 	    public decimal RecargoEntregaPuerta { get; }
-
 	    public decimal TopeUrgente { get; set; }
 
 	    
-		public ServicioPrecio()
+		public TarifaPorPeso()
 		{
 
 		}
 
-		public ServicioPrecio(string linea)
+		public TarifaPorPeso(string linea)
 		{
 
 			var datos = linea.Split(';');
 			
-			IdServicio = int.Parse(datos[0]);
+			IdServicio = datos[0];
 			
 			P500g = decimal.Parse(datos[1]); 
 			P10Kg = decimal.Parse(datos[2]); 
@@ -56,9 +45,9 @@ namespace AplicacionCAI
 
 		}
 		
-		public static ServicioPrecio CrearNuevoServicio(string codigoNuevoProducto)
+		public static TarifaPorPeso CrearNuevoServicio(string codigoNuevoProducto)
 		{
-			var producto = new ServicioPrecio();
+			var producto = new TarifaPorPeso();
 			return producto;
 		}
 
@@ -70,32 +59,36 @@ namespace AplicacionCAI
 			}
 		}
 
-		public static ServicioPrecio ValidarServicio()
+		public static TarifaPorPeso ValidarServicio()
 		{
-			var idServicio = new ServicioPrecio();
+			var idServicio = new TarifaPorPeso();
 
-			idServicio.IdServicio = 1;
+			idServicio.IdServicio = "Local";
 
 			return idServicio;
 		}
 
-		public static ServicioPrecio Recargo(bool entrada)
+
+		
+		public static TarifaPorPeso Recargo(bool entrada)
 		{
-			var modelo = new ServicioPrecio();
+			var modelo = new TarifaPorPeso();
 			modelo.Bool = entrada;
 			return modelo;
-		}		
+		}
 		
-		public bool CompararServicioCoincidencia(ServicioPrecio servicioPrecio)
+		public bool CompararServicioCoincidencia(TarifaPorPeso tarifaPorPeso)
 		{
 
-			if (servicioPrecio.IdServicio != 0 && IdServicio != servicioPrecio.IdServicio)
+			if (tarifaPorPeso.IdServicio != "Local" && IdServicio != tarifaPorPeso.IdServicio)
 			{
 				return false;
 			}
 
 			return true;
 		}
+		
+
 
 	}
 }

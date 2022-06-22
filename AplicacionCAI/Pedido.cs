@@ -39,25 +39,7 @@ namespace AplicacionCAI
         public bool Facturado { get; set; }
         public string TipoServicio { get; set; }
 
-
-        //NUEVO ID DE PEDIDO CON INCREMENTO RESPECTO AL ÚLTIMO GUARDADO
-        public static int newId = CrearIdPedido() + 1;
-
-        public static int CrearIdPedido()
-        {
-            int newid = 0;
-            string ultimaLinea = File.ReadLines("pedidoLista.txt").LastOrDefault();
-            if(!string.IsNullOrEmpty(ultimaLinea))
-            {
-                var valores = ultimaLinea.Split(';');
-                newid = int.Parse(valores[0]);
-            }
-            else
-            {
-                newid = new Random().Next(50000000, 99999999);
-            }
-            return newid;
-        }
+        public static int newId = CrearIdPedido();
 
         public Pedido()
         {
@@ -102,90 +84,7 @@ namespace AplicacionCAI
             Facturado = bool.Parse(datos[24]);
             TipoServicio = (datos[25]);
         }
-
-        public string ObtenerLineaDatos()
-        {
-            return $"{IdPedido};{EstadoPedido};{FechaPedido};{PaisOrigen};{RegionOrigen};{ProvinciaOrigen};{LocalidadOrigen};{DomicilioOrigen};{ContinenteOrigen};{PaisDestino};{RegionDestino};{ProvinciaDestino};{LocalidadDestino};{DomicilioDestino};{ContinenteDestino};{PrecioEncomienda};{PesoEncomienda};{CuitCorporativo};{RazonSocialCorporativo};{Urgente};{EntregaDomicilio};{RetiroEnPuerta};{SubTotalCalculoPedido};{TotalCalculoPedido};{Facturado};{TipoServicio}";
-        }
-
-        public static Pedido CrearModeloBusqueda()
-        {
-            var modelo = new Pedido();
-            modelo.IdPedido = Validador.IngresarEntero("\n Por favor ingrese el nro de ID");
-            return modelo;
-        }
         
-        public bool CoincideCon(Pedido modelo)
-        {
-            if (modelo.IdPedido != 0 && IdPedido != modelo.IdPedido)
-            {
-                return false;
-            }
-            return true;
-        }
-
-        public static Pedido BusquedaCuitCorporativo(long clienteLogueado)
-        {
-            var modelo = new Pedido();
-            modelo.CuitCorporativo = clienteLogueado;
-            return modelo;
-        }
-        
-        public static long UsuarioLogueado()
-        {
-            var usuario = DiccionarioUsuario.BuscarUsuarioDni();
-            var clienteLogueado = usuario.CuitCorporativo;
-            return clienteLogueado;
-        }
-
-        public void MostrarPedidoInicio()
-        {
-            Console.Clear();
-            Console.WriteLine($"\n Su ingreso parcial");
-
-            Console.WriteLine($"\n Id Pedido: EN CREACIÓN");
-            Console.WriteLine($" Estado: EN CREACIÓN");
-            Console.WriteLine($" Fecha de Pedido: {FechaPedido.ToLongDateString()}");
-
-            Console.WriteLine($"\n País de Origen: {PaisOrigen}");
-            Console.WriteLine($" Región de Origen: {RegionOrigen}");
-            Console.WriteLine($" Provincia de Origen: {ProvinciaOrigen}");
-            Console.WriteLine($" Localidad de Origen: {LocalidadOrigen}");
-            Console.WriteLine($" DomicilioDeOrigen: {DomicilioOrigen}");
-        }
-
-        public void MostrarPedidoFinal()
-        {
-            var usuario = DiccionarioUsuario.BuscarUsuarioDniUnico();
-
-            Console.Clear();
-            Console.WriteLine($"\n Estado del Pedido");
-            
-            Console.WriteLine($"\n Id Pedido: {IdPedido}");
-            Console.WriteLine($" Estado: {EstadoPedido}");
-            Console.WriteLine($" Fecha de Pedido: {FechaPedido.ToLongDateString()}");
-
-            Console.WriteLine($"\n País de Origen: {PaisOrigen}");
-            Console.WriteLine($" Región de Origen: {RegionOrigen}");
-            Console.WriteLine($" Provincia de Origen: {ProvinciaOrigen}");
-            Console.WriteLine($" Localidad de Origen: {LocalidadOrigen}");
-            Console.WriteLine($" Domicilio de Origen: {DomicilioOrigen}");
-
-            Console.WriteLine($"\n País de Destino: {PaisDestino}");
-            Console.WriteLine($" Región de Destino: {RegionDestino}");
-            Console.WriteLine($" Provincia de Destino: {ProvinciaDestino}");
-            Console.WriteLine($" Localidad de Destino: {LocalidadDestino}");
-            Console.WriteLine($" Domicilio de Destino: {DomicilioDestino}");
-
-            Console.WriteLine($"\n Subtotal del Pedido: {SubTotalCalculoPedido}");
-            
-            Console.WriteLine($"\n Total del Pedido con el Recargo incluido: {TotalCalculoPedido}");
-            
-            Console.WriteLine("\n Presione cualquier tecla para continuar");
-            Console.ReadKey();
-
-        }
-
         public static Pedido CrearPedido()
         {
             // COMIENZO DE SOLICITUD DE NUEVO PEDIDO
@@ -193,7 +92,7 @@ namespace AplicacionCAI
 
             pedido.IdPedido = newId;
             
-            //var servicioPrecio = TarifarioDiccionario.BuscarServicioIdPedido();
+            var servicioPrecio = TarifarioDiccionario.BuscarServicioIdPedido();
 
             pedido.EstadoPedido = "INICIADO";
             pedido.FechaPedido = DateTime.Now;
@@ -348,14 +247,6 @@ namespace AplicacionCAI
             pedido.DomicilioDestino = Validador.TextInput("Por favor ingrese Domicilio y altura de Destino");
 
             pedido.PesoEncomienda = Validador.IngresarPeso("Ingrese el peso, máximo 30 kg ");
-
-            decimal peso;
-
-            decimal peso500g = 0.5m;
-            decimal peso10Kg = 10;
-            decimal peso20Kg = 20;
-            decimal peso30Kg = 30;
-            
             
             //SERVICIOS ADICIONALES
             {
@@ -456,27 +347,32 @@ namespace AplicacionCAI
 
             }
             
-            //CALCULO COSTO DE ENVÍO 
-            
-            if (pedido.PaisOrigen == pedido.PaisDestino)
+            //EMPIEZA CÁLCULO 
+            if (pedido.PaisOrigen == pedido.PaisDestino && pedido.RegionOrigen == pedido.RegionDestino && pedido.ProvinciaOrigen == pedido.ProvinciaDestino && pedido.LocalidadOrigen == pedido.LocalidadDestino)
             {
-                if (pedido.RegionOrigen == pedido.RegionDestino)
-                {
-                    if (pedido.ProvinciaOrigen == pedido.ProvinciaDestino)
-                    {
-                        if (pedido.LocalidadOrigen == pedido.LocalidadDestino)
-                        {
-                            var tipoPedido = "Local";
-                        }
-                        else
-                        {
-                            
-                        }
-                    }
-                }
+                pedido.TipoServicio = "Local";
+            }
+            else if (pedido.PaisOrigen == pedido.PaisDestino && pedido.RegionOrigen == pedido.RegionDestino && pedido.ProvinciaOrigen == pedido.ProvinciaDestino && pedido.LocalidadOrigen != pedido.LocalidadDestino)
+            {
+                pedido.TipoServicio = "Provincial";    
+            } 
+            else if (pedido.PaisOrigen == pedido.PaisDestino && pedido.RegionOrigen == pedido.RegionDestino && pedido.ProvinciaOrigen != pedido.ProvinciaDestino)
+            {
+                pedido.TipoServicio = "Regional";
+            }
+            else if (pedido.PaisOrigen == pedido.PaisDestino && pedido.RegionOrigen != pedido.RegionDestino)
+            {
+                pedido.TipoServicio = "Nacional";
+            }
+            else if (pedido.PaisOrigen != pedido.PaisDestino && pedido.PaisDestino == "URUGUAY")
+            {
+                pedido.TipoServicio = "Plimit";  
+            }
+            else 
+            {
+                pedido.TipoServicio = "Local";  
             }
             
-                
             if (pedido.Urgente == true)
             {
                 decimal cargo = RecargoUrgencia(pedido.Urgente);
@@ -494,14 +390,119 @@ namespace AplicacionCAI
                 pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido*cargo);
             }
             
+            //if(pedido.PesoEncomienda < (10))
+            //{
+            //    string aplica = "";
+            //    aplica = pedido.TipoServicio;
+            //    SubTotalCalculoPedido = TarifaPorPeso.CrearNuevoServicio[TipoServicio].P500g;
+            //}
+
+            
             pedido.MostrarPedidoFinal();
-            
-            
 
             return pedido;
         }
         
+        //NUEVO ID DE PEDIDO CON INCREMENTO RESPECTO AL ÚLTIMO GUARDADO
+        public static int CrearIdPedido()
+        {
+            int newid = 0;
+            string ultimaLinea = File.ReadLines("pedidoLista.txt").LastOrDefault();
+            if(!string.IsNullOrEmpty(ultimaLinea))
+            {
+                var valores = ultimaLinea.Split(';');
+                newid = int.Parse(valores[0]);
+                newid++;
+            }
+            else
+            {
+                newid = new Random().Next(50000000, 99999999);
+            }
+            return newid;
+        }
+        
+                public string ObtenerLineaDatos()
+        {
+            return $"{IdPedido};{EstadoPedido};{FechaPedido};{PaisOrigen};{RegionOrigen};{ProvinciaOrigen};{LocalidadOrigen};{DomicilioOrigen};{ContinenteOrigen};{PaisDestino};{RegionDestino};{ProvinciaDestino};{LocalidadDestino};{DomicilioDestino};{ContinenteDestino};{PrecioEncomienda};{PesoEncomienda};{CuitCorporativo};{RazonSocialCorporativo};{Urgente};{EntregaDomicilio};{RetiroEnPuerta};{SubTotalCalculoPedido};{TotalCalculoPedido};{Facturado};{TipoServicio}";
+        }
 
+        public static Pedido CrearModeloBusqueda()
+        {
+            var modelo = new Pedido();
+            modelo.IdPedido = Validador.IngresarEntero("\n Por favor ingrese el nro de ID");
+            return modelo;
+        }
+        
+        public bool CoincideCon(Pedido modelo)
+        {
+            if (modelo.IdPedido != 0 && IdPedido != modelo.IdPedido)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public static Pedido BusquedaCuitCorporativo(long clienteLogueado)
+        {
+            var modelo = new Pedido();
+            modelo.CuitCorporativo = clienteLogueado;
+            return modelo;
+        }
+        
+        public static long UsuarioLogueado()
+        {
+            var usuario = DiccionarioUsuario.BuscarUsuarioDni();
+            var clienteLogueado = usuario.CuitCorporativo;
+            return clienteLogueado;
+        }
+
+        public void MostrarPedidoInicio()
+        {
+            Console.Clear();
+            Console.WriteLine($"\n Su ingreso parcial");
+
+            Console.WriteLine($"\n Id Pedido: EN CREACIÓN");
+            Console.WriteLine($" Estado: EN CREACIÓN");
+            Console.WriteLine($" Fecha de Pedido: {FechaPedido.ToLongDateString()}");
+
+            Console.WriteLine($"\n País de Origen: {PaisOrigen}");
+            Console.WriteLine($" Región de Origen: {RegionOrigen}");
+            Console.WriteLine($" Provincia de Origen: {ProvinciaOrigen}");
+            Console.WriteLine($" Localidad de Origen: {LocalidadOrigen}");
+            Console.WriteLine($" DomicilioDeOrigen: {DomicilioOrigen}");
+        }
+
+        public void MostrarPedidoFinal()
+        {
+            var usuario = DiccionarioUsuario.BuscarUsuarioDniUnico();
+
+            Console.Clear();
+            Console.WriteLine($"\n Estado del Pedido");
+            
+            Console.WriteLine($"\n Id Pedido: {IdPedido}");
+            Console.WriteLine($" Estado: {EstadoPedido}");
+            Console.WriteLine($" Fecha de Pedido: {FechaPedido.ToLongDateString()}");
+
+            Console.WriteLine($"\n País de Origen: {PaisOrigen}");
+            Console.WriteLine($" Región de Origen: {RegionOrigen}");
+            Console.WriteLine($" Provincia de Origen: {ProvinciaOrigen}");
+            Console.WriteLine($" Localidad de Origen: {LocalidadOrigen}");
+            Console.WriteLine($" Domicilio de Origen: {DomicilioOrigen}");
+
+            Console.WriteLine($"\n País de Destino: {PaisDestino}");
+            Console.WriteLine($" Región de Destino: {RegionDestino}");
+            Console.WriteLine($" Provincia de Destino: {ProvinciaDestino}");
+            Console.WriteLine($" Localidad de Destino: {LocalidadDestino}");
+            Console.WriteLine($" Domicilio de Destino: {DomicilioDestino}");
+
+            Console.WriteLine($"\n Subtotal del Pedido: {SubTotalCalculoPedido}");
+            
+            Console.WriteLine($"\n Total del Pedido con el Recargo incluido: {TotalCalculoPedido}");
+            
+            Console.WriteLine("\n Presione cualquier tecla para continuar");
+            Console.ReadKey();
+
+        }
 
         private static decimal RecargoUrgencia(bool entrada)
         {
