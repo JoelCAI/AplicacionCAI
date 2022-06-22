@@ -8,40 +8,32 @@ namespace AplicacionCAI
 {
     internal class Program
     {
-       
-
         static void Main(string[] args)
         {
-           
-           Menu();
-           
-         
-
+            Menu();
         }
 
         public static void Menu()
         {
-            
             int ingreso;
             int dni = 0;
-            string nombre = "";
+            string nombre;
             string clave = "";
             long cuit;
 
             do
             {
                 Console.Clear();
-                
+
                 ingreso = Validador.PedirIntMenu("\n Aplicación Corporativa." +
-                                       "\n [1] Ingresar Como Usuario Corporativo. " +
-                                       "\n [2] Salir del Sistema.", 1, 2);
+                                                 "\n [1] Ingresar Como Usuario Corporativo. " +
+                                                 "\n [2] Salir del Sistema.", 1, 2);
 
                 switch (ingreso)
                 {
                     case 1:
                         Console.Clear();
                         var usuarioDni = DiccionarioUsuario.BuscarUsuarioDni();
-
 
 
                         if (usuarioDni != null)
@@ -61,10 +53,10 @@ namespace AplicacionCAI
                                     Console.Clear();
                                     Console.WriteLine("\n Bienvenid@ " + nombre + "\n Su Cuit es: " + cuit.ToString());
                                     opcion = Validador.PedirIntMenu("\n Menú del Usuario Corporativo" +
-                                                           "\n [1] Solicitar un Pedido de correspondencia o Encomienda. " +
-                                                           "\n [2] Consultar el Estado de un Pedido. " +
-                                                           "\n [3] Consultar Estado de Cuenta. " +
-                                                           "\n [4] Salir del Sistema.", 1, 4);
+                                                                    "\n [1] Solicitar un Pedido de correspondencia o Encomienda. " +
+                                                                    "\n [2] Consultar el Estado de un Pedido. " +
+                                                                    "\n [3] Consultar Estado de Cuenta. " +
+                                                                    "\n [4] Salir del Sistema.", 1, 4);
 
                                     switch (opcion)
                                     {
@@ -80,18 +72,15 @@ namespace AplicacionCAI
                                             Console.Clear();
                                             ConsultarCuenta(cuit);
                                             break;
-
                                     }
                                 } while (opcion != 4);
-
                             }
                             else
                             {
-                                Console.WriteLine("Digitó una clave incorrecta, vuelvalo a intentar con los datos correctos");
+                                Console.WriteLine(
+                                    "Digitó una clave incorrecta, vuelvalo a intentar con los datos correctos");
                                 Validador.VolverMenu();
                             }
-
-
                         }
                         else
                         {
@@ -99,32 +88,25 @@ namespace AplicacionCAI
                             usuarioDni = null;
                             Validador.VolverMenu();
                         }
-                        
+
                         break;
                     case 2:
-                        
-                    break;
 
+                        break;
                 }
             } while (ingreso != 2);
-
-        }
-        
-        public static void Continuar()
-        {
-
         }
 
         private static void GenerarSolicitudPedido()
         {
             var pedido = Pedido.CrearPedido();
             Console.WriteLine($"El costo total por el servicio es: {pedido.TotalCalculoPedido}");
-            
+
             do
             {
                 Console.WriteLine("¿Desea confirmar? Responder S/N");
                 string ingreso = Console.ReadLine();
-                string opcion = ingreso.ToUpper();          
+                string opcion = ingreso.ToUpper();
 
                 if (opcion == "S")
                 {
@@ -132,34 +114,37 @@ namespace AplicacionCAI
                     Console.WriteLine("Su pedido se generó correctamente.");
                     break;
                 }
+
                 if (opcion == "N")
                 {
                     break;
                 }
-                else { 
+                else
+                {
                     Console.WriteLine("Por favor introducir un valor correcto");
-                    
                 }
             } while (true);
+
             Console.WriteLine("Pulse una tecla para continuar");
             Console.ReadKey();
-            Console.Clear();            
+            Console.Clear();
         }
 
- 
+
         private static void ConsultarEstadoPedido()
         {
-            var pedido = DiccionarioPedido.SeleccionarPedido(); 
+            var pedido = DiccionarioPedido.SeleccionarPedido();
             if (pedido != null)
             {
                 Console.Clear();
                 pedido.MostrarPedidoFinal();
             }
+
             Console.WriteLine("Pulse una tecla para continuar");
             Console.ReadKey();
             Console.Clear();
         }
-        
+
         private static void ConsultarCuenta(long cuit)
         {
             Console.WriteLine("");
@@ -173,6 +158,5 @@ namespace AplicacionCAI
             Console.ReadKey();
             Console.Clear();
         }
-        
     }
 }
