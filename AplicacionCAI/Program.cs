@@ -32,7 +32,6 @@ namespace AplicacionCAI
                 ingreso = Validador.PedirIntMenu("\n Aplicación Corporativa." +
                                                  "\n [1] Ingresar Como Usuario Corporativo. " +
                                                  "\n [2] Salir del Sistema.", 1, 2);
-
                 if (ingreso == 1)
                 {
                     Console.Clear();
@@ -62,7 +61,6 @@ namespace AplicacionCAI
                                                        "\n [2] Consultar el Estado de un Pedido. " +
                                                        "\n [3] Consultar Estado de Cuenta. " +
                                                        "\n [4] Salir del Sistema.", 1, 4);
-
                                 switch (opcion)
                                 {
 
@@ -81,7 +79,6 @@ namespace AplicacionCAI
 
                                 }
                             } while (opcion != 4);
-
                         } 
                         else
                         {
@@ -89,18 +86,12 @@ namespace AplicacionCAI
                             Console.WriteLine("\n Ingresó una clave incorrecta, presione cualquier tecla para volver al Menú Principal");
                             Console.ReadKey();
                         }
-
                         
-
                     }
-                    
-
-                        break;
+                    break;
                 }
 
             } while (ingreso != 2);
-
-
         }
 
 

@@ -45,16 +45,15 @@ namespace AplicacionCAI
 
 		}
 		
-		public static TarifaPorPeso CrearNuevoServicio(string codigoNuevoProducto)
-		{
-			var producto = new TarifaPorPeso();
-			return producto;
-		}
-		
 		public static TarifaPorPeso Recargo(bool entrada)
 		{
 			var modelo = new TarifaPorPeso();
 			modelo.Bool = entrada;
+			return modelo;
+		}
+		public static TarifaPorPeso MaxRecargo()
+		{
+			var modelo = new TarifaPorPeso();
 			return modelo;
 		}
 

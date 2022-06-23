@@ -455,7 +455,7 @@ namespace AplicacionCAI
             pedido.DomicilioDestino = Validador.TextInput("Por favor ingrese Domicilio y altura de Destino");
 
             Console.Clear();
-            pedido.PesoEncomienda = Validador.PedirDecimal(0,30);
+            pedido.PesoEncomienda = Validador.PedirDecimal("Ingrese el peso del envío.",0,30);
             
             //SERVICIOS ADICIONALES
             {
@@ -623,7 +623,18 @@ namespace AplicacionCAI
             if (pedido.Urgente)
             {
                 decimal cargo = RecargoUrgencia(pedido.Urgente);
-                pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido * cargo);
+                
+                var calculoBase = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido * cargo);
+                var topeRecargo = MaxUrgencia();
+                
+                if (calculoBase>topeRecargo)
+                {
+                    pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + topeRecargo;
+                }
+                else
+                {
+                    pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido * cargo);
+                }
             }
 
             if (pedido.EntregaDomicilio)
@@ -818,6 +829,12 @@ namespace AplicacionCAI
         private static decimal RecargoUrgencia(bool entrada)
         {
             decimal cargo = TarifarioDiccionario.EnvioUrgente(entrada);
+            return cargo;
+        }
+        
+        private static decimal MaxUrgencia()
+        {
+            decimal cargo = TarifarioDiccionario.TopeRecargo();
             return cargo;
         }
 

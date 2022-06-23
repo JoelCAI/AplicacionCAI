@@ -48,9 +48,9 @@ namespace AplicacionCAI
 
         }
 
-        public static decimal TopeRecargo(bool entrada)
+        public static decimal TopeRecargo()
         {
-            var modelo = TarifaPorPeso.Recargo(entrada);
+            var modelo = TarifaPorPeso.MaxRecargo();
 
             foreach (var tarifas in tarifarioDiccionario.Values)
             {

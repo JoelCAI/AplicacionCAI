@@ -89,7 +89,7 @@ namespace AplicacionCAI
 
         }
         
-        public static decimal PedirDecimal(int min, int max)
+        public static decimal PedirDecimal(string mensaje, int min, int max)
         {
             decimal valor;
 
@@ -103,6 +103,7 @@ namespace AplicacionCAI
             do
             {
                 Console.Clear();
+                Console.WriteLine(mensaje);
                 Console.WriteLine(mensajeMenu);
 
                 valorUno = Console.ReadLine();
@@ -125,7 +126,6 @@ namespace AplicacionCAI
 
         }
 
-      
         public static string PedirCaracterString(string mensaje, int min, int max)
         {
             string valor;
