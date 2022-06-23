@@ -25,7 +25,7 @@ namespace AplicacionCAI
             var datos = linea.Split(';');
             IdPedido = int.Parse(datos[0]);
             EstadoPedido = datos[1];
-            FechaPedido = DateTime.Parse(datos[2], new CultureInfo("es-ES"));
+            FechaPedido = DateTime.Parse(datos[2]);
 
             PaisOrigen = datos[3];
             RegionOrigen = datos[4];
@@ -167,7 +167,6 @@ namespace AplicacionCAI
                         Console.WriteLine("La opción ingresada es inválida.");
                         Console.WriteLine("Pulse una tecla para continuar");
                         Console.ReadKey();
-
                         break;
                 }
             } while (flag);
@@ -176,9 +175,7 @@ namespace AplicacionCAI
             pedido.DomicilioOrigen = Validador.TextInput("Por favor ingrese Domicilio y altura de Origen");
 
             string continuar;
-
-            //seguirUno = pedido.ValidarSioNoPedidoInicial("\n¿Desea Continuar?");
-
+            
             bool flag2;
             do
             {
@@ -192,21 +189,19 @@ namespace AplicacionCAI
                 }
                 else if (continuar == "NO" && pedido.PaisOrigen != null)
                 {
-                    flag2 = false;
                     pedido.EstadoPedido = null;
                     Console.Clear();
                     return pedido;
                 } else
                 {
                     flag2 = false;
-                    
                 }
             } while (continuar == "SI" || continuar == "NO");
 
             //INFORMACIÓN DE DESTINO
             do
             {
-                Console.Clear();
+                //Console.Clear();
                 Console.WriteLine("\n Elija Argentina para envíos locales. Elija otra opción para envíos internacionales.");
 
                 var ubicacionesGlobales = UbicacionesGlobales();
@@ -220,7 +215,7 @@ namespace AplicacionCAI
                 switch (infoDestino)
                 {
                     case "1":
-                        pedido.PaisDestino = "ARGENTINA";
+                        pedido.PaisDestino = ubicacionesGlobales[0];
 
                         bool seleccionArgFlag = false;
                         do {
@@ -291,7 +286,7 @@ namespace AplicacionCAI
                         break;
 
                     case "2":
-                        pedido.PaisDestino = "PAÍSES LIMÍTROFES";
+                        pedido.PaisDestino = ubicacionesGlobales[1];
                         
                         bool seleccionLimitrofesFlag = false;
                         do
@@ -310,20 +305,34 @@ namespace AplicacionCAI
                             {
                                 case "1":
                                     Console.Clear();
-                                    pedido.RegionDestino = "REG. METROPOLITANA";
-                                    pedido.ProvinciaDestino = "MONTEVIDEO";
-                                    pedido.LocalidadDestino = "MONTEVIDEO"; 
+                                    pedido.LocalidadDestino = _ubicacionesLimitrofes[0];
                                     seleccionLimitrofesFlag = true;
                                     break;
 
                                 case "2":
                                     Console.Clear();
-                                    pedido.RegionDestino = "SUDESTE";
-                                    pedido.ProvinciaDestino = "SAO PAULO";
-                                    pedido.LocalidadDestino = "SAO PAULO";
+                                    pedido.LocalidadDestino = _ubicacionesLimitrofes[1];
                                     seleccionLimitrofesFlag = true;
                                     break;
                                 
+                                case "3":
+                                    Console.Clear();
+                                    pedido.LocalidadDestino = _ubicacionesLimitrofes[2];
+                                    seleccionLimitrofesFlag = true;
+                                    break;
+
+                                case "4":
+                                    Console.Clear();
+                                    pedido.LocalidadDestino = _ubicacionesLimitrofes[3];
+                                    seleccionLimitrofesFlag = true;
+                                    break;
+                                
+                                case "5":
+                                    Console.Clear();
+                                    pedido.LocalidadDestino = _ubicacionesLimitrofes[4];
+                                    seleccionLimitrofesFlag = true;
+                                    break;
+
                                 default:
                                     Console.WriteLine("La opción ingresada es inválida.");
                                     Console.WriteLine("Pulse una tecla para continuar");
@@ -338,7 +347,7 @@ namespace AplicacionCAI
 
 
                     case "3":
-                        pedido.PaisDestino = "RESTO DE AMÉRICA LATINA";
+                        pedido.PaisDestino = ubicacionesGlobales[2];
 
                         bool seleccionLatamFlag = false;
                         do
@@ -357,21 +366,35 @@ namespace AplicacionCAI
                             {
                                 case "1":
                                     Console.Clear();
-                                    pedido.RegionDestino = " ";
-                                    pedido.ProvinciaDestino = " ";
-                                    pedido.LocalidadDestino = "QUITO";
+                                    pedido.LocalidadDestino = _ubicacionesLatam[0];
                                     seleccionLatamFlag = true;
                                     break;
 
                                 case "2":
                                     Console.Clear();
-                                    pedido.RegionDestino = "";
-                                    pedido.ProvinciaDestino = " ";
-                                    pedido.LocalidadDestino = "BOGOTÁ";
+                                    pedido.LocalidadDestino = _ubicacionesLatam[1];
                                     seleccionLatamFlag = true;
                                     break;
+                                
+                                case "3":
+                                    Console.Clear();
+                                    pedido.LocalidadDestino = _ubicacionesLatam[2];
+                                    seleccionLatamFlag = true;
+                                    break;
+
+                                case "4":
+                                    Console.Clear();
+                                    pedido.LocalidadDestino = _ubicacionesLatam[3];
+                                    seleccionLatamFlag = true;
+                                    break;
+                                
+                                case "5":
+                                    Console.Clear();
+                                    pedido.LocalidadDestino = _ubicacionesLatam[4];
+                                    seleccionLatamFlag = true;
+                                    break;
+
                                 default:
-                                    
                                     Console.WriteLine("La opción ingresada es inválida.");
                                     Console.WriteLine("Pulse una tecla para continuar");
                                     Console.ReadKey();
@@ -385,7 +408,7 @@ namespace AplicacionCAI
                         break;
                     
                     case "4":
-                        pedido.PaisDestino = "AMÉRICA DEL NORTE";
+                        pedido.PaisDestino = ubicacionesGlobales[3];
 
                         bool seleccionNoramFlag = false;
                         do
@@ -404,26 +427,38 @@ namespace AplicacionCAI
                             {
                                 case "1":
                                     Console.Clear();
-                                    pedido.RegionDestino = " ";
-                                    pedido.ProvinciaDestino = " ";
-                                    pedido.LocalidadDestino = "NEW YORK";
+                                    pedido.LocalidadDestino = _ubicacionesNoram[0];
                                     seleccionNoramFlag = true;
                                     break;
 
                                 case "2":
                                     Console.Clear();
-                                    pedido.RegionDestino = " ";
-                                    pedido.ProvinciaDestino = " ";
-                                    pedido.LocalidadDestino = "VANCOUVER";
+                                    pedido.LocalidadDestino = _ubicacionesNoram[1];
                                     seleccionNoramFlag = true;
                                     break;
+                                
+                                case "3":
+                                    Console.Clear();
+                                    pedido.LocalidadDestino = _ubicacionesNoram[2];
+                                    seleccionNoramFlag = true;
+                                    break;
+
+                                case "4":
+                                    Console.Clear();
+                                    pedido.LocalidadDestino = _ubicacionesNoram[3];
+                                    seleccionNoramFlag = true;
+                                    break;
+                                case "5":
+                                    Console.Clear();
+                                    pedido.LocalidadDestino = _ubicacionesNoram[4];
+                                    seleccionNoramFlag = true;
+                                    break;
+
                                 default:
-                                    
                                     Console.WriteLine("La opción ingresada es inválida.");
                                     Console.WriteLine("Pulse una tecla para continuar");
                                     Console.ReadKey();
                                     Console.Clear();
-                                    //break;
                                     continue;
                             }
                         } while (seleccionNoramFlag == false);
@@ -431,7 +466,7 @@ namespace AplicacionCAI
                         break;
                     
                     case "5":
-                        pedido.PaisDestino = "EUROPA";
+                        pedido.PaisDestino = ubicacionesGlobales[4];
 
                         bool seleccionEuropaFlag = false;
                         do
@@ -450,21 +485,35 @@ namespace AplicacionCAI
                             {
                                 case "1":
                                     Console.Clear();
-                                    pedido.RegionDestino = " ";
-                                    pedido.ProvinciaDestino = " ";
-                                    pedido.LocalidadDestino = "MADRID";
+                                    pedido.LocalidadDestino = _ubicacionesEuropa[0];
                                     seleccionEuropaFlag = true;
                                     break;
 
                                 case "2":
                                     Console.Clear();
-                                    pedido.RegionDestino = " ";
-                                    pedido.ProvinciaDestino = " ";
-                                    pedido.LocalidadDestino = "BERLÍN";
+                                    pedido.LocalidadDestino = _ubicacionesEuropa[1];
                                     seleccionEuropaFlag = true;
                                     break;
+                                
+                                case "3":
+                                    Console.Clear();
+                                    pedido.LocalidadDestino = _ubicacionesEuropa[2];
+                                    seleccionEuropaFlag = true;
+                                    break;
+
+                                case "4":
+                                    Console.Clear();
+                                    pedido.LocalidadDestino = _ubicacionesEuropa[3];
+                                    seleccionEuropaFlag = true;
+                                    break;
+                                
+                                case "5":
+                                    Console.Clear();
+                                    pedido.LocalidadDestino = _ubicacionesEuropa[4];
+                                    seleccionEuropaFlag = true;
+                                    break;
+
                                 default:
-                                    
                                     Console.WriteLine("La opción ingresada es inválida.");
                                     Console.WriteLine("Pulse una tecla para continuar");
                                     Console.ReadKey();
@@ -477,7 +526,7 @@ namespace AplicacionCAI
                         break;
 
                     case "6":
-                        pedido.PaisDestino = "ASIA";
+                        pedido.PaisDestino = ubicacionesGlobales[5];
                         bool seleccionAsiaFlag = false;
                         do
                         {
@@ -496,22 +545,35 @@ namespace AplicacionCAI
                             {
                                 case "1":
                                     Console.Clear();
-                                    pedido.RegionDestino = " ";
-                                    pedido.ProvinciaDestino = " ";
-                                    pedido.LocalidadDestino = "BEIJING";
+                                    pedido.LocalidadDestino = _ubicacionesAsia[0];
                                     seleccionAsiaFlag = true;
                                     break;
 
                                 case "2":
                                     Console.Clear();
-                                    pedido.RegionDestino = " ";
-                                    pedido.ProvinciaDestino = " ";
-                                    pedido.LocalidadDestino = "TOKIO";
+                                    pedido.LocalidadDestino = _ubicacionesAsia[1];
+                                    seleccionAsiaFlag = true;
+                                    break;
+                                
+                                case "3":
+                                    Console.Clear();
+                                    pedido.LocalidadDestino = _ubicacionesAsia[2];
+                                    seleccionAsiaFlag = true;
+                                    break;
+
+                                case "5":
+                                    Console.Clear();
+                                    pedido.LocalidadDestino = _ubicacionesAsia[3];
+                                    seleccionAsiaFlag = true;
+                                    break;
+                                
+                                case "4":
+                                    Console.Clear();
+                                    pedido.LocalidadDestino = _ubicacionesAsia[4];
                                     seleccionAsiaFlag = true;
                                     break;
 
                                 default:
-                                    
                                     Console.WriteLine("La opción ingresada es inválida.");
                                     Console.WriteLine("Pulse una tecla para continuar");
                                     Console.ReadKey();
@@ -764,13 +826,12 @@ namespace AplicacionCAI
 
         public string ObtenerLineaDatos()
         {
-            return
-                $"{IdPedido};{EstadoPedido};{FechaPedido};{PaisOrigen};{RegionOrigen};{ProvinciaOrigen};{LocalidadOrigen};{DomicilioOrigen};{PaisDestino};{RegionDestino};{ProvinciaDestino};{LocalidadDestino};{DomicilioDestino};{PesoEncomienda};{CuitCorporativo};{RazonSocialCorporativo};{Urgente};{EntregaDomicilio};{RetiroEnPuerta};{SubTotalCalculoPedido};{TotalCalculoPedido};{Facturado};{TipoServicio}";
+            return $"{IdPedido};{EstadoPedido};{FechaPedido};{PaisOrigen};{RegionOrigen};{ProvinciaOrigen};{LocalidadOrigen};{DomicilioOrigen};{PaisDestino};{RegionDestino};{ProvinciaDestino};{LocalidadDestino};{DomicilioDestino};{PesoEncomienda};{CuitCorporativo};{RazonSocialCorporativo};{Urgente};{EntregaDomicilio};{RetiroEnPuerta};{SubTotalCalculoPedido};{TotalCalculoPedido};{Facturado};{TipoServicio}";
         }
         
         static List<string> UbicacionesGlobales()
         {
-            List<string> list = new List<string>();
+            List<string> list = new List<string>(ubicacionesGlobales);
             return list;
         }
         
