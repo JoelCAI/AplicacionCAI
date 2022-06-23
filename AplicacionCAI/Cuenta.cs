@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,7 +66,7 @@ namespace AplicacionCAI
             OperacionCuenta = int.Parse(datos[0]);
             CuitCliente = long.Parse(datos[1]);
             NumeroFactura = int.Parse(datos[2]);
-            SaldoCliente = decimal.Parse(datos[3]);
+            SaldoCliente = decimal.Parse(datos[3],new CultureInfo("es-ES"));
             Estado = datos[4];
 
             Fecha = DateTime.Parse(datos[5]);

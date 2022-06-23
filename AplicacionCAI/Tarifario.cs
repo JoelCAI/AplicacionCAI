@@ -33,10 +33,10 @@ namespace AplicacionCAI
 			
 			IdServicio = datos[0];
 			
-			P500g = decimal.Parse(datos[1]); 
-			P10Kg = decimal.Parse(datos[2]); 
-			P20Kg = decimal.Parse(datos[3]);
-			P30Kg = decimal.Parse(datos[4]);
+			P500g = decimal.Parse(datos[1],new CultureInfo("es-ES")); 
+			P10Kg = decimal.Parse(datos[2],new CultureInfo("es-ES")); 
+			P20Kg = decimal.Parse(datos[3],new CultureInfo("es-ES"));
+			P30Kg = decimal.Parse(datos[4],new CultureInfo("es-ES"));
 			
 			RecargoUrgencia = decimal.Parse(datos[5],new CultureInfo("es-ES"));
 			RecargoRetiroPuerta = decimal.Parse(datos[6],new CultureInfo("es-ES"));

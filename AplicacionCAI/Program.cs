@@ -25,8 +25,9 @@ namespace AplicacionCAI
             string clave = "";
             long cuit;
 
-            do
+            do 
             {
+                
                 Console.Clear();
 
                 ingreso = Validador.PedirIntMenu("\n Aplicación Corporativa." +
@@ -36,13 +37,13 @@ namespace AplicacionCAI
                 {
                     Console.Clear();
                     var usuarioDni = DiccionarioUsuario.BuscarUsuarioDni();
-
+                    
 
                     if (usuarioDni != null && ingreso != 3)
                     {
                         Console.Clear();
                         Console.WriteLine("\n Ingrese su Clave");
-                        string validacion = Console.ReadLine().ToUpper();
+                        string validacion = Console.ReadLine();
 
                         if (validacion == usuarioDni.ClaveUsuario)
                         {
@@ -88,44 +89,58 @@ namespace AplicacionCAI
                         }
                         
                     }
-                    break;
+                  
+                    //break;
+                    continue;
                 }
 
-            } while (ingreso != 2);
+            } while (ingreso != 2 );
         }
 
 
         private static void GenerarSolicitudPedido()
         {
             var pedido = Pedido.CrearPedido();
-            Console.WriteLine($"El costo total por el servicio es: {pedido.TotalCalculoPedido}");
 
-            do
+            if (pedido.EstadoPedido == null)
             {
-                Console.WriteLine("¿Desea confirmar? Responder S/N");
-                string ingreso = Console.ReadLine();
-                string opcion = ingreso.ToUpper();
+                Console.WriteLine("Volvera al Menu Principal. Pulse una tecla para continuar");
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else
+            {
 
-                if (opcion == "S")
-                {
-                    DiccionarioPedido.AgregarPedido(pedido);
-                    Console.WriteLine("Su pedido se generó correctamente.");
-                    break;
-                }
 
-                if (opcion == "N")
-                {
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("Por favor introducir un valor correcto");
-                }
-            } while (true);
+                Console.WriteLine($"El costo total por el servicio es: {pedido.TotalCalculoPedido}");
 
-            Console.WriteLine("Pulse una tecla para continuar");
-            Console.ReadKey();
-            Console.Clear();
+                do
+                {
+                    Console.WriteLine("¿Desea confirmar? Responder S/N");
+                    string ingreso = Console.ReadLine();
+                    string opcion = ingreso.ToUpper();
+
+                    if (opcion == "S")
+                    {
+                        DiccionarioPedido.AgregarPedido(pedido);
+                        Console.WriteLine("Su pedido se generó correctamente.");
+                        break;
+                    }
+
+                    if (opcion == "N")
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Por favor introducir un valor correcto");
+                    }
+                } while (true);
+
+                Console.WriteLine("Pulse una tecla para continuar");
+                Console.ReadKey();
+                Console.Clear();
+            }
         }
 
 
