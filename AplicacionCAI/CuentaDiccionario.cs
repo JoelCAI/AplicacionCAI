@@ -9,6 +9,7 @@ namespace AplicacionCAI
 {
     static class DiccionarioCuenta
     {
+        
         private static readonly Dictionary<int,Cuenta> cuentaDiccionario = new Dictionary<int, Cuenta>();
 
         const string nombreArchivo = "cuentaLista.txt";
@@ -38,28 +39,28 @@ namespace AplicacionCAI
 
         }
         
- 
-         public static void VerEstadoCuenta(long cuit)
+        public static void VerEstadoCuenta(long cuit)
         {
             long cuitLogueado = cuit;
-
+            decimal facturaImpaga = 0;
  
             Console.Clear();
-            Console.WriteLine("\n Facturas para el Cliente: " + cuitLogueado);
-           
-           
+            Console.WriteLine("\n Facturas para el Cliente: " + cuitLogueado;
+            
+            
             using (var cuentaLista = new FileStream("cuentaLista.txt", FileMode.Open))
             {
                 using (var archivoCuenta = new StreamReader(cuentaLista))
                 {
                     foreach (var otro in cuentaDiccionario.Values)
                     {
-                       
+                        
                         if (otro.CuitCliente == cuit)
                         {
                             Console.Write("\n");
-                            Console.WriteLine("Fecha\t\tRazón Social\t\tCuit\t\tN° Factura.\t\tSaldo.\t\tEstado.");
-                            
+                            Console.WriteLine(" Fecha\t\tRazón Social\t\tCuit\t\tN° Factura.\t\tSaldo.\t\tEstado.");
+
+
                             Console.Write(otro.Fecha.ToShortDateString());
                             Console.Write("\t");
                             Console.Write(otro.RazonSocial);
@@ -74,12 +75,33 @@ namespace AplicacionCAI
                             Console.Write("\t\t");
 
                             Console.Write("\n");
+
                             
+
                         }
+                        
+
+
                     }
+                    foreach (var cuentaImpaga in cuentaDiccionario.Values)
+                    {
+                        if (cuentaImpaga.Estado == "IMPAGA" && cuentaImpaga.CuitCliente == cuit)
+                        {
+                            facturaImpaga = facturaImpaga + cuentaImpaga.SaldoCliente;
+
+                        }
+
+                    }
+
+                    Console.WriteLine("\n Saldo de la Cuenta: ");
+                    Console.WriteLine("\n Importe Total de las Facturas Sin pagar : " + facturaImpaga);
+
                 }
             }
-            //Validador.VolverMenu();
+            
+            Validador.VolverMenu();
         }
+      
+       
     }
 }

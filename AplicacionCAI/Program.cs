@@ -10,11 +10,15 @@ namespace AplicacionCAI
     {
         static void Main(string[] args)
         {
-            Menu();
+
+             MenuPrincipal();
+             Validador.Despedida();
+
         }
 
-        public static void Menu()
+        public static void MenuPrincipal()
         {
+
             int ingreso;
             int dni = 0;
             string nombre;
@@ -29,73 +33,76 @@ namespace AplicacionCAI
                                                  "\n [1] Ingresar Como Usuario Corporativo. " +
                                                  "\n [2] Salir del Sistema.", 1, 2);
 
-                switch (ingreso)
+                if (ingreso == 1)
                 {
-                    case 1:
+                    Console.Clear();
+                    var usuarioDni = DiccionarioUsuario.BuscarUsuarioDni();
+
+
+                    if (usuarioDni != null && ingreso != 3)
+                    {
                         Console.Clear();
-                        var usuarioDni = DiccionarioUsuario.BuscarUsuarioDni();
+                        Console.WriteLine("\n Ingrese su Clave");
+                        string validacion = Console.ReadLine().ToUpper();
 
-
-                        if (usuarioDni != null)
+                        if (validacion == usuarioDni.ClaveUsuario)
                         {
-                            var usuarioClave = DiccionarioUsuario.BuscarUsuarioClave();
+                            dni = usuarioDni.DniUsuario;
+                            nombre = usuarioDni.NombreUsuario;
+                            clave = usuarioDni.ClaveUsuario;
+                            cuit = usuarioDni.CuitCorporativo;
 
-                            if (usuarioClave != null)
+                            int opcion;
+                            do
                             {
-                                dni = usuarioDni.DniUsuario;
-                                nombre = usuarioDni.NombreUsuario;
-                                clave = usuarioDni.ClaveUsuario;
-                                cuit = usuarioDni.CuitCorporativo;
+                                Console.Clear();
+                                Console.WriteLine("\n Bienvenid@ " + nombre + "\n Su Cuit es: " + cuit.ToString());
+                                opcion = Validador.PedirIntMenu("\n Menú del Usuario Corporativo" +
+                                                       "\n [1] Solicitar un Pedido de correspondencia o Encomienda. " +
+                                                       "\n [2] Consultar el Estado de un Pedido. " +
+                                                       "\n [3] Consultar Estado de Cuenta. " +
+                                                       "\n [4] Salir del Sistema.", 1, 4);
 
-                                int opcion;
-                                do
+                                switch (opcion)
                                 {
-                                    Console.Clear();
-                                    Console.WriteLine("\n Bienvenid@ " + nombre + "\n Su Cuit es: " + cuit.ToString());
-                                    opcion = Validador.PedirIntMenu("\n Menú del Usuario Corporativo" +
-                                                                    "\n [1] Solicitar un Pedido de correspondencia o Encomienda. " +
-                                                                    "\n [2] Consultar el Estado de un Pedido. " +
-                                                                    "\n [3] Consultar Estado de Cuenta. " +
-                                                                    "\n [4] Salir del Sistema.", 1, 4);
 
-                                    switch (opcion)
-                                    {
-                                        case 1:
-                                            Console.Clear();
-                                            GenerarSolicitudPedido();
-                                            break;
-                                        case 2:
-                                            Console.Clear();
-                                            ConsultarEstadoPedido();
-                                            break;
-                                        case 3:
-                                            Console.Clear();
-                                            ConsultarCuenta(cuit);
-                                            break;
-                                    }
-                                } while (opcion != 4);
-                            }
-                            else
-                            {
-                                Console.WriteLine(
-                                    "Digitó una clave incorrecta, vuelvalo a intentar con los datos correctos");
-                                Validador.VolverMenu();
-                            }
-                        }
+                                    case 1:
+                                        Console.Clear();
+                                        GenerarSolicitudPedido();
+                                        break;
+                                    case 2:
+                                        Console.Clear();
+                                        ConsultarEstadoPedido();
+                                        break;
+                                    case 3:
+                                        Console.Clear();
+                                        ConsultarCuenta(cuit);
+                                        break;
+
+                                }
+                            } while (opcion != 4);
+
+                        } 
                         else
                         {
-                            Console.WriteLine("No existe el usuario, intente con otro usuario");
-                            usuarioDni = null;
-                            Validador.VolverMenu();
+                            Console.Clear();
+                            Console.WriteLine("\n Ingresó una clave incorrecta, presione cualquier tecla para volver al Menú Principal");
+                            Console.ReadKey();
                         }
 
-                        break;
-                    case 2:
+                        
+
+                    }
+                    
 
                         break;
                 }
+
             } while (ingreso != 2);
+
+
         }
+
 
         private static void GenerarSolicitudPedido()
         {
