@@ -202,6 +202,7 @@ namespace AplicacionCAI
                     Console.WriteLine("["+ i++ +"] "+ item);
 
                 var infoDestino = Console.ReadLine();
+                Console.Clear();
 
                 switch (infoDestino)
                 {
@@ -455,7 +456,7 @@ namespace AplicacionCAI
             pedido.DomicilioDestino = Validador.TextInput("Por favor ingrese Domicilio y altura de Destino");
 
             Console.Clear();
-            pedido.PesoEncomienda = Validador.IngresarPeso("Ingrese el peso, máximo 30 kg");
+            pedido.PesoEncomienda = Validador.PedirDecimal(min:0, max:30);
             
             //SERVICIOS ADICIONALES
             {

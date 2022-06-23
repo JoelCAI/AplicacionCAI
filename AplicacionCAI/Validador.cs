@@ -94,7 +94,7 @@ namespace AplicacionCAI
 
         }
         
-        public static decimal PedirDecimal(string mensaje, int min, int max)
+        public static decimal PedirDecimal(int min, int max)
         {
             decimal valor;
 
@@ -103,12 +103,11 @@ namespace AplicacionCAI
 
             bool valido = false;
             string mensajeMenu = "\n Ingrese un valor entre " + min + " y " + max;
-            string mensajeError = "\n El valor no puede ser vacio y tiene que estar entre el rango del Menu solicitado. ";
+            string mensajeError = "\n El valor no puede ser vacío y tiene que estar dentro del rango solicitado. ";
 
             do
             {
                 Console.Clear();
-                Console.WriteLine(mensaje);
                 Console.WriteLine(mensajeMenu);
 
                 valorUno = Console.ReadLine();
