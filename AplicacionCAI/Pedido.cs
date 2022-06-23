@@ -53,7 +53,7 @@ namespace AplicacionCAI
             Facturado = bool.Parse(datos[21]);
             TipoServicio = (datos[22]);
         }
-        
+
         public int IdPedido { get; set; }
         private long CuitCorporativo { get; set; }
         private string RazonSocialCorporativo { get; }
@@ -100,15 +100,15 @@ namespace AplicacionCAI
             do
             {
                 //SELECCIÓN CIUDAD DE ORIGEN
-                
+
                 Console.WriteLine("\n Elija la ciudad de origen");
 
-                var test = UbicacionesArg();
-                
-                foreach (string item in test)
-                    
+                var ciudadesArg = UbicacionesArg();
+
+                foreach (string item in ciudadesArg)
+
                     Console.WriteLine(item);
-                
+
                 var infoOrigen = Console.ReadLine();
 
                 // REGIÓN, PROVINCIA Y LOCALIDAD SE AUTOASIGNAN DE ACUERDO A LA CIUDAD ELEGIDA
@@ -186,16 +186,15 @@ namespace AplicacionCAI
                 Console.WriteLine(
                     "\n Elija Argentina para envíos locales. Elija otra opción para envíos internacionales.");
 
-                string[] lines = File.ReadAllLines("ubicacionesGlobales.txt");
-                foreach (var line in lines)
-                {
-                    var firstValue = line.Split(new[] {";"}, StringSplitOptions.RemoveEmptyEntries)[0];
-                    Console.WriteLine(firstValue);
-                }
+                var ubicacionesGlobales = UbicacionesGlobales();
 
-                var InfoDestino = Console.ReadLine();
+                foreach (string item in ubicacionesGlobales)
 
-                switch (InfoDestino)
+                    Console.WriteLine(item);
+
+                var infoDestino = Console.ReadLine();
+
+                switch (infoDestino)
                 {
                     case "1":
                         Console.Clear();
@@ -203,12 +202,11 @@ namespace AplicacionCAI
 
                         Console.WriteLine("\n Elija la ciudad de destino.");
 
-                        string[] ciudades = File.ReadAllLines("ubicacionesLocales.txt");
-                        foreach (var linea in ciudades)
-                        {
-                            var datos = linea.Split(new string[] {";"}, StringSplitOptions.RemoveEmptyEntries)[0];
-                            Console.WriteLine(datos);
-                        }
+                        var ciudadesArg = UbicacionesArg();
+
+                        foreach (string item in ciudadesArg)
+
+                            Console.WriteLine(item);
 
                         var seleccionArg = Console.ReadLine();
 
@@ -219,16 +217,173 @@ namespace AplicacionCAI
                                 pedido.RegionDestino = "CENTRO";
                                 pedido.ProvinciaDestino = "BUENOS AIRES";
                                 pedido.LocalidadDestino = "CABA";
-                                //flag2 = false;
                                 break;
                         }
-
-                        //var seleccionArg = Console.ReadLine();
-                        //SubOpcionesArg(seleccionArg);
 
                         flag2 = false;
                         break;
 
+                    case "2":
+                        Console.Clear();
+                        pedido.PaisDestino = "PAÍSES LIMÍTROFES";
+                        
+                        var ubicacionesLimitrofes = UbicacionesLimitrofes();
+
+                        foreach (string item in ubicacionesLimitrofes)
+
+                            Console.WriteLine(item);
+
+                        var seleccionLimitrofes = Console.ReadLine();
+
+                        switch (seleccionLimitrofes)
+                        {
+                            case "1":
+                                Console.Clear();
+                                pedido.RegionDestino = "REG. METROPOLITANA";
+                                pedido.ProvinciaDestino = "MONTEVIDEO";
+                                pedido.LocalidadDestino = "MONTEVIDEO";
+                                break;
+
+                            case "2":
+                                Console.Clear();
+                                pedido.RegionDestino = "SUDESTE";
+                                pedido.ProvinciaDestino = "SAO PAULO";
+                                pedido.LocalidadDestino = "SAO PAULO";
+                                break;
+                        }
+
+                        flag2 = false;
+                        break;
+
+
+                    case "3":
+                        Console.Clear();
+                        pedido.PaisDestino = "RESTO DE AMÉRICA LATINA";
+                        
+                        var ubicacionesLatam = UbicacionesLatam();
+
+                        foreach (string item in ubicacionesLatam)
+
+                            Console.WriteLine(item);
+
+                        var seleccionLatam = Console.ReadLine();
+
+                        switch (seleccionLatam)
+                        {
+                            case "1":
+                                Console.Clear();
+                                pedido.RegionDestino = " ";
+                                pedido.ProvinciaDestino = " ";
+                                pedido.LocalidadDestino = "QUITO";
+                                break;
+
+                            case "2":
+                                Console.Clear();
+                                pedido.RegionDestino = "";
+                                pedido.ProvinciaDestino = " ";
+                                pedido.LocalidadDestino = "BOGOTÁ";
+                                break;
+                        }
+
+                        flag2 = false;
+                        break;
+                    
+                    case "4":
+                        Console.Clear();
+                        pedido.PaisDestino = "AMÉRICA DEL NORTE";
+                        
+                        var ubicacionesNoram = UbicacionesNoram();
+
+                        foreach (string item in ubicacionesNoram)
+
+                            Console.WriteLine(item);
+
+                        var seleccionNoram = Console.ReadLine();
+
+                        switch (seleccionNoram)
+                        {
+                            case "1":
+                                Console.Clear();
+                                pedido.RegionDestino = " ";
+                                pedido.ProvinciaDestino = " ";
+                                pedido.LocalidadDestino = "NEW YORK";
+                                break;
+
+                            case "2":
+                                Console.Clear();
+                                pedido.RegionDestino = " ";
+                                pedido.ProvinciaDestino = " ";
+                                pedido.LocalidadDestino = "VANCOUVER";
+                                break;
+                        }
+
+                        flag2 = false;
+                        break;
+                    
+                    case "5":
+                        Console.Clear();
+                        pedido.PaisDestino = "EUROPA";
+                        
+                        var ubicacionesEuropa = UbicacionesEuropa();
+
+                        foreach (string item in ubicacionesEuropa)
+
+                            Console.WriteLine(item);
+
+                        var seleccionEuropa = Console.ReadLine();
+
+                        switch (seleccionEuropa)
+                        {
+                            case "1":
+                                Console.Clear();
+                                pedido.RegionDestino = " ";
+                                pedido.ProvinciaDestino = " ";
+                                pedido.LocalidadDestino = "MADRID";
+                                break;
+
+                            case "2":
+                                Console.Clear();
+                                pedido.RegionDestino = " ";
+                                pedido.ProvinciaDestino = " ";
+                                pedido.LocalidadDestino = "BERLÍN";
+                                break;
+                        }
+
+                        flag2 = false;
+                        break;
+
+                    case "6":
+                        Console.Clear();
+                        pedido.PaisDestino = "ASIA";
+                        
+                        var ubicacionesAsia = UbicacionesAsia();
+
+                        foreach (string item in ubicacionesAsia)
+
+                            Console.WriteLine(item);
+
+                        var seleccionAsia = Console.ReadLine();
+
+                        switch (seleccionAsia)
+                        {
+                            case "1":
+                                Console.Clear();
+                                pedido.RegionDestino = " ";
+                                pedido.ProvinciaDestino = " ";
+                                pedido.LocalidadDestino = "BEIJING";
+                                break;
+
+                            case "2":
+                                Console.Clear();
+                                pedido.RegionDestino = " ";
+                                pedido.ProvinciaDestino = " ";
+                                pedido.LocalidadDestino = "TOKIO";
+                                break;
+                        }
+
+                        flag2 = false;
+                        break;
+                    
                     default:
                         Console.WriteLine("La opción ingresada es inválida.");
                         break;
@@ -435,13 +590,11 @@ namespace AplicacionCAI
                 $"{IdPedido};{EstadoPedido};{FechaPedido};{PaisOrigen};{RegionOrigen};{ProvinciaOrigen};{LocalidadOrigen};{DomicilioOrigen};{PaisDestino};{RegionDestino};{ProvinciaDestino};{LocalidadDestino};{DomicilioDestino};{PesoEncomienda};{CuitCorporativo};{RazonSocialCorporativo};{Urgente};{EntregaDomicilio};{RetiroEnPuerta};{SubTotalCalculoPedido};{TotalCalculoPedido};{Facturado};{TipoServicio}";
         }
         
-        
         static List<string> UbicacionesGlobales()
         {
             List<string> list = new List<string>(ubicacionesGlobales);
             return list;
         }
-        
         
         static List<string> UbicacionesArg()
         {
@@ -453,10 +606,9 @@ namespace AplicacionCAI
             }
             return list;
         }
-        
+
         static List<string> UbicacionesLimitrofes()
         {
-            string[] ubicaciones = File.ReadAllLines("ubicacionesLocales.txt");
             List<string> list = new List<string>();
             foreach (var linea in ubicacionesLocales)
             {
@@ -465,10 +617,9 @@ namespace AplicacionCAI
             }
             return list;
         }
-        
+
         static List<string> UbicacionesLatam()
         {
-            string[] ubicaciones = File.ReadAllLines("ubicacionesLocales.txt");
             List<string> list = new List<string>();
             foreach (var linea in ubicacionesLocales)
             {
@@ -477,10 +628,9 @@ namespace AplicacionCAI
             }
             return list;
         }
-        
+
         static List<string> UbicacionesNoram()
         {
-            string[] ubicaciones = File.ReadAllLines("ubicacionesLocales.txt");
             List<string> list = new List<string>();
             foreach (var linea in ubicacionesLocales)
             {
@@ -489,10 +639,9 @@ namespace AplicacionCAI
             }
             return list;
         }
-        
+
         static List<string> UbicacionesEuropa()
         {
-            string[] ubicaciones = File.ReadAllLines("ubicacionesLocales.txt");
             List<string> list = new List<string>();
             foreach (var linea in ubicacionesLocales)
             {
@@ -501,10 +650,9 @@ namespace AplicacionCAI
             }
             return list;
         }
-        
+
         static List<string> UbicacionesAsia()
         {
-            string[] ubicaciones = File.ReadAllLines("ubicacionesLocales.txt");
             List<string> list = new List<string>();
             foreach (var linea in ubicacionesLocales)
             {
@@ -513,7 +661,7 @@ namespace AplicacionCAI
             }
             return list;
         }
-        
+
         public static Pedido CrearModeloBusqueda()
         {
             var modelo = new Pedido();
@@ -609,7 +757,6 @@ namespace AplicacionCAI
             decimal cargo = TarifarioDiccionario.RetiroEnPuerta(entrada);
             return cargo;
         }
-
 
         private string ValidarSioNoPedidoInicial(string mensaje)
         {
