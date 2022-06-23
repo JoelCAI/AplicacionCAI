@@ -89,7 +89,7 @@ namespace AplicacionCAI
 
         }
         
-        public static decimal PedirDecimal(string mensaje, int min, int max)
+        public static decimal PedirDecimal(int min, int max)
         {
             decimal valor;
 
@@ -98,12 +98,11 @@ namespace AplicacionCAI
 
             bool valido = false;
             string mensajeMenu = "\n Ingrese un valor entre " + min + " y " + max;
-            string mensajeError = "\n El valor no puede ser vacio y tiene que estar entre el rango del Menu solicitado. ";
+            string mensajeError = "\n El valor no puede ser vacío y tiene que estar entre el rango del Menu solicitado. ";
 
             do
             {
                 Console.Clear();
-                Console.WriteLine(mensaje);
                 Console.WriteLine(mensajeMenu);
 
                 valorUno = Console.ReadLine();
@@ -187,68 +186,6 @@ namespace AplicacionCAI
             return valor;
 
         }
-
-        public static int IngresarPeso(string titulo)
-        {
-
-            Console.WriteLine(titulo);
-
-            do
-            {
-                var ingreso = Console.ReadLine();
-
-                if (string.IsNullOrEmpty(ingreso))
-                {
-                    Console.WriteLine("El ingreso no debe ser vacío");
-                    continue;
-                }
-
-                else
-                {
-                    valido = true;
-                }
-
-            } while (!valido);
-
-            return opcion;
-        }
-        
-        public static string ValidarStringNoVacioSistema(string mensaje)
-        {
-
-            string opcion;
-            bool valido = false;
-            string mensajeValidador = "\n Puede ser combinación de minúsculas, MAYÚSCULAS y caracteres";
-            string mensajeError = "\n Por favor ingrese un valor no vacio para que pueda continuar. ";
-
-            do
-            {
-
-                Console.WriteLine(mensaje);
-                Console.WriteLine(mensajeValidador);
-
-                opcion = Console.ReadLine().ToUpper();
-
-                if (opcion == "")
-                {
-                    Console.Clear();
-                    Console.WriteLine("\n");
-                    Console.WriteLine(mensajeError);
-                }
-                
-                else
-                {
-                    valido = true;
-                }
-
-            } while (!valido);
-            
-            return valor;
-            
-        }
-        
-
-        
         
         public static void VolverMenu()
         {
@@ -259,7 +196,7 @@ namespace AplicacionCAI
         public static void Despedida()
         {
             Console.Clear();
-            Console.WriteLine("\n\n Gracias por usar nuestro Sistema presione cualquier teclar para finalizar");
+            Console.WriteLine("\n\n Gracias por usar nuestro Sistema. Presione cualquier teclar para finalizar");
             Console.ReadKey();
         }
         
@@ -295,39 +232,6 @@ namespace AplicacionCAI
             } while (true);
         }
 
-        
-        public static int IngresarPeso(string titulo)
-        {
-
-            Console.WriteLine(titulo);
-
-            do
-            {
-                var ingreso = Console.ReadLine();
-
-                if (string.IsNullOrEmpty(ingreso))
-                {
-                    Console.WriteLine("El ingreso no debe ser vacio");
-                    continue;
-                }
-
-                if (!Int32.TryParse(ingreso, out var salida))
-                {
-                    Console.WriteLine("El dato ingresado es incorrecto, ingrese nuevamente");
-                    continue;
-                }
-
-                if (salida <= 0 || salida >= 30000)
-                {
-                    Console.WriteLine("El valor ingresado debe ser mayor a cero y menor o igual a 30000");
-                    continue;
-                }
-
-                return salida;
-
-            } while (true);
-        }
-        
         public static string TextInput(string titulo, bool permiteNumeros = false)
         {
             string ingreso;
@@ -355,21 +259,6 @@ namespace AplicacionCAI
                 return ingreso1;
             } while (true);
 
-        }
-        
-
-        public static void Despedida()
-        {
-            Console.Clear();
-            Console.WriteLine("\n\n Gracias por usar nuestro Sistema. Presione cualquier teclar para finalizar");
-            Console.ReadKey();
-        }
-
-
-        public static void VolverMenu()
-        {
-            Console.WriteLine("\n Presione cualquier tecla para volver al Menú ");
-            Console.ReadKey();
         }
 
     }

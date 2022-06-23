@@ -455,7 +455,7 @@ namespace AplicacionCAI
             pedido.DomicilioDestino = Validador.TextInput("Por favor ingrese Domicilio y altura de Destino");
 
             Console.Clear();
-            pedido.PesoEncomienda = Validador.IngresarPeso("Ingrese el peso, máximo 30 kg");
+            pedido.PesoEncomienda = Validador.PedirDecimal(0,30);
             
             //SERVICIOS ADICIONALES
             {

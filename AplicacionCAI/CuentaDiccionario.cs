@@ -45,9 +45,7 @@ namespace AplicacionCAI
             decimal facturaImpaga = 0;
  
             Console.Clear();
-            Console.WriteLine("\n Facturas para el Cliente: " + cuitLogueado;
-            
-            
+
             using (var cuentaLista = new FileStream("cuentaLista.txt", FileMode.Open))
             {
                 using (var archivoCuenta = new StreamReader(cuentaLista))
@@ -75,12 +73,9 @@ namespace AplicacionCAI
                             Console.Write("\t\t");
 
                             Console.Write("\n");
-
                             
-
                         }
                         
-
 
                     }
                     foreach (var cuentaImpaga in cuentaDiccionario.Values)
