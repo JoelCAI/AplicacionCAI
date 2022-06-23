@@ -9,7 +9,7 @@ namespace AplicacionCAI
 {
      class TarifaPorPeso
     {
-	    public string IdServicio { get; set; }
+	    public string IdServicio { get; }
 	    public decimal P500g { get; }
 	    public decimal P10Kg { get; }
 	    public decimal P20Kg { get; }

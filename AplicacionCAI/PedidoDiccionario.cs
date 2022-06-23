@@ -11,7 +11,7 @@ namespace AplicacionCAI
     {
         
         private static readonly Dictionary<int, Pedido> items;
-
+        
         const string fileName = "pedidoLista.txt";
         
         static DiccionarioPedido()
@@ -33,6 +33,7 @@ namespace AplicacionCAI
 
             }
         }
+        
         public static void AgregarPedido(Pedido pedido)
         {
             items.Add(pedido.IdPedido, pedido);

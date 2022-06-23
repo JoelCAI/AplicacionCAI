@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
@@ -30,50 +31,44 @@ namespace AplicacionCAI
             ProvinciaOrigen = datos[5];
             LocalidadOrigen = datos[6];
             DomicilioOrigen = datos[7];
-            ContinenteOrigen = datos[8];
 
-            PaisDestino = datos[9];
-            RegionDestino = datos[10];
-            ProvinciaDestino = datos[11];
-            LocalidadDestino = datos[12];
-            DomicilioDestino = datos[13];
-            ContinenteDestino = datos[14];
+            PaisDestino = datos[8];
+            RegionDestino = datos[9];
+            ProvinciaDestino = datos[10];
+            LocalidadDestino = datos[11];
+            DomicilioDestino = datos[12];
 
-            PrecioEncomienda = decimal.Parse(datos[15]);
-            PesoEncomienda = decimal.Parse(datos[16]);
+            PesoEncomienda = decimal.Parse(datos[13]);
 
-            CuitCorporativo = long.Parse(datos[17]);
-            RazonSocialCorporativo = datos[18];
+            CuitCorporativo = long.Parse(datos[14]);
+            RazonSocialCorporativo = datos[15];
 
-            Urgente = bool.Parse(datos[19]);
-            EntregaDomicilio = bool.Parse(datos[20]);
-            RetiroEnPuerta = bool.Parse(datos[21]);
+            Urgente = bool.Parse(datos[16]);
+            EntregaDomicilio = bool.Parse(datos[17]);
+            RetiroEnPuerta = bool.Parse(datos[18]);
 
-            SubTotalCalculoPedido = decimal.Parse(datos[22]);
-            TotalCalculoPedido = decimal.Parse(datos[23]);
+            SubTotalCalculoPedido = decimal.Parse(datos[19]);
+            TotalCalculoPedido = decimal.Parse(datos[20]);
 
-            Facturado = bool.Parse(datos[24]);
-            TipoServicio = (datos[25]);
+            Facturado = bool.Parse(datos[21]);
+            TipoServicio = (datos[22]);
         }
-
+        
         public int IdPedido { get; set; }
         private long CuitCorporativo { get; set; }
         private string RazonSocialCorporativo { get; }
         public DateTime FechaPedido { get; private set; }
         public string EstadoPedido { get; private set; }
-        private string ContinenteOrigen { get; set; }
         private string RegionOrigen { get; set; }
         private string ProvinciaOrigen { get; set; }
         private string LocalidadOrigen { get; set; }
         private string DomicilioOrigen { get; set; }
         private string PaisOrigen { get; set; }
-        private string ContinenteDestino { get; set; }
         private string RegionDestino { get; set; }
         private string ProvinciaDestino { get; set; }
         private string LocalidadDestino { get; set; }
         private string DomicilioDestino { get; set; }
         private string PaisDestino { get; set; }
-        private decimal PrecioEncomienda { get; set; }
         private bool Urgente { get; set; }
         private bool EntregaDomicilio { get; set; }
         private bool RetiroEnPuerta { get; set; }
@@ -82,6 +77,9 @@ namespace AplicacionCAI
         public decimal TotalCalculoPedido { get; set; }
         public bool Facturado { get; set; }
         private string TipoServicio { get; set; }
+
+        static string[] ubicacionesGlobales = File.ReadAllLines("ubicacionesGlobales.txt");
+        static string[] ubicacionesLocales = File.ReadAllLines("ubicacionesLocales.txt");
 
         public static Pedido CrearPedido()
         {
@@ -102,15 +100,15 @@ namespace AplicacionCAI
             do
             {
                 //SELECCIÓN CIUDAD DE ORIGEN
+                
                 Console.WriteLine("\n Elija la ciudad de origen");
 
-                string[] lineas = File.ReadAllLines("ubicacionesLocales.txt");
-                foreach (var datos in lineas)
-                {
-                    var opciones = datos.Split(new[] {";"}, StringSplitOptions.RemoveEmptyEntries)[0];
-                    Console.WriteLine(opciones);
-                }
-
+                var test = UbicacionesArg();
+                
+                foreach (string item in test)
+                    
+                    Console.WriteLine(item);
+                
                 var infoOrigen = Console.ReadLine();
 
                 // REGIÓN, PROVINCIA Y LOCALIDAD SE AUTOASIGNAN DE ACUERDO A LA CIUDAD ELEGIDA
@@ -434,9 +432,88 @@ namespace AplicacionCAI
         public string ObtenerLineaDatos()
         {
             return
-                $"{IdPedido};{EstadoPedido};{FechaPedido};{PaisOrigen};{RegionOrigen};{ProvinciaOrigen};{LocalidadOrigen};{DomicilioOrigen};{ContinenteOrigen};{PaisDestino};{RegionDestino};{ProvinciaDestino};{LocalidadDestino};{DomicilioDestino};{ContinenteDestino};{PrecioEncomienda};{PesoEncomienda};{CuitCorporativo};{RazonSocialCorporativo};{Urgente};{EntregaDomicilio};{RetiroEnPuerta};{SubTotalCalculoPedido};{TotalCalculoPedido};{Facturado};{TipoServicio}";
+                $"{IdPedido};{EstadoPedido};{FechaPedido};{PaisOrigen};{RegionOrigen};{ProvinciaOrigen};{LocalidadOrigen};{DomicilioOrigen};{PaisDestino};{RegionDestino};{ProvinciaDestino};{LocalidadDestino};{DomicilioDestino};{PesoEncomienda};{CuitCorporativo};{RazonSocialCorporativo};{Urgente};{EntregaDomicilio};{RetiroEnPuerta};{SubTotalCalculoPedido};{TotalCalculoPedido};{Facturado};{TipoServicio}";
         }
-
+        
+        
+        static List<string> UbicacionesGlobales()
+        {
+            List<string> list = new List<string>(ubicacionesGlobales);
+            return list;
+        }
+        
+        
+        static List<string> UbicacionesArg()
+        {
+            List<string> list = new List<string>();
+            foreach (var linea in ubicacionesLocales)
+            {
+                var datos = linea.Split(new string[] {";"}, StringSplitOptions.RemoveEmptyEntries)[0];
+                list.Add(datos);
+            }
+            return list;
+        }
+        
+        static List<string> UbicacionesLimitrofes()
+        {
+            string[] ubicaciones = File.ReadAllLines("ubicacionesLocales.txt");
+            List<string> list = new List<string>();
+            foreach (var linea in ubicacionesLocales)
+            {
+                var datos = linea.Split(new string[] {";"}, StringSplitOptions.RemoveEmptyEntries)[1];
+                list.Add(datos);
+            }
+            return list;
+        }
+        
+        static List<string> UbicacionesLatam()
+        {
+            string[] ubicaciones = File.ReadAllLines("ubicacionesLocales.txt");
+            List<string> list = new List<string>();
+            foreach (var linea in ubicacionesLocales)
+            {
+                var datos = linea.Split(new string[] {";"}, StringSplitOptions.RemoveEmptyEntries)[2];
+                list.Add(datos);
+            }
+            return list;
+        }
+        
+        static List<string> UbicacionesNoram()
+        {
+            string[] ubicaciones = File.ReadAllLines("ubicacionesLocales.txt");
+            List<string> list = new List<string>();
+            foreach (var linea in ubicacionesLocales)
+            {
+                var datos = linea.Split(new string[] {";"}, StringSplitOptions.RemoveEmptyEntries)[3];
+                list.Add(datos);
+            }
+            return list;
+        }
+        
+        static List<string> UbicacionesEuropa()
+        {
+            string[] ubicaciones = File.ReadAllLines("ubicacionesLocales.txt");
+            List<string> list = new List<string>();
+            foreach (var linea in ubicacionesLocales)
+            {
+                var datos = linea.Split(new string[] {";"}, StringSplitOptions.RemoveEmptyEntries)[4];
+                list.Add(datos);
+            }
+            return list;
+        }
+        
+        static List<string> UbicacionesAsia()
+        {
+            string[] ubicaciones = File.ReadAllLines("ubicacionesLocales.txt");
+            List<string> list = new List<string>();
+            foreach (var linea in ubicacionesLocales)
+            {
+                var datos = linea.Split(new string[] {";"}, StringSplitOptions.RemoveEmptyEntries)[5];
+                list.Add(datos);
+            }
+            return list;
+        }
+        
         public static Pedido CrearModeloBusqueda()
         {
             var modelo = new Pedido();
