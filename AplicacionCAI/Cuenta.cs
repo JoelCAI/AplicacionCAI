@@ -58,12 +58,7 @@ namespace AplicacionCAI
             get { return this.razonSocial; }
             set { this.razonSocial = value; }
         }
-
-        public Cuenta()
-        {
-
-        }
-
+        
         public Cuenta(string linea)
         {
             var datos = linea.Split(';');
@@ -77,27 +72,6 @@ namespace AplicacionCAI
             RazonSocial = datos[6];
 
         }
-
-        public bool CoincideCuit(Cuenta objetoCuenta)
-        {
-
-            if (objetoCuenta.CuitCliente !=0 && CuitCliente != objetoCuenta.CuitCliente)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public static Cuenta ValidarCuit(long cuit)
-        {
-            var cuenta = new Cuenta();
-
-            cuenta.CuitCliente = cuit;
-
-            return cuenta;
-        }
-        
 
     }
 }
