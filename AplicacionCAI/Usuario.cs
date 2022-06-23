@@ -8,11 +8,13 @@ namespace AplicacionCAI
 {
     internal class Usuario
     {
-	    private int dniUsuario;
+      
+	  private int dniUsuario;
 		private string nombreUsuario;
-	    private long cuitCorporativo;
+	  private long cuitCorporativo;
 		private string claveUsuario;
 		private string razonSocial;
+
 
 		public int DniUsuario
 		{
@@ -21,10 +23,10 @@ namespace AplicacionCAI
 		}
 
 		public string NombreUsuario
-        {
-            get { return this.nombreUsuario; }
-            set { this.nombreUsuario = value; }
-        }
+		{
+		    get { return this.nombreUsuario; }
+		    set { this.nombreUsuario = value; }
+		}
 
 		public long CuitCorporativo
 		{
@@ -33,10 +35,11 @@ namespace AplicacionCAI
 		}
 
 		public string ClaveUsuario
-        {
-            get { return this.claveUsuario; }
-            set { this.claveUsuario = value; }
-        }
+		{
+		    get { return this.claveUsuario; }
+		    set { this.claveUsuario = value; }
+		}
+	    
 		public string RazonSocial
 		{
 			get { return this.razonSocial; }
@@ -44,34 +47,34 @@ namespace AplicacionCAI
 		}
 		
 		public Usuario()
-        {
-
-        }
-
-        public Usuario(string linea)
-        {
+       		{
 			
-			var datos = linea.Split(';');
-            dniUsuario = int.Parse(datos[0]);
-            nombreUsuario = datos[1];
-            cuitCorporativo = long.Parse(datos[2]);
-            claveUsuario = datos[3];
-			razonSocial = datos[4];
 
 		}
 
-		
+		public Usuario(string linea)
+		{
+
+			    var datos = linea.Split(';');
+			    dniUsuario = int.Parse(datos[0]);
+			    nombreUsuario = datos[1];
+			    cuitCorporativo = long.Parse(datos[2]);
+			    claveUsuario = datos[3];
+			    razonSocial = datos[4];
+
+		}
+
 
 		public static Usuario ValidarDni()
 		{
 			var dni = new Usuario();
 
-			dni.DniUsuario = Validador.PedirIntMenuInicial("\n Por favor ingresar el numero de dni autorizado para continuar",1,99_999_999);
+			dni.DniUsuario = Validador.PedirIntParaSistema("\n Por favor ingresar el numero de Dni autorizado para continuar");
 			
 			return dni;
 		}
-
-		public static Usuario ValidarDniUnico()
+	    
+	   	public static Usuario ValidarDniUnico()
 		{
 			var dni = new Usuario();
 
@@ -80,15 +83,7 @@ namespace AplicacionCAI
 			return dni;
 		}
 
-		public static Usuario ValidarClave()
-		{
-			var clave = new Usuario();
-
-			clave.ClaveUsuario = Validador.PedirCaracterString("\n Por favor ingresar la clave del Usuario",0,16);
-
-
-			return clave;
-		}
+		
 
 		public bool CompararDniCoincidencia(Usuario modelo)
 		{
@@ -98,17 +93,6 @@ namespace AplicacionCAI
 				return false;
 			}
 			
-
-			return true;
-		}
-
-		public bool CompararClaveCoincidencia(Usuario clave)
-		{
-
-			if (clave.ClaveUsuario != "" && ClaveUsuario != clave.ClaveUsuario)
-			{
-				return false;
-			}
 
 			return true;
 		}

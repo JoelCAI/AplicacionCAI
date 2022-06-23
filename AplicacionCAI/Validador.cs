@@ -37,58 +37,53 @@ namespace AplicacionCAI
 
         }
 
-        public static int PedirIntMenuInicial(string mensaje, int min, int max)
+        public static int PedirIntParaSistema(string mensaje)
         {
             int valor;
             bool valido = false;
-            string mensajeMenu = "\n Ingrese un valor entre " + min + " y " + max;
-            //string mensajeError = "\n El valor no puede ser vacio y tiene que estar entre el rango del Menu solicitado. ";
-
-            int contador = 2;
+        
             string dato;
 
             do
             {
 
                 Console.WriteLine(mensaje);
-                Console.WriteLine(mensajeMenu);
-
-                //Console.WriteLine("\n Le queda: *" + contador + "* intento y volverá al Menú Principal");
 
                 dato = Console.ReadLine();
 
-                if (!int.TryParse(dato, out valor) || valor < min || valor > max)
+                if (!int.TryParse(dato, out valor))
                 {
-                    Console.Clear();
-                    Console.WriteLine("\n Usted ingreso caracteres o valores que no están en el rango solicitado");
-                    Console.WriteLine(mensajeMenu);
-                    VolverMenu();
-                    //Program.Continuar();
+                    
 
-                    contador--;
-                   
+                    valor = 3;
+                    break;
+
                 }
                 if (string.IsNullOrEmpty(dato))
                 {
-                    continue;
                     
+                    valor = 3;
+                    break;
+
                 }
                 if (dato == "")
                 {
-                    Console.WriteLine("\n Usted presiono solo la tecla Enter");
-                    Validador.VolverMenu();
-                    //Program.Continuar();
-                   
+                    
+                    valor = 3;
+                    break;
+
+
                 }
-                
+
                 else
                 {
                     valido = true;
                 }
-                contador--;
+
                 
 
-            } while (!valido && contador != 0);
+
+            } while (!valido);
 
             return valor;
 
@@ -130,6 +125,7 @@ namespace AplicacionCAI
 
         }
 
+      
         public static string PedirCaracterString(string mensaje, int min, int max)
         {
             string valor;
@@ -206,55 +202,37 @@ namespace AplicacionCAI
                     continue;
                 }
 
-                if (!Int32.TryParse(ingreso, out var salida))
+                else
                 {
-                    Console.WriteLine("El dato ingresado es incorrecto, ingrese nuevamente");
-                    continue;
+                    valido = true;
                 }
 
-                if (salida <= 0 || salida >= 30)
-                {
-                    Console.WriteLine("El valor ingresado debe ser mayor a 0 y menor o igual a 30");
-                    continue;
-                }
+            } while (!valido);
 
-                return salida;
-
-            } while (true);
+            return opcion;
         }
         
-        public static int ElegirOpcionNumerica(string mensaje, int min, int max)
+        public static string ValidarStringNoVacioSistema(string mensaje)
         {
-            
-            int valor;
-            bool valido = false;
-            string mensajeMenu = "\n Por favor, ingrese un número de " + min + " a " + max;
 
-            string dato;
+            string opcion;
+            bool valido = false;
+            string mensajeValidador = "\n Puede ser combinación de minúsculas, MAYÚSCULAS y caracteres";
+            string mensajeError = "\n Por favor ingrese un valor no vacio para que pueda continuar. ";
 
             do
             {
+
                 Console.WriteLine(mensaje);
-                Console.WriteLine(mensajeMenu);
+                Console.WriteLine(mensajeValidador);
 
-                dato = Console.ReadLine();
+                opcion = Console.ReadLine().ToUpper();
 
-                if (!int.TryParse(dato, out valor) || valor < min || valor > max)
+                if (opcion == "")
                 {
                     Console.Clear();
-                    Console.WriteLine("\n Usted ingreso caracteres o valores que no están en el rango solicitado");
-                    Console.WriteLine(mensajeMenu);
-                }
-                if (string.IsNullOrEmpty(dato))
-                {
-                    Console.WriteLine("El ingreso no debe ser vacío");
-                    continue;
-                    
-                }
-                if (dato == "")
-                {
-                    Console.WriteLine("\n Usted presionó solo la tecla Enter");
-                   
+                    Console.WriteLine("\n");
+                    Console.WriteLine(mensajeError);
                 }
                 
                 else
@@ -268,39 +246,20 @@ namespace AplicacionCAI
             
         }
         
-        public static string ValidarSioNo(string mensaje)
+
+        
+        
+        public static void VolverMenu()
         {
-
-            string opcion;
-            bool valido = false;
-            string mensajeValidador = "\n Valores permitidos:" +
-                                      "\n *SI* ó" +
-                                      "\n *NO*";
-            string mensajeError = "\n Por favor ingrese el valor solicitado y que no sea vacio. ";
-
-            do
-            {
-                Console.Clear();
-                Console.WriteLine(mensaje);
-                Console.WriteLine(mensajeError);
-                Console.WriteLine(mensajeValidador);
-                opcion = Console.ReadLine().ToUpper();
-                string opcionC = "SI";
-                string opcionD = "NO";
-
-                if (opcion == "" || (opcion != opcionC) & (opcion != opcionD))
-                {
-                    continue;
-
-                }
-                else
-                {
-                    valido = true;
-                }
-
-            } while (!valido);
-
-            return opcion;
+            Console.WriteLine("\n Presione cualquier tecla para volver al Menú ");
+            Console.ReadKey();
+        }
+        
+        public static void Despedida()
+        {
+            Console.Clear();
+            Console.WriteLine("\n\n Gracias por usar nuestro Sistema presione cualquier teclar para finalizar");
+            Console.ReadKey();
         }
         
         public static int IngresarEntero(string titulo)
@@ -335,6 +294,39 @@ namespace AplicacionCAI
             } while (true);
         }
 
+        
+        public static int IngresarPeso(string titulo)
+        {
+
+            Console.WriteLine(titulo);
+
+            do
+            {
+                var ingreso = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(ingreso))
+                {
+                    Console.WriteLine("El ingreso no debe ser vacio");
+                    continue;
+                }
+
+                if (!Int32.TryParse(ingreso, out var salida))
+                {
+                    Console.WriteLine("El dato ingresado es incorrecto, ingrese nuevamente");
+                    continue;
+                }
+
+                if (salida <= 0 || salida >= 30000)
+                {
+                    Console.WriteLine("El valor ingresado debe ser mayor a cero y menor o igual a 30000");
+                    continue;
+                }
+
+                return salida;
+
+            } while (true);
+        }
+        
         public static string TextInput(string titulo, bool permiteNumeros = false)
         {
             string ingreso;
@@ -364,6 +356,7 @@ namespace AplicacionCAI
 
         }
         
+
         public static void Despedida()
         {
             Console.Clear();
