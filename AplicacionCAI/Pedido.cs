@@ -108,9 +108,10 @@ namespace AplicacionCAI
 
                 foreach (string item in ciudadesArg)
 
-                    Console.WriteLine("["+ i++ +"]"+ item);
+                    Console.WriteLine("["+ i++ +"] "+ item);
 
                 var infoOrigen = Console.ReadLine();
+                
 
                 // REGIÓN, PROVINCIA Y LOCALIDAD SE AUTOASIGNAN DE ACUERDO A LA CIUDAD ELEGIDA
                 switch (infoOrigen)
@@ -191,7 +192,7 @@ namespace AplicacionCAI
                 int i = 1; 
                 foreach (string item in ubicacionesGlobales)
 
-                    Console.WriteLine("["+ i++ +"]"+ item);
+                    Console.WriteLine("["+ i++ +"] "+ item);
 
                 var infoDestino = Console.ReadLine();
 
@@ -208,7 +209,7 @@ namespace AplicacionCAI
 
                         foreach (string item in ciudadesArg)
 
-                            Console.WriteLine("["+ a++ +"]"+ item);
+                            Console.WriteLine("["+ a++ +"] "+ item);
 
                         var seleccionArg = Console.ReadLine();
 
@@ -219,6 +220,8 @@ namespace AplicacionCAI
                                 pedido.RegionDestino = "CENTRO";
                                 pedido.ProvinciaDestino = "BUENOS AIRES";
                                 pedido.LocalidadDestino = "CABA";
+                                break;
+                            default: Console.WriteLine("La opción ingresada es inválida.");
                                 break;
                         }
 
@@ -234,7 +237,7 @@ namespace AplicacionCAI
 
                         foreach (string item in ubicacionesLimitrofes)
 
-                            Console.WriteLine("["+ b++ +"]"+ item);
+                            Console.WriteLine("["+ b++ +"] "+ item);
 
                         var seleccionLimitrofes = Console.ReadLine();
 
@@ -253,6 +256,8 @@ namespace AplicacionCAI
                                 pedido.ProvinciaDestino = "SAO PAULO";
                                 pedido.LocalidadDestino = "SAO PAULO";
                                 break;
+                            default: Console.WriteLine("La opción ingresada es inválida.");
+                                break;
                         }
 
                         flag2 = false;
@@ -268,7 +273,7 @@ namespace AplicacionCAI
 
                         foreach (string item in ubicacionesLatam)
 
-                            Console.WriteLine("["+ c++ +"]"+ item);
+                            Console.WriteLine("["+ c++ +"] "+ item);
 
                         var seleccionLatam = Console.ReadLine();
 
@@ -287,6 +292,8 @@ namespace AplicacionCAI
                                 pedido.ProvinciaDestino = " ";
                                 pedido.LocalidadDestino = "BOGOTÁ";
                                 break;
+                            default: Console.WriteLine("La opción ingresada es inválida.");
+                                break;
                         }
 
                         flag2 = false;
@@ -301,7 +308,7 @@ namespace AplicacionCAI
 
                         foreach (string item in ubicacionesNoram)
 
-                            Console.WriteLine("["+ d++ +"]"+ item);
+                            Console.WriteLine("["+ d++ +"] "+ item);
 
                         var seleccionNoram = Console.ReadLine();
 
@@ -320,6 +327,8 @@ namespace AplicacionCAI
                                 pedido.ProvinciaDestino = " ";
                                 pedido.LocalidadDestino = "VANCOUVER";
                                 break;
+                            default: Console.WriteLine("La opción ingresada es inválida.");
+                                break;
                         }
 
                         flag2 = false;
@@ -334,7 +343,7 @@ namespace AplicacionCAI
 
                         foreach (string item in ubicacionesEuropa)
 
-                            Console.WriteLine("["+ e++ +"]"+ item);
+                            Console.WriteLine("["+ e++ +"] "+ item);
 
                         var seleccionEuropa = Console.ReadLine();
 
@@ -353,6 +362,8 @@ namespace AplicacionCAI
                                 pedido.ProvinciaDestino = " ";
                                 pedido.LocalidadDestino = "BERLÍN";
                                 break;
+                            default: Console.WriteLine("La opción ingresada es inválida.");
+                                break;
                         }
 
                         flag2 = false;
@@ -367,7 +378,7 @@ namespace AplicacionCAI
 
                         foreach (string item in ubicacionesAsia)
 
-                            Console.WriteLine("["+ j++ +"]"+ item);
+                            Console.WriteLine("["+ j++ +"] "+ item);
 
                         var seleccionAsia = Console.ReadLine();
 
@@ -386,6 +397,9 @@ namespace AplicacionCAI
                                 pedido.ProvinciaDestino = " ";
                                 pedido.LocalidadDestino = "TOKIO";
                                 break;
+                            
+                            default: Console.WriteLine("La opción ingresada es inválida.");
+                                break;
                         }
 
                         flag2 = false;
@@ -399,8 +413,8 @@ namespace AplicacionCAI
 
             pedido.DomicilioDestino = Validador.TextInput("Por favor ingrese Domicilio y altura de Destino");
 
-            pedido.PesoEncomienda = Validador.IngresarPeso("Ingrese el peso, máximo 30 kg ");
-
+            pedido.PesoEncomienda = Validador.IngresarPeso("Ingrese el peso, máximo 30 kg");
+            
             //SERVICIOS ADICIONALES
             {
                 bool avanzar = false;
