@@ -52,10 +52,9 @@ namespace AplicacionCAI
                 }
             }
             Console.Clear();
-            Console.WriteLine("\n No se ha encontrado el usuario ingresado");
-            Validador.VolverMenu();
-            //Program.Menu();
-            
+            Console.WriteLine("\n No existe el Usuario asociado a lo que escribió, presione cualquier tecla para volver al Menú Principal");
+            Console.ReadKey();
+
             return null;
         }
         
@@ -74,23 +73,7 @@ namespace AplicacionCAI
             return null;
         }
         
-        public static Usuario BuscarUsuarioClave()
-        {
-            var clave = Usuario.ValidarClave();
-
-            foreach (var usuario in usuarioDiccionario.Values)
-            {
-                if (usuario.CompararClaveCoincidencia(clave))
-                {
-                    return usuario;
-                }
-            }
-            Console.Clear();
-            Console.WriteLine("\n No se ha encontrado el usuario ingresado");
-            Validador.VolverMenu();
-            //Program.Menu();
-            return null;
-        }
+        
         
     }
 }
