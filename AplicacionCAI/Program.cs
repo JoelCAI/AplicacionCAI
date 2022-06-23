@@ -8,14 +8,12 @@ namespace AplicacionCAI
 {
     internal class Program
     {
-       
-
         static void Main(string[] args)
         {
 
              MenuPrincipal();
              Validador.Despedida();
- 
+
         }
 
         public static void MenuPrincipal()
@@ -23,7 +21,7 @@ namespace AplicacionCAI
 
             int ingreso;
             int dni = 0;
-            string nombre = "";
+            string nombre;
             string clave = "";
             long cuit;
 
@@ -32,13 +30,14 @@ namespace AplicacionCAI
                 Console.Clear();
 
                 ingreso = Validador.PedirIntMenu("\n Aplicación Corporativa." +
-                                       "\n [1] Ingresar Como Usuario Corporativo. " +
-                                       "\n [2] Salir del Sistema.", 1, 2);
+                                                 "\n [1] Ingresar Como Usuario Corporativo. " +
+                                                 "\n [2] Salir del Sistema.", 1, 2);
 
                 if (ingreso == 1)
                 {
                     Console.Clear();
                     var usuarioDni = DiccionarioUsuario.BuscarUsuarioDni();
+
 
                     if (usuarioDni != null && ingreso != 3)
                     {
@@ -66,6 +65,7 @@ namespace AplicacionCAI
 
                                 switch (opcion)
                                 {
+
                                     case 1:
                                         Console.Clear();
                                         GenerarSolicitudPedido();
@@ -89,14 +89,17 @@ namespace AplicacionCAI
                             Console.WriteLine("\n Ingresó una clave incorrecta, presione cualquier tecla para volver al Menú Principal");
                             Console.ReadKey();
                         }
+
                         
 
                     }
                     
 
+                        break;
                 }
 
             } while (ingreso != 2);
+
 
         }
 
@@ -162,6 +165,5 @@ namespace AplicacionCAI
             Console.ReadKey();
             Console.Clear();
         }
-        
     }
 }

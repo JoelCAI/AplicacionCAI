@@ -10,60 +10,37 @@ namespace AplicacionCAI
     static class TarifarioDiccionario
     {
         
-        private static readonly Dictionary<int, ServicioPrecio> servicioPrecioDiccionario = new Dictionary<int, ServicioPrecio>();
+        public static Dictionary<string, TarifaPorPeso> tarifarioDiccionario = new Dictionary<string, TarifaPorPeso>();
 
-        const string fileName = "servicioPrecioLista.txt";
+        const string fileName = "tarifarioLista.txt";
 
         static TarifarioDiccionario()
         {
-            servicioPrecioDiccionario = new Dictionary<int, ServicioPrecio>();
+            tarifarioDiccionario = new Dictionary<string, TarifaPorPeso> ();
 
             if (File.Exists(fileName))
-
             {
                 using (var reader = new StreamReader(fileName))
-
                 {
-
                     while (!reader.EndOfStream)
                     {
                         var linea = reader.ReadLine();
-                        var servicioPrecio = new ServicioPrecio(linea);
-                        servicioPrecioDiccionario.Add(servicioPrecio.IdServicio, servicioPrecio);
+                        var servicioPrecio = new TarifaPorPeso(linea);
+                        tarifarioDiccionario.Add(servicioPrecio.IdServicio, servicioPrecio);
                     }
 
                 }
-
             }
-
         }
-
-
-        public static ServicioPrecio BuscarServicioIdPedido()
-        {
-            var idServicio = ServicioPrecio.ValidarServicio();
-
-            foreach (var servicio in servicioPrecioDiccionario.Values)
-            {
-                if (servicio.CompararServicioCoincidencia(idServicio))
-                {
-                    return servicio;
-                }
-            }
-            Console.Clear();
-            Console.WriteLine("\n No se ha encontrado el servicio ingresado");
- 
-            return null;
-        }
-    
+        
         public static decimal EnvioUrgente(bool entrada)
         {
-            var modelo = ServicioPrecio.Recargo(entrada);
+            var modelo = TarifaPorPeso.Recargo(entrada);
 
-            foreach (var tarifas in servicioPrecioDiccionario.Values)
+            foreach (var tarifas in tarifarioDiccionario.Values)
             {
 
-                return tarifas.PrecioServicioUrgente;
+                return tarifas.RecargoUrgencia;
 
             }
 
@@ -73,9 +50,9 @@ namespace AplicacionCAI
 
         public static decimal TopeRecargo(bool entrada)
         {
-            var modelo = ServicioPrecio.Recargo(entrada);
+            var modelo = TarifaPorPeso.Recargo(entrada);
 
-            foreach (var tarifas in servicioPrecioDiccionario.Values)
+            foreach (var tarifas in tarifarioDiccionario.Values)
             {
 
                 return tarifas.TopeUrgente;
@@ -88,12 +65,12 @@ namespace AplicacionCAI
 
         public static decimal RetiroEnPuerta (bool entrada)
         {
-            var modelo = ServicioPrecio.Recargo(entrada);
+            var modelo = TarifaPorPeso.Recargo(entrada);
 
-            foreach (var tarifas in servicioPrecioDiccionario.Values)
+            foreach (var tarifas in tarifarioDiccionario.Values)
             {
 
-                return tarifas.PrecioServicioEnPuerta;
+                return tarifas.RecargoRetiroPuerta;
 
             }
 
@@ -103,12 +80,12 @@ namespace AplicacionCAI
 
         public static decimal EntregaDomicilio (bool entrada)
         {
-            var modelo = ServicioPrecio.Recargo(entrada);
+            var modelo = TarifaPorPeso.Recargo(entrada);
 
-            foreach (var tarifas in servicioPrecioDiccionario.Values)
+            foreach (var tarifas in tarifarioDiccionario.Values)
             {
 
-                return tarifas.PrecioServicioEnSucursal;
+                return tarifas.RecargoEntregaPuerta;
 
             }
 

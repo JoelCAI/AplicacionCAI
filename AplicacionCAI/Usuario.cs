@@ -8,13 +8,13 @@ namespace AplicacionCAI
 {
     internal class Usuario
     {
-		
-		protected int dniUsuario;
-       		protected string nombreUsuario;
-		protected long cuitCorporativo;
-		protected string claveUsuario;
-		protected string razonSocial;
-	
+      
+	  private int dniUsuario;
+		private string nombreUsuario;
+	  private long cuitCorporativo;
+		private string claveUsuario;
+		private string razonSocial;
+
 
 		public int DniUsuario
 		{
@@ -45,8 +45,7 @@ namespace AplicacionCAI
 			get { return this.razonSocial; }
 			set { this.razonSocial = value; }
 		}
-
-
+		
 		public Usuario()
        		{
 			
@@ -65,7 +64,6 @@ namespace AplicacionCAI
 
 		}
 
-		
 
 		public static Usuario ValidarDni()
 		{
@@ -73,7 +71,6 @@ namespace AplicacionCAI
 
 			dni.DniUsuario = Validador.PedirIntParaSistema("\n Por favor ingresar el numero de Dni autorizado para continuar");
 			
-
 			return dni;
 		}
 	    

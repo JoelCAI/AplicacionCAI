@@ -11,10 +11,9 @@ namespace AplicacionCAI
     {
         
         private static readonly Dictionary<int, Pedido> items;
-
+        
         const string fileName = "pedidoLista.txt";
-
-
+        
         static DiccionarioPedido()
         {
             items = new Dictionary<int, Pedido>();
@@ -34,6 +33,7 @@ namespace AplicacionCAI
 
             }
         }
+        
         public static void AgregarPedido(Pedido pedido)
         {
             items.Add(pedido.IdPedido, pedido);
@@ -59,7 +59,7 @@ namespace AplicacionCAI
         {
             var modelo = Pedido.BusquedaCuitCorporativo(clienteLogueado);
 
-            bool match = false;
+            bool match;
             
                     foreach (var pedido in items.Values)
                     {
@@ -85,7 +85,6 @@ namespace AplicacionCAI
 
                     match = true;
                     
-
             if (match == false)
             {
                 Console.WriteLine("No se encontraron registros");
