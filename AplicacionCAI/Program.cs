@@ -154,12 +154,13 @@ namespace AplicacionCAI
 
         private static void ConsultarCuenta(long cuit)
         {
-            Console.WriteLine("");
-            Console.WriteLine(":::::FACTURAS DISPONIBLES:::::");
-            DiccionarioCuenta.VerEstadoCuenta(cuit);
+            
             Console.WriteLine("");
             Console.WriteLine(":::::PEDIDOS PENDIENTES DE FACTURACIÓN:::::");
             DiccionarioPedido.PedidosSinFacturar(cuit);
+            Console.WriteLine("");
+            Console.WriteLine(":::::FACTURAS DISPONIBLES:::::");
+            DiccionarioCuenta.VerEstadoCuenta(cuit);
             Console.WriteLine("");
             Console.WriteLine("Pulse una tecla para continuar");
             Console.ReadKey();

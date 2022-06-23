@@ -41,15 +41,13 @@ namespace AplicacionCAI
         
         public static void VerEstadoCuenta(long cuit)
         {
-            long cuitLogueado = cuit;
             decimal facturaImpaga = 0;
  
             Console.Clear();
 
             using (var cuentaLista = new FileStream("cuentaLista.txt", FileMode.Open))
             {
-                using (var archivoCuenta = new StreamReader(cuentaLista))
-                {
+                
                     foreach (var otro in cuentaDiccionario.Values)
                     {
                         
@@ -73,9 +71,8 @@ namespace AplicacionCAI
                             Console.Write("\t\t");
 
                             Console.Write("\n");
-                            
+
                         }
-                        
 
                     }
                     foreach (var cuentaImpaga in cuentaDiccionario.Values)
@@ -90,13 +87,8 @@ namespace AplicacionCAI
 
                     Console.WriteLine("\n Saldo de la Cuenta: ");
                     Console.WriteLine("\n Importe Total de las Facturas Sin pagar : " + facturaImpaga);
-
-                }
+                    
             }
-            
-            Validador.VolverMenu();
         }
-      
-       
     }
 }
