@@ -14,7 +14,7 @@ namespace AplicacionCAI
 	    public decimal P10Kg { get; }
 	    public decimal P20Kg { get; }
 	    public decimal P30Kg { get; }
-	    public bool Bool { get; set; }
+	    private bool Bool { get; set; }
 	    public decimal RecargoUrgencia { get; }
 	    public decimal RecargoRetiroPuerta { get; }
 	    public decimal RecargoEntregaPuerta { get; }
@@ -49,14 +49,6 @@ namespace AplicacionCAI
 		{
 			var producto = new TarifaPorPeso();
 			return producto;
-		}
-
-		public string DatoServicioPrecio
-		{
-			get
-			{
-				return $"\n Código de Servicio es: {IdServicio},";
-			}
 		}
 		
 		public static TarifaPorPeso Recargo(bool entrada)
