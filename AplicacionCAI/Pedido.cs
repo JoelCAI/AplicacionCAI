@@ -104,10 +104,11 @@ namespace AplicacionCAI
                 Console.WriteLine("\n Elija la ciudad de origen");
 
                 var ciudadesArg = UbicacionesArg();
+                int i = 1;
 
                 foreach (string item in ciudadesArg)
 
-                    Console.WriteLine(item);
+                    Console.WriteLine("["+ i++ +"]"+ item);
 
                 var infoOrigen = Console.ReadLine();
 
@@ -187,10 +188,10 @@ namespace AplicacionCAI
                     "\n Elija Argentina para envíos locales. Elija otra opción para envíos internacionales.");
 
                 var ubicacionesGlobales = UbicacionesGlobales();
-
+                int i = 1; 
                 foreach (string item in ubicacionesGlobales)
 
-                    Console.WriteLine(item);
+                    Console.WriteLine("["+ i++ +"]"+ item);
 
                 var infoDestino = Console.ReadLine();
 
@@ -203,10 +204,11 @@ namespace AplicacionCAI
                         Console.WriteLine("\n Elija la ciudad de destino.");
 
                         var ciudadesArg = UbicacionesArg();
+                        int a = 1;
 
                         foreach (string item in ciudadesArg)
 
-                            Console.WriteLine(item);
+                            Console.WriteLine("["+ a++ +"]"+ item);
 
                         var seleccionArg = Console.ReadLine();
 
@@ -228,10 +230,11 @@ namespace AplicacionCAI
                         pedido.PaisDestino = "PAÍSES LIMÍTROFES";
                         
                         var ubicacionesLimitrofes = UbicacionesLimitrofes();
+                        int b = 1;
 
                         foreach (string item in ubicacionesLimitrofes)
 
-                            Console.WriteLine(item);
+                            Console.WriteLine("["+ b++ +"]"+ item);
 
                         var seleccionLimitrofes = Console.ReadLine();
 
@@ -261,10 +264,11 @@ namespace AplicacionCAI
                         pedido.PaisDestino = "RESTO DE AMÉRICA LATINA";
                         
                         var ubicacionesLatam = UbicacionesLatam();
+                        int c = 1;
 
                         foreach (string item in ubicacionesLatam)
 
-                            Console.WriteLine(item);
+                            Console.WriteLine("["+ c++ +"]"+ item);
 
                         var seleccionLatam = Console.ReadLine();
 
@@ -293,10 +297,11 @@ namespace AplicacionCAI
                         pedido.PaisDestino = "AMÉRICA DEL NORTE";
                         
                         var ubicacionesNoram = UbicacionesNoram();
+                        int d = 1;
 
                         foreach (string item in ubicacionesNoram)
 
-                            Console.WriteLine(item);
+                            Console.WriteLine("["+ d++ +"]"+ item);
 
                         var seleccionNoram = Console.ReadLine();
 
@@ -325,10 +330,11 @@ namespace AplicacionCAI
                         pedido.PaisDestino = "EUROPA";
                         
                         var ubicacionesEuropa = UbicacionesEuropa();
+                        int e = 1;
 
                         foreach (string item in ubicacionesEuropa)
 
-                            Console.WriteLine(item);
+                            Console.WriteLine("["+ e++ +"]"+ item);
 
                         var seleccionEuropa = Console.ReadLine();
 
@@ -355,12 +361,13 @@ namespace AplicacionCAI
                     case "6":
                         Console.Clear();
                         pedido.PaisDestino = "ASIA";
-                        
+                        int j = 1;
+
                         var ubicacionesAsia = UbicacionesAsia();
 
                         foreach (string item in ubicacionesAsia)
 
-                            Console.WriteLine(item);
+                            Console.WriteLine("["+ j++ +"]"+ item);
 
                         var seleccionAsia = Console.ReadLine();
 
