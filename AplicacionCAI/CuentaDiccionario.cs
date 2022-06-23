@@ -55,8 +55,7 @@ namespace AplicacionCAI
                         {
                             Console.Write("\n");
                             Console.WriteLine(" Fecha\t\tRazón Social\t\tCuit\t\tN° Factura.\t\tSaldo.\t\tEstado.");
-
-
+                            
                             Console.Write(otro.Fecha.ToShortDateString());
                             Console.Write("\t");
                             Console.Write(otro.RazonSocial);

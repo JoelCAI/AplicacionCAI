@@ -25,6 +25,8 @@ namespace AplicacionCAI
                     Console.Clear();
                     Console.WriteLine("\n");
                     Console.WriteLine(mensajeError);
+                    Console.WriteLine("Pulse una tecla para continuar");
+                    Console.ReadKey();
                 }
                 else
                 {
@@ -114,6 +116,9 @@ namespace AplicacionCAI
                     Console.Clear();
                     Console.WriteLine("\n");
                     Console.WriteLine(mensajeError);
+                    Console.WriteLine("Pulse una tecla para continuar");
+                    Console.ReadKey();
+
                 }
                 else
                 {
