@@ -605,7 +605,7 @@ namespace AplicacionCAI
                 do
                 {
                     Console.WriteLine("\nPor indique si el envío es urgente");
-                    Console.WriteLine("[1] Urgente (Recargo 30%)");
+                    Console.WriteLine("[1] Urgente (Recargo 30%, con un tope de $1000)");
                     Console.WriteLine("[2] No Urgente");
 
                     var opcion = Console.ReadLine();
@@ -626,7 +626,7 @@ namespace AplicacionCAI
 
                         default:
                             Console.Clear();
-                            Console.WriteLine("No ha ingresado una opcion correcta");
+                            Console.WriteLine("No ha ingresado una opción correcta");
                             Console.WriteLine("Pulse una tecla para continuar");
                             Console.ReadKey();
                             //break;
@@ -637,9 +637,9 @@ namespace AplicacionCAI
                 bool avanzar2 = false;
                 do
                 {
-                    Console.WriteLine("\nPor favor indique si desea solicitar retiro en puerta.");
-                    Console.WriteLine("[1] Retiro en puerta (Recargo 15%)");
-                    Console.WriteLine("[2] Entrega en sucursal");
+                    Console.WriteLine("\nPor favor seleccione la modalidad de retiro.");
+                    Console.WriteLine("[1] Deseo que retiren el envío por mi domicilio (Recargo 15%)");
+                    Console.WriteLine("[2] Llevaré el envío a una sucursal");
 
                     var opcion = Console.ReadLine();
 
@@ -670,9 +670,9 @@ namespace AplicacionCAI
                 bool avanzar3 = false;
                 do
                 {
-                    Console.WriteLine("\nPor indique si se realizará la entrega en domicilio o en sucursal.");
-                    Console.WriteLine("[1] Entrega a Domicilio (Recargo 5%)");
-                    Console.WriteLine("[2] Entrega en Sucursal");
+                    Console.WriteLine("\nPor favor seleccione la modalidad de entrega.");
+                    Console.WriteLine("[1] El envío debe entregarse a domicilio (Recargo 5%)");
+                    Console.WriteLine("[2] El destinatario retirará el envío por una sucursal");
 
                     var opcion = Console.ReadLine();
 
@@ -785,7 +785,6 @@ namespace AplicacionCAI
                     pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido * cargo);
                 }
             }
-
             if (pedido.EntregaDomicilio)
             {
                 decimal cargo = RecargoEntrega(pedido.EntregaDomicilio);
@@ -1003,7 +1002,7 @@ namespace AplicacionCAI
             string mensajeValidador = "\n Valores permitidos:" +
                                       "\n *SI* ó" +
                                       "\n *NO*";
-            string mensajeError = "\n Por favor ingrese el valor solicitado y que no sea vacio. ";
+            string mensajeError = "\n Por favor ingrese el valor solicitado y que no sea vacío. ";
 
             do
             {
