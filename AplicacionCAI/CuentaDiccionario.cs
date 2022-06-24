@@ -43,7 +43,7 @@ namespace AplicacionCAI
         {
             decimal facturaImpaga = 0;
  
-            Console.Clear();
+            
 
             using (var cuentaLista = new FileStream("cuentaLista.txt", FileMode.Open))
             {
