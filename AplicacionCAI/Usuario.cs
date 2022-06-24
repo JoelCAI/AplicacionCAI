@@ -10,9 +10,10 @@ namespace AplicacionCAI
     {
         private int dniUsuario;
         private string nombreUsuario;
-        private long cuitCorporativo;
+        public long cuitCorporativo;
         private string claveUsuario;
         private string razonSocial;
+        public static long CuitLogueado { get; set; }
 
         public int DniUsuario
         {
@@ -46,6 +47,7 @@ namespace AplicacionCAI
 
         public Usuario()
         {
+            CuitLogueado = cuitCorporativo;
         }
 
         public Usuario(string linea)

@@ -97,7 +97,7 @@ namespace AplicacionCAI
             pedido.EstadoPedido = "INICIADO";
 
             pedido.FechaPedido = DateTime.Now;
-            pedido.CuitCorporativo = UsuarioLogueado();
+            pedido.CuitCorporativo = Usuario.CuitLogueado;
             pedido.Facturado = false;
             //LOS ENVÍOS SIEMPRE TENDRÁN ARGENTINA COMO ORIGEN 
             pedido.PaisOrigen = "ARGENTINA";
