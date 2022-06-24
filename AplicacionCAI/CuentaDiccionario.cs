@@ -84,9 +84,8 @@ namespace AplicacionCAI
 
                     }
 
-                    Console.WriteLine("\n Saldo de la Cuenta: ");
+                    Console.WriteLine("\n:::::SALDO DE LA CUENTA::::: ");
                     Console.WriteLine("\n Importe Total de las facturas impagas : " + facturaImpaga);
-                    
             }
         }
     }
