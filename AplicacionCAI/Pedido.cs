@@ -797,6 +797,11 @@ namespace AplicacionCAI
                 pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido * cargo);
             }
 
+            if (!pedido.Urgente && !pedido.EntregaDomicilio && !pedido.RetiroEnPuerta)
+            {
+                pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido;
+            }
+            
             pedido.MostrarPedidoFinal();
 
             return pedido;
