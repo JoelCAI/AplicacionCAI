@@ -243,33 +243,33 @@ namespace AplicacionCAI
 
                                 case "2":
                                     Console.Clear();
-                                    pedido.RegionOrigen = "CENTRO";
-                                    pedido.ProvinciaOrigen = "GBA";
+                                    pedido.RegionDestino = "CENTRO";
+                                    pedido.ProvinciaDestino = "GBA";
                                     pedido.LocalidadOrigen = "MAR DEL PLATA";
                                     seleccionArgFlag = true;
                                     break;
 
                                 case "3":
                                     Console.Clear();
-                                    pedido.RegionOrigen = "CUYO";
-                                    pedido.ProvinciaOrigen = "SAN JUAN";
-                                    pedido.LocalidadOrigen = "CIUDAD DE SAN JUAN";
+                                    pedido.RegionDestino = "CUYO";
+                                    pedido.ProvinciaDestino = "SAN JUAN";
+                                    pedido.ProvinciaDestino = "CIUDAD DE SAN JUAN";
                                     seleccionArgFlag = true;
                                     break;
 
                                 case "4":
                                     Console.Clear();
-                                    pedido.RegionOrigen = "NOA";
-                                    pedido.ProvinciaOrigen = "JUJUY";
-                                    pedido.LocalidadOrigen = "SAN SALVADOR DE JUJUY";
+                                    pedido.RegionDestino = "NOA";
+                                    pedido.ProvinciaDestino = "JUJUY";
+                                    pedido.ProvinciaDestino = "SAN SALVADOR DE JUJUY";
                                     seleccionArgFlag = true;
                                     break;
 
                                 case "5":
                                     Console.Clear();
-                                    pedido.RegionOrigen = "PATAGONIA";
-                                    pedido.ProvinciaOrigen = "RÍO NEGRO";
-                                    pedido.LocalidadOrigen = "BARILOCHE";
+                                    pedido.RegionDestino = "PATAGONIA";
+                                    pedido.ProvinciaDestino = "RÍO NEGRO";
+                                    pedido.ProvinciaDestino = "BARILOCHE";
                                     seleccionArgFlag = true;
                                     break;
 
@@ -747,25 +747,21 @@ namespace AplicacionCAI
             }
 
             //CÁLCULO PRECIO BASE 
-            if (pedido.PesoEncomienda < 0.5M)
+            if (pedido.PesoEncomienda <= 0.5M)
             {
                 pedido.SubTotalCalculoPedido = TarifarioDiccionario.tarifarioDiccionario[pedido.TipoServicio].P500g;
             }
-            else if (pedido.PesoEncomienda > 0.5M && pedido.PesoEncomienda < 10)
+            else if (pedido.PesoEncomienda > 0.5M && pedido.PesoEncomienda <= 10)
             {
                 pedido.SubTotalCalculoPedido = TarifarioDiccionario.tarifarioDiccionario[pedido.TipoServicio].P10Kg;
             }
-            else if (pedido.PesoEncomienda > 10 && pedido.PesoEncomienda < 20)
+            else if (pedido.PesoEncomienda > 10 && pedido.PesoEncomienda <= 20)
             {
                 pedido.SubTotalCalculoPedido = TarifarioDiccionario.tarifarioDiccionario[pedido.TipoServicio].P20Kg;
             }
             else if (pedido.PesoEncomienda > 20)
             {
                 pedido.SubTotalCalculoPedido = TarifarioDiccionario.tarifarioDiccionario[pedido.TipoServicio].P30Kg;
-            }
-            else
-            {
-                pedido.SubTotalCalculoPedido = TarifarioDiccionario.tarifarioDiccionario[pedido.TipoServicio].P500g;
             }
 
             //RECARGO SERVICIOS ADICIONALES 
