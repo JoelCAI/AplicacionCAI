@@ -769,10 +769,10 @@ namespace AplicacionCAI
             {
                 decimal cargo = RecargoUrgencia(pedido.Urgente);
                 
-                var calculoBase = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido * cargo);
+                var recargo = pedido.SubTotalCalculoPedido * cargo;
                 var topeRecargo = MaxUrgencia();
                 
-                if (calculoBase>topeRecargo)
+                if (recargo>topeRecargo)
                 {
                     pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + topeRecargo;
                 }
@@ -781,6 +781,7 @@ namespace AplicacionCAI
                     pedido.TotalCalculoPedido = pedido.SubTotalCalculoPedido + (pedido.SubTotalCalculoPedido * cargo);
                 }
             }
+            
             if (pedido.EntregaDomicilio)
             {
                 decimal cargo = RecargoEntrega(pedido.EntregaDomicilio);
