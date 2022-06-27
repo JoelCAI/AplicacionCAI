@@ -402,7 +402,6 @@ namespace AplicacionCAI
                                     Console.WriteLine("Pulse una tecla para continuar");
                                     Console.ReadKey();
                                     Console.Clear();
-                                    //break;
                                     continue;
                             }
                         } while (seleccionLatamFlag == false);
@@ -522,7 +521,6 @@ namespace AplicacionCAI
                                     Console.WriteLine("Pulse una tecla para continuar");
                                     Console.ReadKey();
                                     Console.Clear();
-                                    //break;
                                     continue;
                             }
                         } while (seleccionEuropaFlag == false);
@@ -583,7 +581,6 @@ namespace AplicacionCAI
                                     Console.WriteLine("Pulse una tecla para continuar");
                                     Console.ReadKey();
                                     Console.Clear();
-                                    //break;
                                     continue;
                             }
                         } while (seleccionAsiaFlag == false);
@@ -635,7 +632,6 @@ namespace AplicacionCAI
                             Console.WriteLine("No ha ingresado una opción correcta");
                             Console.WriteLine("Pulse una tecla para continuar");
                             Console.ReadKey();
-                            //break;
                             continue;
                     }
                 } while (!avanzar);
@@ -668,7 +664,6 @@ namespace AplicacionCAI
                             Console.WriteLine("No ha ingresado una opcion correcta");
                             Console.WriteLine("Pulse una tecla para continuar");
                             Console.ReadKey();
-                            //break;
                             continue;
                     }
                 } while (!avanzar2);
@@ -764,17 +759,13 @@ namespace AplicacionCAI
             }
             
             //CÁLCULO DEL TRAMO LOCAL PARA SERVICIOS INTERNACIONALES
-            string regionDestinoDummy = null;
-            string provinciaDestinoDummy = null;
-            string localidadDestinoDummy = null;
-            string interTipoServicio = null;
-            decimal interTramoInterno = 0;
-
             if (pedido.PaisOrigen != pedido.PaisDestino)
             {
-                regionDestinoDummy = "METROPOLITANA";
-                provinciaDestinoDummy = "BUENOS AIRES";
-                localidadDestinoDummy = "CABA";
+                string regionDestinoDummy = "METROPOLITANA";
+                string provinciaDestinoDummy = "BUENOS AIRES";
+                string localidadDestinoDummy = "CABA";
+                string interTipoServicio = null;
+                decimal interTramoInterno = 0;
 
                 if (pedido.RegionOrigen == regionDestinoDummy && pedido.ProvinciaOrigen == provinciaDestinoDummy && pedido.LocalidadOrigen == localidadDestinoDummy)
                 {
@@ -812,8 +803,7 @@ namespace AplicacionCAI
 
                 pedido.SubTotalCalculoPedido = pedido.SubTotalCalculoPedido + interTramoInterno;
             }
-            
-            
+
             //RECARGO SERVICIOS ADICIONALES 
             if (pedido.Urgente)
             {
