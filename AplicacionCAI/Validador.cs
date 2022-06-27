@@ -99,7 +99,7 @@ namespace AplicacionCAI
             string opcion;
 
             bool valido = false;
-            string mensajeMenu = "\n Ingrese un valor entre " + min + " y " + max;
+            string mensajeMenu = "\n Ingrese un valor mayor a " + min + " y menor o igual a " + max;
             string mensajeError = "\n El valor no puede ser vacío y tiene que estar entre el rango del Menu solicitado. ";
 
             do
@@ -111,7 +111,7 @@ namespace AplicacionCAI
                 valorUno = Console.ReadLine();
                 opcion = valorUno.Replace('.', ',');
 
-                if (!decimal.TryParse(opcion, out valor) || valor < min || valor > max)
+                if (!decimal.TryParse(opcion, out valor) || valor <= min || valor > max)
                 {
                     Console.Clear();
                     Console.WriteLine("\n");
