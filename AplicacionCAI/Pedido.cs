@@ -78,11 +78,7 @@ namespace AplicacionCAI
         public decimal TotalCalculoPedido { get; set; }
         public bool Facturado { get; set; }
         private string TipoServicio { get; set; }
-        private string ProvinciaDestinoDummy { get; set; }
-        public string RegionDestinoDummy { get; set; }
-        //private string LocalidadDestinoDummy { get; set; }
-
-
+        
         static string[] ubicacionesGlobales = File.ReadAllLines("ubicacionesGlobales.txt");
         static string[] ubicacionesLocales = File.ReadAllLines("ubicacionesLocales.txt");
 
